@@ -1,9 +1,40 @@
 @CHARSET "ISO-8859-1";
 
+body{
+	margin: 0;
+}
+#navbar {
+	float: top;
+	height: 40px;
+	background-color: #42f498;
+	border-bottom-width:2px;
+   	border-bottom-color:White;
+   	border-bottom-style: solid;
+}
+
+#statusBox{
+	height: 400px;
+	width: 150px;
+	background-color: white;
+	margin: auto;
+	box-shadow: 2px 2px 5px;
+}
+
+#gameSection{
+	height: 500px;
+	display :flex;
+	align-items: center;
+	background-image: url(cork-wallet.png);
+	background-repeat:repeat;
+	float: bottom;
+}
+
 .chessBoard{ 
+	margin: auto;
 	width: 400px;
 	height: 400px;
 	border: solid 10px black;
+	box-shadow: 2px 2px 10px;
 }
 
 .rank {

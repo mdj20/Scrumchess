@@ -15,21 +15,33 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/engine_wrapper.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/chess_board.css" />
 
-<title>Chess</title>
+<title>Scrum-Chess</title>
 </head>
 <body>
 
-<p>
-HELLO WORLD!
-</p>
 
-<button id="button">Start Animation</button>
+
+<div id="navbar">
+
+</div>
+
+
+<div id="gameSection"> 
 <%
-
 	out.write(ChessBoardHTMLBuilder.getDivBoardBottomUp());
-
 %>
 
+<!-- insert game controls  -->
+
+<div id="statusBox">
+
+	
+
+</div>
+
+
+</div>
+<button id="button">Start Animation</button>
 <div id="debugOutput">
 </div>
 

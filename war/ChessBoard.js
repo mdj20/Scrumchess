@@ -164,7 +164,7 @@ _BoardInfo_proto.moveDPAtIndex = function( index, toSquare){
 _BoardInfo_proto.moveDPAtSquare= function(atSquare, toSquare){
 	var ret = 0 ; 
 	var val = this.getPieceAtSquare(atSquare);
-	if ( val != -1 ){
+	if (val != -1){
 		this.moveDivPieceToSquare(val,toSquare);
 		ret = 1;
 	}
@@ -292,8 +292,8 @@ function engine_js_test(control){
 	control.engineProxy.newGame();
 	var translated = control.engineProxy.getTranslatedState();
 	control.boardInfo.setBoardFromState(translated);
-
-		
+	
+	
 	//printMatrix(translated,8);
 }
 
@@ -328,8 +328,6 @@ function Control(boardInfo, engineProxy){
 	this.players[0] = new Player("User",0,false);
 	this.players[1] = new Player("Jose",1,true);
 	this.currentPlayer = 0;
-	this.history = new Array();
-	this.moveNumber = 0;
 	this.depth = 2; // this will be the difficulty for now....	
 	this.boardInfo = boardInfo;
 	this.engineProxy = engineProxy;
@@ -344,6 +342,8 @@ function Control(boardInfo, engineProxy){
 var _Control_proto = {};  // Control prototype!
 
 _Control_proto.squareClick = function( clicked ){
+	
+	
 	
 	// if this is the first click
 	if ( this.s1 != square && !this.selected ){
@@ -370,11 +370,6 @@ _Control_proto.squareClick = function( clicked ){
 	}
 	
 	this.userCycle();
-}
-
-_Control_proto.addHistory = function(moveString,from,to){
-	this.history[this.moveNumber] = new History(moveString,from,to,this.moveNumber);
-	this.moveNumber++;
 }
 
 _Control_proto.endTurn = function(){
@@ -430,36 +425,48 @@ _Control_proto.moveByClick = function(from, to){
 }
 
 _Control_proto.findAndMakeMove = function(){
-	
 	var mov = this.engineProxy.getMoveFS(this.depth);
 	var ok = this.engineProxy.move(mov[0],mov[1]);
 	
 	if (ok){
-		this.executeMove(mov[0],mov[1],this.engineProxy.capture);
+		this.executeMove(mov[0],mov[1]);
 	}
 	
 }
 
 // this function will parse the flags from the engine and process the board changes
-_Control_proto.executeMove = function(fromSquare, toSquare, moveString){
+_Control_proto.executeMove = function(fromSquare, toSquare){
 	
-	// push string to history
-	this.addHistory(moveString,fromSquare,toSquare);
-	
-	// remove captured piece
 	if (this.engineProxy.capture){
 		this.boardInfo.hideDivPieceAtSquare(toSquare);
 	}	
 	
-	// move piece (animate)
 	this.boardInfo.moveDPAtSquare(fromSquare,toSquare);
 	
-	// promote piece
+	// move rooks during a castle
+	if(this.engineProxy.castleKing){
+		this.boardInfo.moveDPAtSquare(fromSquare+3,fromSquare+1);
+	}
+	else if (this.engineProxy.castleQueen){
+		this.boardInfo.moveDPAtSquare(fromSquare-4,fromSquare-1);
+	}
+	
+	// check and carryout pawn promotion
 	if(this.promotionCheck(this.engineProxy.moveString)){
 		this.boardInfo.promoteBySquare(toSquare,this.getPromotionType(this.engineProxy.moveString));
 	}
 	
-
+	
+	/*
+	if (this.engineProxy.check){
+		this.check[this.currentPlayer] = 1;
+	}
+	
+	if (this.engineProxy.mate){
+		this.mate[this.currentPlayer] = 1;
+	}
+	
+	*/
 	
 }
 
@@ -492,14 +499,6 @@ function Player(name, color, ai){
 	this.color = color;
 	this.ai = ai;
 	this.aiDepth = 2;
-	return this;
-}
-
-function History(string,to,from,move){
-	this.string = string;
-	this.to = to;
-	this.from = from;
-	this.move = move;
 	return this;
 }
 
