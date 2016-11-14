@@ -1,0 +1,36 @@
+@CHARSET "ISO-8859-1";
+
+.chessBoard{ 
+	width: 400px;
+	height: 400px;
+	border: solid 10px black;
+}
+
+.rank {
+	width: 400px;
+	height: 50px;
+}
+
+.square {
+		display: inline-block;
+		float: left;
+		width: 50px;
+		height: 50px;
+		text-align: center;
+		vertical-align: middle;
+		line-height: 50px;
+		font-size: 40px;
+}
+
+.trans {
+	position:absolute;
+	background-color : transparent;
+}
+
+.black {
+	background: grey;
+}
+
+.white {
+	background: white;
+}			
