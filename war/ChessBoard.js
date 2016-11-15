@@ -78,9 +78,8 @@ _BoardInfo_proto.appendAndHideArray = function(dPArray){
 _BoardInfo_proto.setBoardFromState = function(grid){
 	var squareCont = -1;
 	var divPiece = -1;
-	
-	// clear board pieces
-	
+
+	// clear board pieces	
 	this.unassignAndHideAllDivPiece();
 	
 	for( var i = 0 ; i < grid.length ; i++ ){
