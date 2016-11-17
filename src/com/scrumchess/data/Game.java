@@ -15,6 +15,7 @@ public class Game {
 	private int id;
 	private String fen;
 	
+	/*
 	public static Key create(Key player1, Key player2){
 		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
 		Entity game = new Entity(_kind,player1);
@@ -22,7 +23,8 @@ public class Game {
 		game.setIndexedProperty(_player2,player2);
 		game.setProperty(_p1white, true);
 		game.setProperty(_p2human, true);
-		game.setPropety()
+		game.setPropety();
 	}
 	
+	*/
 }

@@ -15,13 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.scrumchess.data.TestData;
 
-
-
 @SuppressWarnings("serial")
 public class AJAXGameStateReceiver extends HttpServlet {
 	
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
 		String type = req.getParameter("type");
 		String fen =  req.getParameter("fen");
 		String id =  req.getParameter("id");
