@@ -36,7 +36,7 @@ public class TestData {
 		return ret;
 	}
 	
-	public static List<String> getAllWithID(int id){
+	public static ArrayList<String> getAllWithID(int id){
 		ArrayList<String> ret = new ArrayList<String>();
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
 		Query q = new Query(_kind).setFilter( new FilterPredicate(_id,FilterOperator.EQUAL, id));
