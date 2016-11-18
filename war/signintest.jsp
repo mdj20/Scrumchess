@@ -17,6 +17,8 @@
 <%
 	out.write(GoogleSignInHTML.getSigninScript());
 	out.write(GoogleSignInHTML.getClientID());
+
+	out.write(GoogleSignInHTML.getClientID());
 %>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/chess_board.css" />
