@@ -1,6 +1,21 @@
 /**
  *  // much of this is done with jquerry
  */
+
+var profile;
+var gid_token;
+
+
+function onSignIn(googleUser) {
+	profile = googleUser.getBasicProfile();
+	gid_token = googleUser.getAuthResponse().id_token;
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail());
+}
+
+
 var p = ['\u9812','\u9823'];
 
 var _BoardInfo_proto = {} // boardInfo prototype!
@@ -488,8 +503,12 @@ _Control_proto.getPromotionType = function(str){
 
 _Control_proto.debugButton = function(button){
 	// this will be a debug fun.
-	var move = this.engineProxy.getMoveFS();
-	var f = this.engineProxy.getSmallCoord(move[0]);
+	
+	
+	
+	
+	pDebug(gid_token+"");
+	
 }
 
 // Player stored info about Human/AI Color and name

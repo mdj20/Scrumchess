@@ -14,11 +14,11 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ChessBoard.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/engine.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/engine_wrapper.js"></script>
+
 <%
 	out.write(GoogleSignInHTML.getSigninScript());
 	out.write(GoogleSignInHTML.getClientID());
 
-	out.write(GoogleSignInHTML.getClientID());
 %>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/chess_board.css" />
