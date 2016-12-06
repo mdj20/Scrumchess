@@ -15,6 +15,8 @@ public class GoogleSignInHTML {
 	//<div class="g-signin2" data-onsuccess="onSignIn"></div>
 	private static final String signInDiv = "<div class=\"g-signin2\" data-onsuccess=\"onSignIn\">";
 	private static final String closeDiv = "</div>";
+	
+	private static final String CLIENT_ID_STRING = "836532323858-mpraf2crpo7vu2fqd1v414abgb190so7.apps.googleusercontent.com";
 
 	public static String getSigninScript() {
 		return signInScript;
@@ -29,6 +31,9 @@ public class GoogleSignInHTML {
 	}
 	public static String getSignInDiv(String innerHTML){
 		return signInDiv+innerHTML+closeDiv;
+	}
+	public static String getClientIDString(){
+		return CLIENT_ID_STRING;
 	}
 			
 		

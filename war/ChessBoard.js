@@ -22,6 +22,7 @@ var _BoardInfo_proto = {} // boardInfo prototype!
 
 var divPiecePrefix = "dp";
 var highlightColor = "yellow";
+var boardITag = "board";
 
 // denotes the number of pieces per type
 var pieceCount = {'K':1,'Q':1,'R':2,'B':2,'N':2,'P':8,'k':1,'q':1,'r':2,'b':2,'n':2,'p':8};
@@ -45,6 +46,10 @@ _DivPiece_proto.showPieceDiv = function(){
 _DivPiece_proto.appendPDtoBodyAndHide = function(){
 	this.d.appendTo('body');
 	$(this.d).hide();
+}
+
+_DivPiece_proto.appendToBoardAndHide = function(){
+	this.d.appendTo()
 }
 
 DivPiece.prototype = _DivPiece_proto;
@@ -189,7 +194,7 @@ _BoardInfo_proto.moveDPAtSquare= function(atSquare, toSquare){
 _BoardInfo_proto.getSquareOfDiv = function(arg){
 	var ret = -1;
 	var id = $(arg).attr("id");
-	if(id.substring(0,2) === divPiecePrefix){
+	if( id.substring(0,2) === divPiecePrefix ){
 		var pindex = parseInt(id.substring(2,id.length));
 		ret = this.pieces[pindex].loc;
 	}
@@ -503,9 +508,6 @@ _Control_proto.getPromotionType = function(str){
 
 _Control_proto.debugButton = function(button){
 	// this will be a debug fun.
-	
-	
-	
 	
 	pDebug(gid_token+"");
 	
