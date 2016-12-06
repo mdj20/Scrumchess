@@ -25,7 +25,7 @@ import com.google.api.client.json.jackson.JacksonFactory;
 import com.scrumchess.data.TestData;
 
 @SuppressWarnings("serial")
-public class AJAXUserSignInServlet extends HttpServlet {
+public class AjaxUserSignInServlet extends HttpServlet {
 	
 	private static final String tokenId = "token_id";
 	private static final String postVerifyURL = "https://www.googleapis.com/oauth2/v3/tokeninfo";

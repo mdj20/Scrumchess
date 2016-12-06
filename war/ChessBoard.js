@@ -5,7 +5,6 @@
 var profile;
 var gid_token;
 
-
 function onSignIn(googleUser) {
 	profile = googleUser.getBasicProfile();
 	gid_token = googleUser.getAuthResponse().id_token;
@@ -300,8 +299,9 @@ $(document).ready( function() {
 	} );
 	
 	$("#button").click( function(){
-		control.debugButton(this);
-	} );
+		$.ajax(	{type : "POST", url:"/usertest", data: {'idtoken': gid_token+""}, success: function(result){$("#debugOutput").html(result);}
+		});
+	});
 	
 });
 
