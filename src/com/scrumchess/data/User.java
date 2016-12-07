@@ -6,6 +6,21 @@ public class User {
 	private String id;
 	private Date joined;
 	private Date lastLogin;
+
+	protected User(String id){
+		this.id = id;
+		Date date = new Date();
+		this.name = "";
+		this.joined = date;
+		this.lastLogin = date;
+	}
+	
+	protected User(String id, String name, Date joined, Date lastLogin){
+		this.id = id;
+		this.name = name;
+		this.joined = joined;
+		this.lastLogin = lastLogin;
+	}
 	
 	protected void setName(String name) {
 		this.name = name;
@@ -31,7 +46,5 @@ public class User {
 	public Date getLastLogin() {
 		return lastLogin;
 	}
-	protected User(String id){
-		this.id = id;
-	}
+
 }

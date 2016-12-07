@@ -1,8 +1,14 @@
 package com.scrumchess.data;
 
+import java.util.Date;
+
+import com.google.api.client.util.store.DataStoreFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 public class UserProxy {
 	protected static final String _kind = "user";
@@ -17,26 +23,58 @@ public class UserProxy {
 		this.dss = datastore;
 	}
 	
-	protected static User createNewUser(String id){
+	protected User createNewUser(String id){
 		User user = new User(id);
+		Date date = new Date();
+		user.setJoined(date);
+		user.setLastLogin(date);
+		user.setName("");
+		Entity userEntity = toEntity(user);
+		insertUserEntity(userEntity);
 		return user;
 	}
 	
-	protected User getUser(String key){
-		Entity entity = dss.get(key);
+	protected User updateName(String id, String name) throws EntityNotFoundException{
+		Entity entity = getEntity(id);
+		entity.setProperty(_name, name);
+		User ret = toUser(entity);
+		insertUserEntity(entity);
+		return ret;
 	}
 	
-	protected boolean insertUser(User user){
+	protected Entity getEntity(String key) throws EntityNotFoundException{
+		Key userKey = KeyFactory.createKey(_kind, key);
+		Entity entity = dss.get(userKey);
+		return entity;
+	}
+	
+	protected User getUser(String key) throws EntityNotFoundException{
+		Entity entity = getEntity(key);
+		User user = toUser(entity);
+		return user;	
+	}
+	
+	protected boolean insertUserEntity(Entity user){
 		boolean ret = false;
+		dss.put(user);
+		return ret;
+	}
+	
+	protected static Entity toEntity(User user){
 		Entity entity = new Entity(_kind,user.getId());
 		entity.setProperty(_name,user.getName());
 		entity.setProperty(_joined, user.getJoined());
 		entity.setProperty(_lastLogin, user.getLastLogin());
-		dss.put(entity);
-		return ret;
+		return entity;
 	}
 	
-	
+	protected static User toUser(Entity entity){
+		User user = new User((String) entity.getProperty(_id),
+				(String) entity.getProperty(_name),
+				(Date) entity.getProperty(_joined),
+				(Date) entity.getProperty(_lastLogin));
+		return user;
+	}
 	
 	
 }
