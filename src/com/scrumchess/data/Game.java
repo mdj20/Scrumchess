@@ -3,7 +3,7 @@ import com.google.appengine.api.datastore.*;
 
 public class Game {
 	
-	final static String _kind = "game";
+	protected final static String _kind = "game";
 	final static String _currentFen = "current_fen";
 	final static String _player1 = "player1";
 	final static String _player2 = "player2";
