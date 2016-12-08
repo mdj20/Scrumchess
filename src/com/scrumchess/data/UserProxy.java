@@ -25,6 +25,7 @@ public class UserProxy {
 		
 	}
 	
+	
 	protected User createNewUser(String id){
 		User user = new User(id);
 		Date date = new Date();
@@ -82,5 +83,9 @@ public class UserProxy {
 				(Date) entity.getProperty(_joined),
 				(Date) entity.getProperty(_lastLogin));
 		return user;
+	}
+	protected static Key getKey(String id){
+		Key key = KeyFactory.createKey(_kind, id);
+		return key;
 	}
 }

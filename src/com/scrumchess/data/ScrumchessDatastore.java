@@ -13,8 +13,7 @@ public class ScrumchessDatastore {
 	public static void userNewGame(String id){
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
 		GameProxy gp = new GameProxy(dss);
-		Key gameKey = gp.newStandardGame();
-		
+		Key gameKey = gp.newGameToUser(UserProxy.getKey(id));
 	}
 	
 	public static void userSignIn(String id){
@@ -26,6 +25,7 @@ public class ScrumchessDatastore {
 			up.createNewUser(id);
 			System.out.println("New User");
 		}
+		System.out.println("Google ID/name"+up.getKey(id));
 	}
 	
 	public static void updateName(String id, String name) throws EntityNotFoundException{
