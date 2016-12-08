@@ -1,6 +1,7 @@
 package com.scrumchess.data;
 import java.util.Date;
 import com.google.appengine.api.datastore.*;
+
 public class User {
 	private String name;
 	private String id;

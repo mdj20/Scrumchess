@@ -6,6 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.scrumchess.data.ScrumchessDatastore;
+import com.scrumchess.data.UserProxy;
+
 public class UserInfoTestServlet  extends HttpServlet{
 
 	private static final String _idtoken = "idtoken";
@@ -16,6 +21,8 @@ public class UserInfoTestServlet  extends HttpServlet{
 		String idToken = (String) req.getParameter(_idtoken);
 		String subject = GoogleAuthHelper.getSubjectFromEndpoint(idToken);
 		System.out.println("Google Subject:" + subject);	
+		ScrumchessDatastore.userSignIn(subject);
+	
 	}
 	
 	@Override 
