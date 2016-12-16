@@ -2,7 +2,7 @@ package com.scrumchess.data;
 
 import java.util.Date;
 
-public class Move {
+public class Move implements Comparable<Move>{
 	private String moveString;
 	private int number;
 	private int from;
@@ -49,7 +49,8 @@ public class Move {
 		return date;
 	}
 
-	
-	
-
+	@Override
+	public int compareTo(Move o) {
+		return this.number - o.number;
+	}	
 }

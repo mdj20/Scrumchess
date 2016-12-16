@@ -1,6 +1,8 @@
 package com.scrumchess.data;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -34,10 +36,24 @@ public class MoveProxy {
 		ArrayList<Move> ret = new ArrayList<Move>();
 		Query q = new Query().setAncestor(game);
 		PreparedQuery pq = dss.prepare(q);
+		ret = toMove(pq.asIterable());
 		return ret;
 	}
 	
-	protected Move toMove(Entity entity){
+	protected ArrayList<Move> getSortedMoves(Key game){
+		ArrayList<Move> moves = getMoves(game);
+		Collections.sort(moves);
+		return moves;
+	}
+	
+	protected ArrayList<Move> toMove(Iterable<Entity> entities){
+		ArrayList<Move> moves = new ArrayList<Move>();
+		for(Entity e:entities){
+			moves.add(toMove(e));
+		}
+		return moves;
+	}
+ 	protected Move toMove(Entity entity){
 		Move move = new Move( (String) entity.getProperty(_moveString),
 				(int) entity.getProperty(_number),
 				(int) entity.getProperty(_from),
