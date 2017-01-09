@@ -40,11 +40,11 @@ public class Game {
 	protected void setIsBlack(boolean isBlack) {
 		this.isBlack = isBlack;
 	}
-	protected void setWhite(int white) {
+	protected void setWhite(String white) {
 		this.white = white;
 		this.isWhite = true;
 	}
-	protected void setBlack(int black) {
+	protected void setBlack(String black) {
 		this.black = black;
 		this.isBlack = true;
 	}
@@ -54,10 +54,10 @@ public class Game {
 	public boolean isBlack() {
 		return isBlack;
 	}
-	public int getWhite() {
+	public String getWhite() {
 		return white;
 	}
-	public int getBlack() {
+	public String getBlack() {
 		return black;
 	}
 	private int id;
@@ -66,7 +66,7 @@ public class Game {
 	private Date started;
 	private boolean isWhite;
 	private boolean isBlack;
-	private int white;
-	private int black;
+	private String white;
+	private String black;
 	
 }

@@ -25,7 +25,13 @@ public class UserProxy {
 		
 	}
 	
-	
+	/*
+	protected boolean userExists(String id){
+		boolean ret = false;
+		
+		return ret;
+	}
+	*/
 	protected User createNewUser(String id){
 		User user = new User(id);
 		Date date = new Date();

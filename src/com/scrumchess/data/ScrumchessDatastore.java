@@ -10,10 +10,10 @@ import com.google.appengine.api.datastore.Key;
 public class ScrumchessDatastore {
 	
 	
-	public static void userNewGame(String id){
+	public static void userNewGameWhite(String id){
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
 		GameProxy gp = new GameProxy(dss);
-		Key gameKey = gp.newGameToUser(UserProxy.getKey(id));
+		Key key = gp.newGameToUserWhite(id);
 	}
 	
 	public static void userSignIn(String id){

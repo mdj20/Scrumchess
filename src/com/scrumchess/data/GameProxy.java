@@ -27,7 +27,7 @@ public class GameProxy {
 	protected GameProxy(DatastoreService dstore){
 		this.dss = dstore;
 	}
-	protected Key newGameToUserWhite(int user){
+	protected Key newGameToUserWhite(String user){
 		Key key;
 		Date date = new Date();
 		Game game = new Game(_startFen,0,date);
@@ -36,7 +36,7 @@ public class GameProxy {
 		key = dss.put(entity);
 		return key;
 	}
-	protected Key newGameToUserBlack(int user){
+	protected Key newGameToUserBlack(String user){
 		Key key;
 		Date date = new Date();
 		Game game = new Game(_startFen,0,date);
@@ -45,7 +45,7 @@ public class GameProxy {
 		key = dss.put(entity);
 		return key;
 	}
-	protected Key newGameToUsers(int white,int black){
+	protected Key newGameToUsers(String white,String black){
 		Key key;
 		Date date = new Date();
 		Game game = new Game(_startFen,0,date);
