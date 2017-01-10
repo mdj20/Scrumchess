@@ -10,14 +10,14 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class UserProxy {
+public class UserFacade {
 	protected static final String _kind = "user";
 	protected static final String _id = "id";
 	protected static final String _name = "name";
 	protected static final String _joined = "joined";
 	protected static final String _lastLogin = "lastLogin";
 	private DatastoreService dss;
-	UserProxy(DatastoreService datastore){
+	UserFacade(DatastoreService datastore){
 		this.dss = datastore;
 	}
 

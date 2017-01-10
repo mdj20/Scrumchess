@@ -12,7 +12,7 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.QueryResultList;
-public class GameProxy {
+public class GameFacade {
 	protected final static String _kind = "game";
 	protected final static String _fen = "fen";
 	protected final static String _moveNum = "moveNum"; 
@@ -24,7 +24,7 @@ public class GameProxy {
 	protected final static String _isBlack = "isBlack";
 	private DatastoreService dss;
 	
-	protected GameProxy(DatastoreService dstore){
+	protected GameFacade(DatastoreService dstore){
 		this.dss = dstore;
 	}
 	protected Key newGameToUserWhite(String user){

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.scrumchess.data.ScrumchessDatastore;
-import com.scrumchess.data.UserProxy;
+import com.scrumchess.data.UserFacade;
 
 public class UserInfoTestServlet  extends HttpServlet{
 

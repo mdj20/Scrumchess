@@ -12,13 +12,13 @@ public class ScrumchessDatastore {
 	
 	public static void userNewGameWhite(String id){
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
-		GameProxy gp = new GameProxy(dss);
+		GameFacade gp = new GameFacade(dss);
 		Key key = gp.newGameToUserWhite(id);
 	}
 	
 	public static void userSignIn(String id){
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
-		UserProxy up = new UserProxy(dss);
+		UserFacade up = new UserFacade(dss);
 		try {
 			up.updateLastLogin(id);
 		} catch (EntityNotFoundException e) {
@@ -30,13 +30,13 @@ public class ScrumchessDatastore {
 	
 	public static void updateName(String id, String name) throws EntityNotFoundException{
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
-		UserProxy up = new UserProxy(dss);
+		UserFacade up = new UserFacade(dss);
 		up.updateName(id, name);
 	}
 	
 	public static Date getDateJoined(String id) throws EntityNotFoundException{
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
-		UserProxy up = new UserProxy(dss);
+		UserFacade up = new UserFacade(dss);
 		Date date = up.getDateJoined(id);
 		return date;
 	}

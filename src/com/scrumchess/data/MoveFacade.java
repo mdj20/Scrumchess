@@ -11,7 +11,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
-public class MoveProxy {
+public class MoveFacade {
 	protected static final String _kind = "move";
 	protected static final String _moveString = "moveString";
 	protected static final String _number = "number";
@@ -19,7 +19,7 @@ public class MoveProxy {
 	protected static final String _from = "from";
 	protected static final String _date = "date";	
 	private DatastoreService dss;
-	protected MoveProxy(DatastoreService dss){
+	protected MoveFacade(DatastoreService dss){
 		this.dss = dss;
 	}
 	
