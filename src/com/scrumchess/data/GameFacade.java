@@ -12,6 +12,7 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.QueryResultList;
+import com.sun.xml.internal.fastinfoset.stax.events.EntityDeclarationImpl;
 public class GameFacade {
 	protected final static String _kind = "game";
 	protected final static String _fen = "fen";
@@ -55,7 +56,7 @@ public class GameFacade {
 		key = dss.put(entity);
 		return key;
 	}
-	protected ArrayList<Game> getGames(int userID){
+	protected ArrayList<Game> getGames(String userID){
 		Query query = getBlackOrWhiteQuery(userID);
 		PreparedQuery pq = dss.prepare(query);
 		Iterable<Entity> results;
@@ -66,6 +67,18 @@ public class GameFacade {
 		Game game = new Game( (String) entity.getProperty(_fen),
 				(Integer) entity.getProperty(_moveNum),
 				(Date) entity.getProperty(_started));
+		Key key = entity.getKey();
+		if (key.isComplete()){	
+			game.setId(entity.getKey().getId());
+		}
+		boolean temp =(Boolean) entity.getProperty(_isBlack);
+		if (temp){
+			game.setBlack( (String) entity.getProperty(_black));
+		}
+		temp = (Boolean) entity.getProperty(_isWhite);
+		if (temp){
+			game.setWhite( (String) entity.getProperty(_white));
+		}
 		return game;
 	}
 	protected ArrayList<Game> toGame(Iterable<Entity> entities ){
@@ -76,6 +89,8 @@ public class GameFacade {
 		return ret;
 	}	
 
+	
+	
 	protected Entity toEntity(Game game){
 		Entity entity = new Entity(_kind);
 		entity.setProperty(_fen, game.getFen());
@@ -98,7 +113,7 @@ public class GameFacade {
 		return entity;
 	}
 	
-	private Query getBlackOrWhiteQuery(int user){
+	private Query getBlackOrWhiteQuery(String user){
 		ArrayList<Filter> filterList = new ArrayList<Filter>();
 		filterList.add(getEqualFilter(_black,user));   // calls local method that creates user filter
 		filterList.add(getEqualFilter(_white,user));
@@ -106,7 +121,7 @@ public class GameFacade {
 		Query q = new Query(_kind).setFilter(cf);
 		return q;
 	}
-	private Filter getEqualFilter(String color,int user){
+	private Filter getEqualFilter(String color,String user){
 		Filter filter = new FilterPredicate(color, FilterOperator.EQUAL,user);
 		return filter;
 	}

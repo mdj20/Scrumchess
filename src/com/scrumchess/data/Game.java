@@ -22,7 +22,7 @@ public class Game {
 	public Date getStarted() {
 		return started;
 	}
-	protected void setId(int id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 	protected void setFen(String fen) {
@@ -60,7 +60,7 @@ public class Game {
 	public String getBlack() {
 		return black;
 	}
-	private int id;
+	private long id;
 	private String fen;
 	private int moveNum;
 	private Date started;

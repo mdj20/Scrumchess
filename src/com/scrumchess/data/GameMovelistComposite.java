@@ -2,7 +2,7 @@ package com.scrumchess.data;
 
 import java.util.ArrayList;
 
-public class GameMoveComposite {
+public class GameMovelistComposite {
 
 	private Game game;
 	private ArrayList<Move> moves;
@@ -14,7 +14,7 @@ public class GameMoveComposite {
 		return moves;
 	}
 	
-	GameMoveComposite(Game game, Iterable<Move> moves){
+	GameMovelistComposite(Game game, Iterable<Move> moves){
 		this.moves = new ArrayList<Move>();
 		for (Move m:moves){
 			this.moves.add(m);
