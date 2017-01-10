@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilter;
@@ -62,6 +64,12 @@ public class GameFacade {
 		Iterable<Entity> results;
 		results = pq.asIterable();
 		return toGame(results);
+	}
+	
+	protected Game getGame(long id) throws EntityNotFoundException{
+		Key gameKey = KeyFactory.createKey(_kind,id);
+		Game game = toGame(dss.get(gameKey));
+		return game;
 	}
 	protected Game toGame(Entity entity){
 		Game game = new Game( (String) entity.getProperty(_fen),

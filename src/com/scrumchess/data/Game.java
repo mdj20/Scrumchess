@@ -10,7 +10,7 @@ public class Game {
 		this.isBlack = false;
 		this.isWhite = false;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	public String getFen() {
