@@ -2,6 +2,9 @@ package com.scrumchess.ajaxendpoint;
 import com.scrumchess.data.Game;
 
 public class ValidatedMove {
+	ValidatedMove(){
+		
+	}
 	protected void setUserMoveInfo(UserMoveInfo userMoveInfo) {
 		this.userMoveInfo = userMoveInfo;
 	}

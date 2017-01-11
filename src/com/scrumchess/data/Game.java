@@ -69,4 +69,6 @@ public class Game {
 	private String white;
 	private String black;
 	
+	
+	
 }

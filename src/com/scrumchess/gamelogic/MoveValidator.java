@@ -58,4 +58,8 @@ public class MoveValidator {
 		System.out.println(mv.setMove("e2e4"));
 		System.out.println(mv.doMove());
 	}
+	// returns true if turn is white
+	public boolean isWhiteTurn(){
+		return board.getTurn();
+	}
 }
