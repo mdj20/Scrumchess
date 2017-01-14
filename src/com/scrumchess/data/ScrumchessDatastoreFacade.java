@@ -4,6 +4,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.scrumchess.ajaxendpoint.UserMoveInfo;
+import com.scrumchess.ajaxendpoint.EvaluatedMove;
 import com.scrumchess.gamelogic.MoveValidator;
 import com.scrumchess.mdj20.GoogleAuthHelper;
 
@@ -26,7 +27,8 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
-	public Game appendMove(UserMoveInfo umi){
+	public EvaluatedMove validateMove(UserMoveInfo umi){
+		EvaluatedMove ret=null;
 		Game game;
 		String userID = null;
 		try {
@@ -43,14 +45,14 @@ public class ScrumchessDatastoreFacade {
 			if ( isPlayerTurn(userID,game,mv.isWhiteTurn()) ){  // check for correct color/ turn
 				if (mv.setMove(umi.getMoveAlgebraic())){  // adds move and if valid
 					String newFen = mv.doMove();
+					ret = EvaluatedMove.createValid(game,newFen,umi);
 				}
 				else {
-					 // invalid move
+					 ret = EvaluatedMove.createInvalid(game,"", umi);
 				}
-			
 			}
 		}
-		return game;
+		return ret;
 	}
 	
 	// returns true if it is the user's turn 
