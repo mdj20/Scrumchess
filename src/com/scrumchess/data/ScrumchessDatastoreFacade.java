@@ -27,6 +27,18 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
+	public Game addMove(EvaluatedMove em){
+		Game ret = null;
+		// need to use a transaction to make sure this conforms to consistency...
+		
+		Transaction txn = dss.newTransaction();
+		
+		
+		
+		
+		return ret;
+	}
+	
 	public EvaluatedMove validateMove(UserMoveInfo umi){
 		EvaluatedMove ret=null;
 		Game game;
