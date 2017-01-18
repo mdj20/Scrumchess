@@ -35,6 +35,7 @@ public class ScrumchessDatastoreFacade {
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum(); // get move number of current game from evaluated move
 		Transaction txn = dss.beginTransaction();
+		
 		// need to use a transaction to make sure this conforms to ACID...
 		try {
 			Game current = gf.getGameTransaction(txn,em.getGame().getId());
@@ -48,17 +49,19 @@ public class ScrumchessDatastoreFacade {
 			}
 			
 		} catch (EntityNotFoundException e) {
-			// wrong 
+			// wrong entity id must return value.
 			e.printStackTrace();
 		}
 		finally {
-			
+			if(txn.isActive()){
+				txn.rollback();
+			}
 		}
 		
 		return ret;
 	}
 	
-	public EvaluatedMove evalidateMove(UserMoveInfo umi){
+	public EvaluatedMove evaluateMove(UserMoveInfo umi){
 		EvaluatedMove ret=null;
 		Game game;
 		String userID = null;
