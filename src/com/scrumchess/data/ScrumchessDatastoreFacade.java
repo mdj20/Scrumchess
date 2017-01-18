@@ -93,11 +93,11 @@ public class ScrumchessDatastoreFacade {
 	private boolean isPlayerTurn(String id, Game game, boolean white){
 		boolean ret = false;
 		if (white) {
-			if (game.isWhite() && id.equals(game.getWhite()) ) // check if game.isWhite is true, then check for equality 
+			if ( game.isWhite() && id.equals(game.getWhite()) ) // check if game.isWhite is true, then check for equality 
 				ret = true;
 		}
 		else {
-			if (game.isBlack() && id.equals(game.getBlack()))  // same for black
+			if ( game.isBlack() && id.equals(game.getBlack()) )  // same for black
 				ret = true;
 		}
 		return ret;

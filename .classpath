@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_79"/>
 	<classpathentry kind="lib" path="C:/JavaLibs/google-oauth-java-client/libs/commons-logging-1.1.1.jar"/>
@@ -31,5 +32,11 @@
 	<classpathentry kind="lib" path="C:/JavaLibs/google-oauth-java-client/libs/transaction-api-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/JavaLibs/google-oauth-java-client/libs/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/oauth2-v2r124lv1.21.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/Matthew/.p2/pool/plugins/com.google.appengine.eclipse.sdkbundle_1.9.34/appengine-java-sdk-1.9.34/lib/testing/appengine-testing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Matthew/.p2/pool/plugins/com.google.appengine.eclipse.sdkbundle_1.9.34/appengine-java-sdk-1.9.34/lib/impl/appengine-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Matthew/.p2/pool/plugins/com.google.appengine.eclipse.sdkbundle_1.9.34/appengine-java-sdk-1.9.34/lib/impl/appengine-api-labs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Matthew/.p2/pool/plugins/com.google.appengine.eclipse.sdkbundle_1.9.34/appengine-java-sdk-1.9.34/lib/impl/appengine-api-stubs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Matthew/.p2/pool/plugins/com.google.appengine.eclipse.sdkbundle_1.9.34/appengine-java-sdk-1.9.34/lib/appengine-tools-api.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
