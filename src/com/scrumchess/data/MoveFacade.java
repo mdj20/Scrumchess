@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Transaction;
 
 public class MoveFacade {
 	protected static final String _kind = "move";
@@ -29,6 +30,12 @@ public class MoveFacade {
 		ret = dss.put(entity);
 		return ret;
 	}
+	
+	protected Key moveToGameTransaction(Transaction txn, Key game, Move move){
+		Entity entity = toEntity(move,game);
+		return dss.put(txn,entity);
+	}
+	
 	
 	protected ArrayList<Move> getMoves(Key game){
 		ArrayList<Move> ret = new ArrayList<Move>();
@@ -73,6 +80,10 @@ public class MoveFacade {
 		*/
 		entity.setProperty(_date,move.getDate());
 		return entity;
+	}
+	
+	protected Move createDisjointMove(int num, String move){
+		return new Move(move,num,new Date());
 	}
 	
 }

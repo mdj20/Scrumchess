@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.QueryResultList;
+import com.google.appengine.api.datastore.Transaction;
 import com.sun.xml.internal.fastinfoset.stax.events.EntityDeclarationImpl;
 public class GameFacade {
 	protected final static String _kind = "game";
@@ -64,6 +65,17 @@ public class GameFacade {
 		Iterable<Entity> results;
 		results = pq.asIterable();
 		return toGame(results);
+	}
+	
+	protected Key updateGameTransaction(Transaction txn, Game game){
+		Entity entity = toEntity(game);
+		return dss.put(txn,entity);
+	}
+	
+	protected Game getGameTransaction(Transaction txn, long id) throws EntityNotFoundException{
+		Key gameKey = KeyFactory.createKey(_kind,id);
+		Game game = toGame(dss.get(txn,gameKey));
+		return game;
 	}
 	
 	protected Game getGame(long id) throws EntityNotFoundException{

@@ -3,6 +3,8 @@ package com.scrumchess.data;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Transaction;
 import com.scrumchess.ajaxendpoint.UserMoveInfo;
 import com.scrumchess.ajaxendpoint.EvaluatedMove;
 import com.scrumchess.gamelogic.MoveValidator;
@@ -11,9 +13,11 @@ import com.scrumchess.mdj20.GoogleAuthHelper;
 public class ScrumchessDatastoreFacade {
 	private DatastoreService dss;
 	private GameFacade gf;
+	private MoveFacade mf;
 	private ScrumchessDatastoreFacade( DatastoreService dss ){
 		this.dss = dss;
 		gf = new GameFacade(dss);
+		mf = new MoveFacade(dss);
 	}
 	public static ScrumchessDatastoreFacade getInstance(){ // Factory method constuctor
 		return new ScrumchessDatastoreFacade(
@@ -27,19 +31,34 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
-	public Game addMove(EvaluatedMove em){
+	public Game commitMoveAtomic(EvaluatedMove em){
 		Game ret = null;
-		// need to use a transaction to make sure this conforms to consistency...
-		
-		Transaction txn = dss.newTransaction();
-		
-		
-		
+		int moveNum = em.getGame().getMoveNum(); // get move number of current game from evaluated move
+		Transaction txn = dss.beginTransaction();
+		// need to use a transaction to make sure this conforms to ACID...
+		try {
+			Game current = gf.getGameTransaction(txn,em.getGame().getId());
+			if( current.getFen().equals(em.getGame().getFen() ) && moveNum == current.getMoveNum() ){ // check if move is correct
+				current.setFen(em.getUpdateFen());
+				current.setMoveNum(moveNum+1);
+				Key gameKey = gf.updateGameTransaction(txn, current);
+				Move disjoint = mf.createDisjointMove(moveNum+1, em.getUserMoveInfo().getMoveAlgebraic());
+				mf.moveToGameTransaction(txn, gameKey, disjoint);
+				txn.commit();
+			}
+			
+		} catch (EntityNotFoundException e) {
+			// wrong 
+			e.printStackTrace();
+		}
+		finally {
+			
+		}
 		
 		return ret;
 	}
 	
-	public EvaluatedMove validateMove(UserMoveInfo umi){
+	public EvaluatedMove evalidateMove(UserMoveInfo umi){
 		EvaluatedMove ret=null;
 		Game game;
 		String userID = null;
