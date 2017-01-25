@@ -108,8 +108,6 @@ public class GameFacade {
 		}
 		return ret;
 	}	
-
-	
 	
 	protected Entity toEntity(Game game){
 		Entity entity = new Entity(_kind);

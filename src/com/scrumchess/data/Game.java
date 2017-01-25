@@ -3,7 +3,7 @@ import java.util.Date;
 import com.google.appengine.api.datastore.*;
 public class Game {
 	
-	protected Game(String fen ,Integer moveNum, Date date){
+	protected Game(String fen ,int moveNum, Date date){
 		this.fen = fen;
 		this.moveNum = moveNum;
 		this.started = date;
