@@ -64,7 +64,7 @@ public class UserFacade {
 	}
 	protected User getUser(String id) throws EntityNotFoundException{
 		Entity entity = getEntity(id);
-		User user = toUser(entity);
+		User user = toUser(entity,id); // creates user from entity and string id
 		return user;	
 	}
 	protected Date getDateJoined(String id) throws EntityNotFoundException{
@@ -84,10 +84,15 @@ public class UserFacade {
 		return entity;
 	}
 	protected static User toUser(Entity entity){
-		User user = new User((String) entity.getProperty(_id),
+		User user = new User((String) "",
 				(String) entity.getProperty(_name),
 				(Date) entity.getProperty(_joined),
 				(Date) entity.getProperty(_lastLogin));
+		return user;
+	}
+	protected static User toUser(Entity entity, String id){
+		User user = toUser(entity);
+		user.setId(id);
 		return user;
 	}
 	protected static Key getKey(String id){

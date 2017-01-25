@@ -1,11 +1,13 @@
-package com.scrumchess.data.test;
+package com.scrumchess.data;
 
-import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
+// class will smoke test the datastore, this will be removed after datastore is operational
+
 import static org.junit.Assert.assertEquals;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -21,7 +23,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class SCDatastoreTest {
+public class DSSmokeTest {
 	
 	private final LocalServiceTestHelper helper =
 		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
@@ -29,32 +31,37 @@ public class SCDatastoreTest {
 	private ScrumchessDatastoreFacade sdf;
 	private UserFacade uf;
 	private DatastoreService dss;
+	private static String testUserID_1 = "00001";
+	private static String testUserID_2 = "00002";
 	
-	 @Before
-	  public void setUp() {
-	    helper.setUp();
-	  
-	  }
-
-	 @After
-	  public void tearDown() {
-	    helper.tearDown();
-	  }
-
-	  // Run this test twice to prove we're not leaking any state across tests.
-	  private void doTest() {
+	
+	DSSmokeTest(){
+		  helper.setUp();
 		  sdf = ScrumchessDatastoreFacade.getInstance();
 		  dss = DatastoreServiceFactory.getDatastoreService();
-		  		  
-	  }
+		  uf = new UserFacade(dss);
+	}
+	private void cleanUp(){
+		helper.tearDown();
+		System.exit(0);
+	}
+	private void CreateUser(String id){
+		uf.createNewUser(id);
+	}
+	
+	
+	public static void main(String args[]) throws EntityNotFoundException{
+		System.out.println("START MAIN");
+		DSSmokeTest st = new DSSmokeTest();
+		st.CreateUser(testUserID_1);
+		st.CreateUser(testUserID_2);
+		User u1 = st.uf.getUser(testUserID_1);
+		System.out.print("HERE> "+u1.getId());
+		
+		
+	}
+	
+	
+	
 
-	  @Test
-	  public void testInsert1() {
-	    doTest();
-	  }
-
-	  @Test
-	  public void testInsert2() {
-	    doTest();
-	  }
 }
