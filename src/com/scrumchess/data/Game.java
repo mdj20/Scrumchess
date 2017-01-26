@@ -10,6 +10,12 @@ public class Game {
 		this.isBlack = false;
 		this.isWhite = false;
 	}
+	protected Game(String fen, long moveNum, Date date){
+		this(fen, (int) moveNum, date);
+		if (moveNum > Integer.MAX_VALUE){
+			throw new IllegalArgumentException();  // moveNum is larger than int MaxValue
+		}
+	}
 	public long getId() {
 		return id;
 	}

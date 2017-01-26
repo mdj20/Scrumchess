@@ -85,7 +85,7 @@ public class GameFacade {
 	}
 	protected Game toGame(Entity entity){
 		Game game = new Game( (String) entity.getProperty(_fen),
-				(Integer) entity.getProperty(_moveNum),
+				(long) entity.getProperty(_moveNum),  // cast to long, then cast to int (data is stored as long but returns as)
 				(Date) entity.getProperty(_started));
 		Key key = entity.getKey();
 		if (key.isComplete()){	

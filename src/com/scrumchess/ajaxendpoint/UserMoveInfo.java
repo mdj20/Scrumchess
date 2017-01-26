@@ -2,6 +2,13 @@ package com.scrumchess.ajaxendpoint;
 
 // Class that describes a user move that has been received but not validated to a game 
 public class UserMoveInfo {
+	
+	public UserMoveInfo(String userToken,String moveAlgebraic, long game){
+		this.userToken = userToken;
+		this.moveAlgebraic = moveAlgebraic;
+		this.game=game;
+	}
+	
 	public String getUserToken() {
 		return userToken;
 	}

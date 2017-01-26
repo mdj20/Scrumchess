@@ -14,8 +14,11 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.scrumchess.ajaxendpoint.EvaluatedMove;
+import com.scrumchess.ajaxendpoint.UserMoveInfo;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
 import com.scrumchess.data.UserFacade;
+import com.scrumchess.gamelogic.MoveValidator;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,6 +62,20 @@ public class DSSmokeTest {
 		gameKeys.add(gf.newGameToUsers(white, black));
 	}
 	
+	private EvaluatedMove evaluateStub(Game game, UserMoveInfo umi){
+		EvaluatedMove ret = null;
+			MoveValidator mv = MoveValidator.createWithFen(game.getFen());
+			if (mv.setMove(umi.getMoveAlgebraic())){
+				String newFen = mv.doMove();
+				ret = EvaluatedMove.createValid(game,newFen,umi);
+			}
+			else{
+				ret = EvaluatedMove.createInvalid(game, "", umi);
+			}
+	
+		return ret;
+	}
+	
 	public void smoke() throws EntityNotFoundException{
 		CreateUser(testUserID_1);
 		CreateUser(testUserID_2);
@@ -66,12 +83,20 @@ public class DSSmokeTest {
 		System.out.println("HERE> "+u1.getId());
 		createGame(testUserID_1,testUserID_2);
 
-		
 		long gameID = gameKeys.get(gameKeys.size()-1).getId();
 		System.out.println(gameID);
-		
 		Game testGame = sdf.getGameById(gameID);
+		System.out.println(testGame.getFen());
 		
+		UserMoveInfo umi1 = new UserMoveInfo(testUserID_1,"e2e3",gameID);
+		EvaluatedMove em1 = evaluateStub(testGame,umi1);
+		
+		System.out.println(em1.getUpdateFen());
+		sdf.commitMoveAtomic(em1);
+		System.out.println("Moment of truth...");
+		Game returnGame = sdf.getGameById(gameID);
+	
+		System.out.println(returnGame.getFen());
 		
 		
 		
