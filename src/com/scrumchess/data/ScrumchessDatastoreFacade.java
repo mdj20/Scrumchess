@@ -44,7 +44,7 @@ public class ScrumchessDatastoreFacade {
 			if( current.getFen().equals(em.getGame().getFen() ) && moveNum == current.getMoveNum() ){ // check if move is correct
 				current.setFen(em.getUpdateFen());
 				current.setMoveNum(moveNum+1);
-				Key gameKey = gf.updateGameTransaction(txn, current);
+				Key gameKey = gf.updateGameTransaction(txn, current, current.getId());
 				Move disjoint = mf.createDisjointMove(moveNum+1, em.getUserMoveInfo().getMoveAlgebraic());
 				mf.moveToGameTransaction(txn, gameKey, disjoint);
 				txn.commit();

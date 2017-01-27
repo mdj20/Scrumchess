@@ -94,7 +94,7 @@ public class DSSmokeTest {
 		System.out.println(em1.getUpdateFen());
 		sdf.commitMoveAtomic(em1);
 		System.out.println("Moment of truth...");
-		Game returnGame = sdf.getGameById(gameID+1);
+		Game returnGame = sdf.getGameById(gameID);
 	
 		System.out.println(returnGame.getFen());
 		
