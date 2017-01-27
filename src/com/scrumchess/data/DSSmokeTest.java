@@ -32,7 +32,7 @@ import org.junit.Test;
 public class DSSmokeTest {
 	
 	private final LocalServiceTestHelper helper =
-		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
 	
 	private ScrumchessDatastoreFacade sdf;
 	private UserFacade uf;
@@ -94,7 +94,7 @@ public class DSSmokeTest {
 		System.out.println(em1.getUpdateFen());
 		sdf.commitMoveAtomic(em1);
 		System.out.println("Moment of truth...");
-		Game returnGame = sdf.getGameById(gameID);
+		Game returnGame = sdf.getGameById(gameID+1);
 	
 		System.out.println(returnGame.getFen());
 		

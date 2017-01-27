@@ -9,6 +9,7 @@ public class Game {
 		this.started = date;
 		this.isBlack = false;
 		this.isWhite = false;
+		this.hasID = false;
 	}
 	protected Game(String fen, long moveNum, Date date){
 		this(fen, (int) moveNum, date);
@@ -29,6 +30,7 @@ public class Game {
 		return started;
 	}
 	protected void setId(long id) {
+		this.hasID = true;
 		this.id = id;
 	}
 	protected void setFen(String fen) {
@@ -67,6 +69,7 @@ public class Game {
 		return black;
 	}
 	private long id;
+	private boolean hasID;
 	private String fen;
 	private int moveNum;
 	private Date started;

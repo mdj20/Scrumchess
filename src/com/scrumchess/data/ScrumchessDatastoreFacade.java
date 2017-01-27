@@ -5,6 +5,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.appengine.api.datastore.TransactionOptions;
 import com.scrumchess.ajaxendpoint.UserMoveInfo;
 import com.scrumchess.ajaxendpoint.EvaluatedMove;
 import com.scrumchess.gamelogic.MoveValidator;
@@ -33,7 +34,9 @@ public class ScrumchessDatastoreFacade {
 	public Game commitMoveAtomic(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum(); // get move number of current game from evaluated move
-		Transaction txn = dss.beginTransaction();
+		
+		TransactionOptions options = TransactionOptions.Builder.withXG(true); // need to make transaction cross table
+		Transaction txn = dss.beginTransaction(options);
 		
 		// need to use a transaction to make sure this conforms to ACID...
 		try {

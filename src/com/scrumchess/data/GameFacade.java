@@ -1,6 +1,9 @@
 package com.scrumchess.data;
 import java.util.ArrayList;
 import java.util.Date;
+
+import org.apache.jsp.ah.entityDetailsBody_jsp;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -67,17 +70,21 @@ public class GameFacade {
 		return toGame(results);
 	}
 	
-	protected Key updateGameTransaction(Transaction txn, Game game){
-		Entity entity = toEntity(game);
+	protected Key updateGameTransaction(Transaction txn, Game game, Key key) throws EntityNotFoundException{
+		Entity entity = dss.get(txn, key);
+		entity = updateFen(entity,game);
+		entity = updateMoveNum(entity,game);
 		return dss.put(txn,entity);
 	}
-	
+	protected Key updateGameTransaction(Transaction txn, Game game, long id) throws EntityNotFoundException{
+		Key gameKey = KeyFactory.createKey(_kind,id);
+		return updateGameTransaction(txn,game,gameKey);
+	}
 	protected Game getGameTransaction(Transaction txn, long id) throws EntityNotFoundException{
 		Key gameKey = KeyFactory.createKey(_kind,id);
 		Game game = toGame(dss.get(txn,gameKey));
 		return game;
 	}
-	
 	protected Game getGame(long id) throws EntityNotFoundException{
 		Key gameKey = KeyFactory.createKey(_kind,id);
 		Game game = toGame(dss.get(gameKey));
@@ -108,27 +115,45 @@ public class GameFacade {
 		}
 		return ret;
 	}	
+	protected Entity updateFen(Entity entity, Game game){
+		entity.setProperty(_fen,game.getFen());
+		return entity;
+	}
+	protected Entity updateMoveNum(Entity entity, Game game){
+		entity.setProperty(_moveNum, game.getMoveNum());
+		return entity;
+	}
+	protected Entity update(Entity entity, Game game){
+		entity.setProperty(_moveNum, game.getMoveNum());
+		return entity;
+	}
 	
+	// creates new entity object from game
 	protected Entity toEntity(Game game){
 		Entity entity = new Entity(_kind);
-		entity.setProperty(_fen, game.getFen());
-		entity.setProperty(_moveNum, game.getMoveNum());
-		entity.setProperty(_started, game.getStarted());
+		entity.setProperty( _fen, game.getFen());
+		entity.setProperty( _moveNum, game.getMoveNum());
+		entity.setProperty( _started, game.getStarted());
 		if (game.isWhite()){
-			entity.setProperty(_white, game.getWhite());
-			entity.setProperty(_isWhite, true);
+			entity.setProperty( _white, game.getWhite());
+			entity.setProperty( _isWhite, true);
 		}
 		else {
-			entity.setProperty(_isWhite, false);
+			entity.setProperty( _isWhite, false);
 		}
 		if (game.isBlack()){
-			entity.setProperty(_white, game.getBlack());
+			entity.setProperty( _white, game.getBlack());
 			entity.setProperty(_isBlack, true);
 		}
 		else {
 			entity.setProperty(_isBlack,false);
 		}
 		return entity;
+	}
+	
+	private Key getKeyFromID(long id){
+		Key key = KeyFactory.createKey(_kind, id);
+		return key;
 	}
 	
 	private Query getBlackOrWhiteQuery(String user){
@@ -143,4 +168,5 @@ public class GameFacade {
 		Filter filter = new FilterPredicate(color, FilterOperator.EQUAL,user);
 		return filter;
 	}
+	
 }
