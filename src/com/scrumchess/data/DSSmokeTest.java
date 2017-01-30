@@ -86,7 +86,7 @@ public class DSSmokeTest {
 		Game testGame = sdf.getGameById(gameID);
 		System.out.println(testGame.getFen());
 		
-		AuthenticatedUserMoveInfo aumi = createAUMI(testUserID_1,"ese3",gameID);
+		AuthenticatedUserMoveInfo aumi = createAUMI(testUserID_1,"e2e3",gameID);
 		EvaluatedMove em1 = sdf.evaluateMove(aumi);
 		
 		System.out.println(em1.getUpdateFen());
