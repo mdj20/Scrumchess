@@ -13,6 +13,8 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.scrumchess.ajaxendpoint.AuthenticatedUserMoveInfo;
@@ -80,7 +82,7 @@ public class DSSmokeTest {
 		User u1 = uf.getUser(testUserID_1);
 		System.out.println("HERE> "+u1.getId());
 		createGame(testUserID_1,testUserID_2);
-
+		
 		long gameID = gameKeys.get(gameKeys.size()-1).getId();
 		System.out.println(gameID);
 		Game testGame = sdf.getGameById(gameID);
@@ -104,11 +106,39 @@ public class DSSmokeTest {
 		
 		Query query = new Query(MoveFacade._kind).setAncestor(ancestor);
 		PreparedQuery pq = dss.prepare(query);
-		System.out.println("NUM MOVESS:" +pq.countEntities());
+		
+		int j = 0;
+		for (Entity e : pq.asIterable()){
+			System.out.println(j+": "+e.getKey().getId());
+			j++;
+		}
 		
 		
+		
+		for (int i =0 ; i <9 ; i++){
+			createGame(testUserID_1,testUserID_2);
+		}
+		System.out.println(gameKeys.size());
+		Filter testFilter = new Query.FilterPredicate(GameFacade._white,FilterOperator.EQUAL,testUserID_1);
+		Query gameQuery = new Query(GameFacade._kind);
+		PreparedQuery gamepq = dss.prepare(gameQuery);
 
-
+		
+		ArrayList<Game> queryGames = new ArrayList<Game>();
+		for (Entity e : gamepq.asIterable()){
+			queryGames.add(gf.toGame(e));
+		}
+		System.out.println("QG SIZE:" + queryGames.size());
+		int i =0;
+		for(Key k: gameKeys){
+			
+			Game game = gf.getGame(k.getId());
+			System.out.println(game.getWhite());
+			
+			System.out.println(i + ": "+k.getId());
+			i++;
+		}
+		
 		
 	}
 	
