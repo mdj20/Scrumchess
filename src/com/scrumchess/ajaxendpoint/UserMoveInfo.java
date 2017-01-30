@@ -6,17 +6,23 @@ public class UserMoveInfo {
 	public UserMoveInfo(String userToken,String moveAlgebraic, long game){
 		this.userToken = userToken;
 		this.moveAlgebraic = moveAlgebraic;
-		this.game=game;
+		this.gameID=game;
 	}
 	
+	public UserMoveInfo(UserMoveInfo umi) {
+		this.userToken = umi.getUserToken();
+		this.moveAlgebraic = umi.getMoveAlgebraic();
+		this.gameID = umi.getGameID();
+	}
+
 	public String getUserToken() {
 		return userToken;
 	}
 	public String getMoveAlgebraic() {
 		return moveAlgebraic;
 	}
-	public long getGame() {
-		return game;
+	public long getGameID() {
+		return gameID;
 	}
 	protected void setUserToken(String userToken) {
 		this.userToken = userToken;
@@ -24,10 +30,10 @@ public class UserMoveInfo {
 	protected void setMoveAlgebraic(String moveAlgebraic) {
 		this.moveAlgebraic = moveAlgebraic;
 	}
-	protected void setGame(long game) {
-		this.game = game;
+	protected void setGameID(long game) {
+		this.gameID = game;
 	}
 	private String userToken;
 	private String moveAlgebraic;
-	private long game;
+	private long gameID;
 }

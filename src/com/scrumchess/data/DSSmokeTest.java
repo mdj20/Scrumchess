@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.scrumchess.ajaxendpoint.AuthenticatedUserMoveInfo;
 import com.scrumchess.ajaxendpoint.EvaluatedMove;
 import com.scrumchess.ajaxendpoint.UserMoveInfo;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
@@ -57,23 +58,14 @@ public class DSSmokeTest {
 	private void CreateUser(String id){
 		uf.createNewUser(id);
 	}
-	
 	private void createGame(String white, String black){
 		gameKeys.add(gf.newGameToUsers(white, black));
 	}
-	
-	private EvaluatedMove evaluateStub(Game game, UserMoveInfo umi){
-		EvaluatedMove ret = null;
-			MoveValidator mv = MoveValidator.createWithFen(game.getFen());
-			if (mv.setMove(umi.getMoveAlgebraic())){
-				String newFen = mv.doMove();
-				ret = EvaluatedMove.createValid(game,newFen,umi);
-			}
-			else{
-				ret = EvaluatedMove.createInvalid(game, "", umi);
-			}
-	
-		return ret;
+
+	private Game commitMove(EvaluatedMove em) throws EntityNotFoundException{
+		sdf.commitMoveAtomic(em);
+		Game retGame = sdf.getGameById(em.getGame().getId());
+		return retGame;
 	}
 	
 	public void smoke() throws EntityNotFoundException{
@@ -89,21 +81,23 @@ public class DSSmokeTest {
 		System.out.println(testGame.getFen());
 		
 		UserMoveInfo umi1 = new UserMoveInfo(testUserID_1,"e2e3",gameID);
-		EvaluatedMove em1 = evaluateStub(testGame,umi1);
+		AuthenticatedUserMoveInfo aumi = AuthenticatedUserMoveInfo.overrideToken(umi1, testUserID_1);
+		EvaluatedMove em1 = sdf.evaluateMove(aumi);
 		
 		System.out.println(em1.getUpdateFen());
-		sdf.commitMoveAtomic(em1);
-		System.out.println("Moment of truth...");
-		Game returnGame = sdf.getGameById(gameID);
-	
-		System.out.println(returnGame.getFen());
+		Game retGame = commitMove(em1);
+		System.out.println(retGame.getFen());
 		
+
+		UserMoveInfo umi2 = new UserMoveInfo(testUserID_2,"d7d5",gameID);
+		AuthenticatedUserMoveInfo aumi2 = AuthenticatedUserMoveInfo.overrideToken(umi2, testUserID_2);
+		EvaluatedMove em2 = sdf.evaluateMove(aumi2);
 		
-		
-		
-		
-		
-		
+		System.out.println(em2.getUpdateFen());
+		retGame = commitMove(em2);
+		System.out.println(retGame.getFen());
+
+
 		
 	}
 	
@@ -113,7 +107,6 @@ public class DSSmokeTest {
 		st.smoke();
 		st.cleanUp();
 	}
-	
 	
 	
 

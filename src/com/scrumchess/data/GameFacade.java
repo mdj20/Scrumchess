@@ -142,7 +142,7 @@ public class GameFacade {
 			entity.setProperty( _isWhite, false);
 		}
 		if (game.isBlack()){
-			entity.setProperty( _white, game.getBlack());
+			entity.setProperty( _black, game.getBlack());
 			entity.setProperty(_isBlack, true);
 		}
 		else {

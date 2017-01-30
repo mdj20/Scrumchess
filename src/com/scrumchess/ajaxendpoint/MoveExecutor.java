@@ -15,7 +15,7 @@ public class MoveExecutor {
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();		
 		Game game;
 		try {
-			game = sdf.getGameById(umi.getGame());
+			game = sdf.getGameById(umi.getGameID());
 		} catch (EntityNotFoundException e) {
 			game = null;
 			// this will collect errors at some point 

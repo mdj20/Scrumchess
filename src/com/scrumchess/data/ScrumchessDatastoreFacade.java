@@ -7,6 +7,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.appengine.api.datastore.TransactionOptions;
 import com.scrumchess.ajaxendpoint.UserMoveInfo;
+import com.scrumchess.ajaxendpoint.AuthenticatedUserMoveInfo;
 import com.scrumchess.ajaxendpoint.EvaluatedMove;
 import com.scrumchess.gamelogic.MoveValidator;
 import com.scrumchess.mdj20.GoogleAuthHelper;
@@ -63,28 +64,28 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
-	public EvaluatedMove evaluateMove(UserMoveInfo umi){
+	
+	public EvaluatedMove evaluateMove(AuthenticatedUserMoveInfo aumi){
 		EvaluatedMove ret=null;
 		Game game;
-		String userID = null;
+		String userID = aumi.getUserToken();
 		try {
-			game=gf.getGame(umi.getGame());
+			game=gf.getGame(aumi.getGameID());
 		} catch (EntityNotFoundException e) {
 			game = null;
 			// TODO Auto-generated catch block
 			// TODO place error message, for record 
 			e.printStackTrace();
 		}
-		userID = GoogleAuthHelper.getSubjectFromEndpoint(umi.getUserToken());
-		if (userID != null && game != null){  // checks if userID and Game exist
+		if (game != null){  // checks if userID and Game exist
 			MoveValidator mv = MoveValidator.createWithFen(game.getFen());
 			if ( isPlayerTurn(userID,game,mv.isWhiteTurn()) ){  // check for correct color/ turn
-				if (mv.setMove(umi.getMoveAlgebraic())){  // adds move and if valid
+				if (mv.setMove(aumi.getMoveAlgebraic())){  // adds move and if valid
 					String newFen = mv.doMove();
-					ret = EvaluatedMove.createValid(game,newFen,umi);
+					ret = EvaluatedMove.createValid(game,newFen,aumi);
 				}
 				else {
-					 ret = EvaluatedMove.createInvalid(game,"", umi);
+					 ret = EvaluatedMove.createInvalid(game,"", aumi);
 				}
 			}
 		}
