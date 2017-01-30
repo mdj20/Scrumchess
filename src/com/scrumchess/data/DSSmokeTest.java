@@ -11,6 +11,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -19,6 +20,7 @@ import com.scrumchess.ajaxendpoint.EvaluatedMove;
 import com.scrumchess.ajaxendpoint.UserMoveInfo;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
 import com.scrumchess.data.UserFacade;
+import com.scrumchess.data.MoveFacade;
 import com.scrumchess.gamelogic.MoveValidator;
 
 import org.junit.After;
@@ -67,6 +69,10 @@ public class DSSmokeTest {
 		Game retGame = sdf.getGameById(em.getGame().getId());
 		return retGame;
 	}
+	private AuthenticatedUserMoveInfo createAUMI(String user, String move, long gameid){
+		UserMoveInfo umi = new UserMoveInfo(user,move,gameid);
+		return  AuthenticatedUserMoveInfo.overrideToken(umi, user); 
+	}
 	
 	public void smoke() throws EntityNotFoundException{
 		CreateUser(testUserID_1);
@@ -80,22 +86,27 @@ public class DSSmokeTest {
 		Game testGame = sdf.getGameById(gameID);
 		System.out.println(testGame.getFen());
 		
-		UserMoveInfo umi1 = new UserMoveInfo(testUserID_1,"e2e3",gameID);
-		AuthenticatedUserMoveInfo aumi = AuthenticatedUserMoveInfo.overrideToken(umi1, testUserID_1);
+		AuthenticatedUserMoveInfo aumi = createAUMI(testUserID_1,"ese3",gameID);
 		EvaluatedMove em1 = sdf.evaluateMove(aumi);
 		
 		System.out.println(em1.getUpdateFen());
 		Game retGame = commitMove(em1);
 		System.out.println(retGame.getFen());
 		
-
-		UserMoveInfo umi2 = new UserMoveInfo(testUserID_2,"d7d5",gameID);
-		AuthenticatedUserMoveInfo aumi2 = AuthenticatedUserMoveInfo.overrideToken(umi2, testUserID_2);
+		AuthenticatedUserMoveInfo aumi2 = createAUMI(testUserID_2,"d7d5",gameID);
 		EvaluatedMove em2 = sdf.evaluateMove(aumi2);
 		
 		System.out.println(em2.getUpdateFen());
 		retGame = commitMove(em2);
 		System.out.println(retGame.getFen());
+		
+		Key ancestor = gf.getKeyFromID(gameID);
+		
+		Query query = new Query(MoveFacade._kind).setAncestor(ancestor);
+		PreparedQuery pq = dss.prepare(query);
+		System.out.println("NUM MOVESS:" +pq.countEntities());
+		
+		
 
 
 		

@@ -151,7 +151,7 @@ public class GameFacade {
 		return entity;
 	}
 	
-	private Key getKeyFromID(long id){
+	public Key getKeyFromID(long id){
 		Key key = KeyFactory.createKey(_kind, id);
 		return key;
 	}
