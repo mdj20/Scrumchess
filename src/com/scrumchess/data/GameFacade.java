@@ -69,7 +69,16 @@ public class GameFacade {
 		results = pq.asIterable();
 		return toGame(results);
 	}
-	
+	protected Key updateGame(Game game, long id) throws EntityNotFoundException{
+		Key gameKey = KeyFactory.createKey(_kind, id);
+		return updateGame(game,gameKey);
+	}
+	protected Key updateGame(Game game, Key key) throws EntityNotFoundException{
+		Entity entity = dss.get(key);
+		entity = updateFen(entity,game);
+		entity = updateMoveNum(entity,game);
+		return dss.put(entity);
+	}
 	protected Key updateGameTransaction(Transaction txn, Game game, Key key) throws EntityNotFoundException{
 		Entity entity = dss.get(txn, key);
 		entity = updateFen(entity,game);

@@ -5,16 +5,20 @@ package com.scrumchess.data;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.scrumchess.ajaxendpoint.AuthenticatedUserMoveInfo;
@@ -37,7 +41,7 @@ import org.junit.Test;
 public class DSSmokeTest {
 	
 	private final LocalServiceTestHelper helper =
-		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
+		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 	
 	private ScrumchessDatastoreFacade sdf;
 	private UserFacade uf;
@@ -66,8 +70,13 @@ public class DSSmokeTest {
 		gameKeys.add(gf.newGameToUsers(white, black));
 	}
 
-	private Game commitMove(EvaluatedMove em) throws EntityNotFoundException{
+	private Game commitMoveAtomic(EvaluatedMove em) throws EntityNotFoundException{
 		sdf.commitMoveAtomic(em);
+		Game retGame = sdf.getGameById(em.getGame().getId());
+		return retGame;
+	}
+	private Game commitMove(EvaluatedMove em) throws EntityNotFoundException{
+		sdf.commitMove(em);
 		Game retGame = sdf.getGameById(em.getGame().getId());
 		return retGame;
 	}
@@ -101,44 +110,33 @@ public class DSSmokeTest {
 		System.out.println(em2.getUpdateFen());
 		retGame = commitMove(em2);
 		System.out.println(retGame.getFen());
+	
+		String tent = "testEntity";
+		String tp = "testProperty";
 		
-		Key ancestor = gf.getKeyFromID(gameID);
+		dss.put(new Entity(tent));
+		dss.put(new Entity(tent));
+		PreparedQuery pq = dss.prepare(new Query(tent));
+	
 		
-		Query query = new Query(MoveFacade._kind).setAncestor(ancestor);
-		PreparedQuery pq = dss.prepare(query);
-		
-		int j = 0;
-		for (Entity e : pq.asIterable()){
-			System.out.println(j+": "+e.getKey().getId());
-			j++;
+		ArrayList<Key> testKeys = new ArrayList<Key>();
+		for (int i = 0 ; i < 5 ; i++){
+			Entity e = new Entity(tent);
+			e.setProperty(tp, i);
+			testKeys.add(dss.put(e));
 		}
 		
 		
 		
-		for (int i =0 ; i <9 ; i++){
-			createGame(testUserID_1,testUserID_2);
-		}
-		System.out.println(gameKeys.size());
-		Filter testFilter = new Query.FilterPredicate(GameFacade._white,FilterOperator.EQUAL,testUserID_1);
-		Query gameQuery = new Query(GameFacade._kind);
-		PreparedQuery gamepq = dss.prepare(gameQuery);
-
+		Query tq = new Query(tent);
+		pq = dss.prepare(tq);
+		List<Entity> resultList = pq.asList(FetchOptions.Builder.withDefaults());
+		System.out.println("SIZE: "+testKeys.size());
+		System.out.println("SIZE: "+resultList.size());
 		
-		ArrayList<Game> queryGames = new ArrayList<Game>();
-		for (Entity e : gamepq.asIterable()){
-			queryGames.add(gf.toGame(e));
-		}
-		System.out.println("QG SIZE:" + queryGames.size());
-		int i =0;
-		for(Key k: gameKeys){
-			
-			Game game = gf.getGame(k.getId());
-			System.out.println(game.getWhite());
-			
-			System.out.println(i + ": "+k.getId());
-			i++;
-		}
-		
+		/*for(Entity e : pq.asIterable()){
+			System.out.println("Type:" + e.getProperty(tp));
+		}*/
 		
 	}
 	

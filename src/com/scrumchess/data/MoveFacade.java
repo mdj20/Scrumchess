@@ -31,6 +31,11 @@ public class MoveFacade {
 		return ret;
 	}
 	
+	protected Key moveToGame(Key game,Move move){
+		Entity entity = toEntity(move,game);
+		return dss.put(entity);
+	}
+	
 	protected Key moveToGameTransaction(Transaction txn, Key game, Move move){
 		Entity entity = toEntity(move,game);
 		return dss.put(txn,entity);

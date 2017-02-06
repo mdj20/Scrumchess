@@ -32,6 +32,29 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
+	public Game commitMove(EvaluatedMove em){
+		Game ret = null;
+		int moveNum = em.getGame().getMoveNum();
+		
+		try {
+			Game current = gf.getGame(em.getGame().getId());
+			
+			if( current.getFen().equals(em.getGame().getFen() ) && moveNum == current.getMoveNum() ){
+				current.setFen(em.getUpdateFen());
+				current.setMoveNum(moveNum+1);
+				Key gameKey = gf.updateGame( current, current.getId());
+				Move disjoint = mf.createDisjointMove(moveNum+1, em.getUserMoveInfo().getMoveAlgebraic());
+				mf.moveToGame( gameKey, disjoint);
+			}
+		}
+		catch ( EntityNotFoundException e){
+			// Must some type of transaction report...
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	
 	public Game commitMoveAtomic(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum(); // get move number of current game from evaluated move
