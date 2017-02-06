@@ -69,7 +69,6 @@ public class DSSmokeTest {
 	private void createGame(String white, String black){
 		gameKeys.add(gf.newGameToUsers(white, black));
 	}
-
 	private Game commitMoveAtomic(EvaluatedMove em) throws EntityNotFoundException{
 		sdf.commitMoveAtomic(em);
 		Game retGame = sdf.getGameById(em.getGame().getId());
@@ -84,7 +83,6 @@ public class DSSmokeTest {
 		UserMoveInfo umi = new UserMoveInfo(user,move,gameid);
 		return  AuthenticatedUserMoveInfo.overrideToken(umi, user); 
 	}
-	
 	public void smoke() throws EntityNotFoundException{
 		CreateUser(testUserID_1);
 		CreateUser(testUserID_2);
@@ -118,16 +116,13 @@ public class DSSmokeTest {
 		dss.put(new Entity(tent));
 		PreparedQuery pq = dss.prepare(new Query(tent));
 	
-		
 		ArrayList<Key> testKeys = new ArrayList<Key>();
 		for (int i = 0 ; i < 5 ; i++){
 			Entity e = new Entity(tent);
 			e.setProperty(tp, i);
 			testKeys.add(dss.put(e));
 		}
-		
-		
-		
+			
 		Query tq = new Query(tent);
 		pq = dss.prepare(tq);
 		List<Entity> resultList = pq.asList(FetchOptions.Builder.withDefaults());
@@ -139,14 +134,10 @@ public class DSSmokeTest {
 		}*/
 		
 	}
-	
 	public static void main(String args[]) throws EntityNotFoundException{
 		System.out.println("START MAIN");
 		DSSmokeTest st = new DSSmokeTest();
 		st.smoke();
 		st.cleanUp();
 	}
-	
-	
-
 }
