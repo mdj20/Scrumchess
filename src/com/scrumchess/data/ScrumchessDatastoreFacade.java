@@ -21,7 +21,7 @@ public class ScrumchessDatastoreFacade {
 		gf = new GameFacade(dss);
 		mf = new MoveFacade(dss);
 	}
-	public static ScrumchessDatastoreFacade getInstance(){ // Factory method constuctor
+	public static ScrumchessDatastoreFacade getInstance(){ // Factory method constructor
 		return new ScrumchessDatastoreFacade(
 				DatastoreServiceFactory.getDatastoreService()
 				);
@@ -31,14 +31,11 @@ public class ScrumchessDatastoreFacade {
 		ret = gf.getGame(id);
 		return ret;
 	}
-	
 	public Game commitMove(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum();
-		
 		try {
 			Game current = gf.getGame(em.getGame().getId());
-			
 			if( current.getFen().equals(em.getGame().getFen() ) && moveNum == current.getMoveNum() ){
 				current.setFen(em.getUpdateFen());
 				current.setMoveNum(moveNum+1);
@@ -53,15 +50,11 @@ public class ScrumchessDatastoreFacade {
 		}
 		return ret;
 	}
-	
-	
 	public Game commitMoveAtomic(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum(); // get move number of current game from evaluated move
-		
 		TransactionOptions options = TransactionOptions.Builder.withXG(true); // need to make transaction cross table
 		Transaction txn = dss.beginTransaction(options);
-		
 		// need to use a transaction to make sure this conforms to ACID...
 		try {
 			Game current = gf.getGameTransaction(txn,em.getGame().getId());
@@ -72,8 +65,7 @@ public class ScrumchessDatastoreFacade {
 				Move disjoint = mf.createDisjointMove(moveNum+1, em.getUserMoveInfo().getMoveAlgebraic());
 				mf.moveToGameTransaction(txn, gameKey, disjoint);
 				txn.commit();
-			}
-			
+			}	
 		} catch (EntityNotFoundException e) {
 			// wrong entity id must return value.
 			e.printStackTrace();
@@ -82,12 +74,9 @@ public class ScrumchessDatastoreFacade {
 			if(txn.isActive()){
 				txn.rollback();
 			}
-		}
-		
+		}	
 		return ret;
 	}
-	
-	
 	public EvaluatedMove evaluateMove(AuthenticatedUserMoveInfo aumi){
 		EvaluatedMove ret=null;
 		Game game;

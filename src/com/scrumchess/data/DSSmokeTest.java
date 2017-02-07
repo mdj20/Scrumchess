@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import com.alonsoruibal.chess.Board;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -47,8 +48,8 @@ public class DSSmokeTest {
 	private UserFacade uf;
 	private DatastoreService dss;
 	private GameFacade gf;
-	private static String testUserID_1 = "00001";
-	private static String testUserID_2 = "00002";
+	private static String testUserID_0 = "00001";
+	private static String testUserID_1 = "00002";
 	private ArrayList<Key> gameKeys;
 
 	DSSmokeTest(){
@@ -83,55 +84,57 @@ public class DSSmokeTest {
 		UserMoveInfo umi = new UserMoveInfo(user,move,gameid);
 		return  AuthenticatedUserMoveInfo.overrideToken(umi, user); 
 	}
+	private Game commitMoveLoop(String user, long id, String fen) throws EntityNotFoundException{
+		AuthenticatedUserMoveInfo amui = createAUMI(user,fen,id);
+		EvaluatedMove em = sdf.evaluateMove(amui);
+		Game game = sdf.commitMove(em);
+		return sdf.getGameById(id);
+	}
+	
 	public void smoke() throws EntityNotFoundException{
+		
+		CreateUser(testUserID_0);
 		CreateUser(testUserID_1);
-		CreateUser(testUserID_2);
-		User u1 = uf.getUser(testUserID_1);
+		User u1 = uf.getUser(testUserID_0);
 		System.out.println("HERE> "+u1.getId());
-		createGame(testUserID_1,testUserID_2);
+		createGame(testUserID_0,testUserID_1);
 		
 		long gameID = gameKeys.get(gameKeys.size()-1).getId();
 		System.out.println(gameID);
 		Game testGame = sdf.getGameById(gameID);
 		System.out.println(testGame.getFen());
 		
-		AuthenticatedUserMoveInfo aumi = createAUMI(testUserID_1,"e2e3",gameID);
-		EvaluatedMove em1 = sdf.evaluateMove(aumi);
+		ArrayList<String> fens = new ArrayList<String>();
+		Game retGame;
 		
-		System.out.println(em1.getUpdateFen());
-		Game retGame = commitMove(em1);
-		System.out.println(retGame.getFen());
+		retGame= commitMoveLoop(testUserID_0,gameID,"e2e3");
+		fens.add(retGame.getFen());
+		retGame= commitMoveLoop(testUserID_1,gameID,"a7a6");
+		fens.add(retGame.getFen()); 
+		retGame= commitMoveLoop(testUserID_0,gameID,"f1c4");
+		fens.add(retGame.getFen());
+		retGame= commitMoveLoop(testUserID_1,gameID,"a6a5");
+		fens.add(retGame.getFen());
+		retGame= commitMoveLoop(testUserID_0,gameID,"d1f3");
+		fens.add(retGame.getFen());
+		retGame= commitMoveLoop(testUserID_1,gameID,"h7h5");
+		fens.add(retGame.getFen());
+		retGame= commitMoveLoop(testUserID_0,gameID,"f3f7");
+		fens.add(retGame.getFen());
 		
-		AuthenticatedUserMoveInfo aumi2 = createAUMI(testUserID_2,"d7d5",gameID);
-		EvaluatedMove em2 = sdf.evaluateMove(aumi2);
+		for (String s:fens){
+			System.out.println(s);
 		
-		System.out.println(em2.getUpdateFen());
-		retGame = commitMove(em2);
-		System.out.println(retGame.getFen());
-	
-		String tent = "testEntity";
-		String tp = "testProperty";
-		
-		dss.put(new Entity(tent));
-		dss.put(new Entity(tent));
-		PreparedQuery pq = dss.prepare(new Query(tent));
-	
-		ArrayList<Key> testKeys = new ArrayList<Key>();
-		for (int i = 0 ; i < 5 ; i++){
-			Entity e = new Entity(tent);
-			e.setProperty(tp, i);
-			testKeys.add(dss.put(e));
+		Board testBoard = new Board();
+		testBoard.setFen(s);
+		System.out.println(testBoard.isEndGame());
 		}
-			
-		Query tq = new Query(tent);
-		pq = dss.prepare(tq);
-		List<Entity> resultList = pq.asList(FetchOptions.Builder.withDefaults());
-		System.out.println("SIZE: "+testKeys.size());
-		System.out.println("SIZE: "+resultList.size());
 		
-		/*for(Entity e : pq.asIterable()){
-			System.out.println("Type:" + e.getProperty(tp));
-		}*/
+		
+		
+		
+		
+		
 		
 	}
 	public static void main(String args[]) throws EntityNotFoundException{
