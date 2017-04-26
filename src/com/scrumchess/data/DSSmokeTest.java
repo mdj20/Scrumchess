@@ -92,18 +92,15 @@ public class DSSmokeTest {
 	}
 	
 	public void smoke() throws EntityNotFoundException{
-		
 		CreateUser(testUserID_0);
 		CreateUser(testUserID_1);
 		User u1 = uf.getUser(testUserID_0);
 		System.out.println("HERE> "+u1.getId());
 		createGame(testUserID_0,testUserID_1);
-		
 		long gameID = gameKeys.get(gameKeys.size()-1).getId();
 		System.out.println(gameID);
 		Game testGame = sdf.getGameById(gameID);
 		System.out.println(testGame.getFen());
-		
 		ArrayList<String> fens = new ArrayList<String>();
 		Game retGame;
 		
@@ -123,18 +120,11 @@ public class DSSmokeTest {
 		fens.add(retGame.getFen());
 		
 		for (String s:fens){
-			System.out.println(s);
-		
-		Board testBoard = new Board();
-		testBoard.setFen(s);
-		System.out.println(testBoard.isEndGame());
+			System.out.println( s );
+			Board testBoard = new Board();
+			testBoard.setFen( s );
+			System.out.println( testBoard.isEndGame() );
 		}
-		
-		
-		
-		
-		
-		
 		
 	}
 	public static void main(String args[]) throws EntityNotFoundException{

@@ -21,7 +21,7 @@ public class MoveValidator {
 	// sets move via algebraic notation
 	public boolean setMove(String an){
 		boolean ret = false;
-		int tempMove = Move.getFromString(board, an, true);
+		int tempMove = Move.getFromString(board, an, true); // Move is from com.alonsoruibal.chess
 		if ((ret = moveValid(tempMove))==true){
 			this.move=tempMove;
 			this.moveReady = true;
@@ -46,6 +46,12 @@ public class MoveValidator {
 		}
 		return ret;
 	}
+
+	// returns true if turn is white
+	public boolean isWhiteTurn(){
+		return board.getTurn();
+	}
+	
 	
 	// smoketesting methods 
 	public static void main(String args[]){
@@ -53,13 +59,18 @@ public class MoveValidator {
 	}
 	public static void smokeTest(){
 		System.out.println("SmokeTest");
-		MoveValidator mv = MoveValidator.createWithFen(Board.FEN_START_POSITION);
-		System.out.println(mv.getFen());
-		System.out.println(mv.setMove("e2e4"));
-		System.out.println(mv.doMove());
+		MoveValidator mv;
+		for(int i=0; i < 5 ; i++){
+			mv = MoveValidator.createWithFen(Board.FEN_START_POSITION);
+			char c = 'a';
+			int cint = (int) c;
+			c = (char) (cint+i);
+			System.out.println(c);
+			String moveStr = c+"2"+c+"4";
+			System.out.println(mv.getFen());
+			System.out.println(mv.setMove(moveStr));
+			System.out.println(mv.doMove());
+		}
 	}
-	// returns true if turn is white
-	public boolean isWhiteTurn(){
-		return board.getTurn();
-	}
+
 }
