@@ -21,16 +21,19 @@ public class ScrumchessDatastoreFacade {
 		gf = new GameFacade(dss);
 		mf = new MoveFacade(dss);
 	}
+	
 	public static ScrumchessDatastoreFacade getInstance(){ // Factory method constructor
 		return new ScrumchessDatastoreFacade(
 				DatastoreServiceFactory.getDatastoreService()
 				);
 	}
+	
 	public Game getGameById(long id) throws EntityNotFoundException{
 		Game ret;
 		ret = gf.getGame(id);
 		return ret;
 	}
+	
 	public Game commitMove(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum();

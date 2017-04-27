@@ -28,7 +28,8 @@ public class MoveValidator {
 		}
 		return ret;
 	}
-	public String doMove(){
+	// executes move returns fen representation of board after move.
+	public String doMove(){ 
 		String ret = badMove;
 		if (this.moveReady){
 			this.board.doMove(this.move);
@@ -51,26 +52,19 @@ public class MoveValidator {
 	public boolean isWhiteTurn(){
 		return board.getTurn();
 	}
-	
-	
-	// smoketesting methods 
+	// smoke testing methods 
 	public static void main(String args[]){
 		smokeTest();
 	}
 	public static void smokeTest(){
 		System.out.println("SmokeTest");
 		MoveValidator mv;
-		for(int i=0; i < 5 ; i++){
-			mv = MoveValidator.createWithFen(Board.FEN_START_POSITION);
-			char c = 'a';
-			int cint = (int) c;
-			c = (char) (cint+i);
-			System.out.println(c);
-			String moveStr = c+"2"+c+"4";
-			System.out.println(mv.getFen());
-			System.out.println(mv.setMove(moveStr));
-			System.out.println(mv.doMove());
-		}
+		mv = MoveValidator.createWithFen(Board.FEN_START_POSITION);
+		String move = AlgebraicNotation.createFromCoordinates(0,6, 0, 4);
+		mv.setMove(move);
+		System.out.println(move);
+		String fen = mv.doMove();
+		System.out.println(fen);	
 	}
 
 }
