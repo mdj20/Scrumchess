@@ -3,6 +3,8 @@ import java.util.Date;
 import com.google.appengine.api.datastore.*;
 public class Game {
 	
+	// class that will describe a game object in the data store....
+	
 	protected Game(String fen ,int moveNum, Date date){
 		this.fen = fen;
 		this.moveNum = moveNum;
@@ -76,8 +78,5 @@ public class Game {
 	private boolean isWhite;
 	private boolean isBlack;
 	private String white;
-	private String black;
-	
-	
-	
+	private String black;	
 }

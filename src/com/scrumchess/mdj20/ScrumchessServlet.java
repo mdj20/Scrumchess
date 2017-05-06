@@ -9,14 +9,12 @@ import com.google.gson.Gson;
 @SuppressWarnings("serial")
 public class ScrumchessServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		
 		BufferedReader input = req.getReader();
-		System.out.println(req.getRemoteHost());
 		
 		Gson gson = new Gson();
 		
-		
 		System.out.println("test");
+		int i = 0;
 		while(input.ready()){
 			System.out.println(input.readLine());
 		}
