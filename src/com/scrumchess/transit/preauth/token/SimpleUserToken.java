@@ -3,7 +3,7 @@ package com.scrumchess.transit.preauth.token;
 public class SimpleUserToken implements UserToken{
 	private String token;
 	
-	SimpleUserToken(String init){
+	public SimpleUserToken(String init){
 		token = init;
 	}
 

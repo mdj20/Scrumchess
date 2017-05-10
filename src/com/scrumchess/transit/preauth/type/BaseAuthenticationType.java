@@ -4,7 +4,7 @@ package com.scrumchess.transit.preauth.type;
 public abstract class BaseAuthenticationType implements AuthenticationType {
 	public static final int AUTH_TYPE_GOOGLE = 1;
 	private int type = -1;
-	BaseAuthenticationType(int set){
+	protected BaseAuthenticationType(int set){
 		this.type = set;
 	}
 	

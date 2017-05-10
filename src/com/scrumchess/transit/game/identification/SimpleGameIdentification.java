@@ -1,13 +1,12 @@
-package com.scrumchess.transit;
+package com.scrumchess.transit.game.identification;
 
 public class SimpleGameIdentification implements GameIdentification {
 
 	private String gameID;
 
-	SimpleGameIdentification(String id){
+	protected SimpleGameIdentification(String id){
 		this.gameID = id;
 	}
-	
 	/* (non-Javadoc)
 	 * @see com.mdj20.scrumchessswing.tansit.data.GameIdentification#getGameID()
 	 */

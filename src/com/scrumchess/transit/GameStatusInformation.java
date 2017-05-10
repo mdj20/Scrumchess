@@ -1,5 +1,7 @@
 package com.scrumchess.transit;
 
+import com.scrumchess.transit.game.identification.SimpleGameIdentification;
+
 public class GameStatusInformation extends SimpleGameIdentification{
 
 	public static final int USER_WHITE = 1;
