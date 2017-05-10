@@ -14,7 +14,6 @@ public class SimpleUserPreAuthentiation extends BaseAuthenticationType implement
 
 	@Override
 	public String getUserToken() {
-		// TODO Auto-generated method stub
 		return simpleUserToken.getUserToken();
 	}
 }

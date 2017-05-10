@@ -1,7 +1,6 @@
 package com.scrumchess.transit.game.playerconfiguration;
 
 public class SimplePlayerConfiguration extends AbstractPlayerConfiguration implements PlayerConfiguration {
-
 	private int value;
 	
 	SimplePlayerConfiguration(int setValue) {
@@ -13,5 +12,4 @@ public class SimplePlayerConfiguration extends AbstractPlayerConfiguration imple
 	public int getConfigurationValue() {
 		return value;
 	}
-
 }
