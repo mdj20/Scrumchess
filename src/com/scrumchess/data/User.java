@@ -8,7 +8,7 @@ public class User {
 	private Date joined;
 	private Date lastLogin;
 
-	protected User(String id){
+	public User(String id){
 		this.id = id;
 		Date date = new Date();
 		this.name = "";

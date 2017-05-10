@@ -44,7 +44,7 @@ public class MoveFacade {
 	
 	protected ArrayList<Move> getMoves(Key game){
 		ArrayList<Move> ret = new ArrayList<Move>();
-		Query q = new Query().setAncestor(game);
+		Query q = new Query(_kind).setAncestor(game);
 		PreparedQuery pq = dss.prepare(q);
 		ret = toMove(pq.asIterable());
 		return ret;
@@ -65,7 +65,7 @@ public class MoveFacade {
 	}
  	protected Move toMove(Entity entity){
 		Move move = new Move( (String) entity.getProperty(_moveString),
-				(int) entity.getProperty(_number),
+				(int) (long) entity.getProperty(_number),
 				/*
 				(int) entity.getProperty(_from),
 				(int) entity.getProperty(_to),

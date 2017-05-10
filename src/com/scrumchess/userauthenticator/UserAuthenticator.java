@@ -1,15 +1,17 @@
-package com.scrumchess.userauthentication;
+package com.scrumchess.userauthenticator;
 import java.util.Date;
 import com.scrumchess.mdj20.GoogleAuthHelper;
+import com.scrumchess.transit.preauth.UserPreAuthentication;
+import com.scrumchess.transit.preauth.type.BaseAuthenticationType;
 
 public class UserAuthenticator {
 	private GoogleAuthHelper googleHelper;
-	public static AuthenticatedUserInfo authenticateUser(UserAuth userInfo){
+	public static AuthenticatedUserInfo authenticateUser(UserPreAuthentication userInfo){
 		AuthenticatedUserInfo ret = null;
 		String retID = null;
 		
 		// Auth control and branch
-		if (userInfo.getAuthenticationType()==UserAuthenticationType.AUTH_TYPE_GOOGLE){
+		if (userInfo.getAuthenticationType()==BaseAuthenticationType.AUTH_TYPE_GOOGLE){
 			retID = googleAuth(userInfo);
 		}
 		
@@ -21,7 +23,7 @@ public class UserAuthenticator {
 	}
 	
 	// this is a bad method must develop later....
-	private static String googleAuth(UserAuth userInfo){
+	private static String googleAuth(UserPreAuthentication userInfo){
 		return GoogleAuthHelper.getSubjectFromEndpoint(userInfo.getUserToken());
 	}	
 }

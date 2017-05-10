@@ -5,6 +5,7 @@ package com.scrumchess.data;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,6 +49,7 @@ public class DSSmokeTest {
 	private UserFacade uf;
 	private DatastoreService dss;
 	private GameFacade gf;
+	private MoveFacade mf;
 	private static String testUserID_0 = "00001";
 	private static String testUserID_1 = "00002";
 	private ArrayList<Key> gameKeys;
@@ -58,6 +60,7 @@ public class DSSmokeTest {
 		  dss = DatastoreServiceFactory.getDatastoreService();
 		  uf = new UserFacade(dss);
 		  gf = new GameFacade(dss);
+		  mf = new MoveFacade(dss);
 		  gameKeys = new ArrayList<Key>();
 	}
 	private void cleanUp(){
@@ -87,11 +90,15 @@ public class DSSmokeTest {
 	private Game commitMoveLoop(String user, long id, String fen) throws EntityNotFoundException{
 		AuthenticatedUserMoveInfo amui = createAUMI(user,fen,id);
 		EvaluatedMove em = sdf.evaluateMove(amui);
-		Game game = sdf.commitMoveAtomic(em);
+		Game game = sdf.commitMove(em);
 		return sdf.getGameById(id);
 	}
 	
-	public void smoke() throws EntityNotFoundException{
+	private ArrayList<Move> getMoves(long id){
+		return mf.getMoves(gf.getKeyFromID(id));
+	}
+	
+	public void smoke() throws EntityNotFoundException, InterruptedException{
 		CreateUser(testUserID_0);
 		CreateUser(testUserID_1);
 		User u1 = uf.getUser(testUserID_0);
@@ -126,8 +133,22 @@ public class DSSmokeTest {
 			System.out.println( testBoard.isEndGame() );
 		}
 		
+		
+		ArrayList<Move> moves = getMoves(gameID);
+		
+		Collections.sort(moves);
+		
+		System.out.println("NUMMOVES: "+moves.size());
+		
+		for(Move m:moves){
+			System.out.println(m.getNumber()+" - "+m.getMoveString()+" - "+m.getDate());
+		}
+		
+		Game g = gf.getGame(gameID);
+		
+		
 	}
-	public static void main(String args[]) throws EntityNotFoundException{
+	public static void main(String args[]) throws EntityNotFoundException, InterruptedException{
 		System.out.println("START MAIN");
 		DSSmokeTest st = new DSSmokeTest();
 		st.smoke();

@@ -16,6 +16,7 @@ public class ScrumchessDatastoreFacade {
 	private DatastoreService dss;
 	private GameFacade gf;
 	private MoveFacade mf;
+	
 	private ScrumchessDatastoreFacade( DatastoreService dss ){
 		this.dss = dss;
 		gf = new GameFacade(dss);
@@ -37,6 +38,7 @@ public class ScrumchessDatastoreFacade {
 	public Game commitMove(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum();
+		System.out.println("move: "+moveNum);
 		try {
 			Game current = gf.getGame(em.getGame().getId());
 			if( current.getFen().equals(em.getGame().getFen() ) && moveNum == current.getMoveNum() ){
@@ -80,6 +82,7 @@ public class ScrumchessDatastoreFacade {
 		}	
 		return ret;
 	}
+	
 	public EvaluatedMove evaluateMove(AuthenticatedUserMoveInfo aumi){
 		EvaluatedMove ret=null;
 		Game game;

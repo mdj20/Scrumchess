@@ -10,7 +10,7 @@ public class Move implements Comparable<Move>{
 	private Date date;
 
 	
-	protected Move(String moveString, int number,/* int from, int to,*/ Date date){
+	Move(String moveString, int number,/* int from, int to,*/ Date date){
 		this.moveString = moveString;
 		this.number = number;
 		//this.from = from;
