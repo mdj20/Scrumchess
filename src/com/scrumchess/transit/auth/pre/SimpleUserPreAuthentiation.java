@@ -1,7 +1,7 @@
-package com.scrumchess.transit.preauth;
+package com.scrumchess.transit.auth.pre;
 
-import com.scrumchess.transit.preauth.token.SimpleUserToken;
-import com.scrumchess.transit.preauth.type.BaseAuthenticationType;
+import com.scrumchess.transit.auth.pre.token.SimpleUserToken;
+import com.scrumchess.transit.auth.pre.type.BaseAuthenticationType;
 
 public class SimpleUserPreAuthentiation extends BaseAuthenticationType implements UserPreAuthentication {
 

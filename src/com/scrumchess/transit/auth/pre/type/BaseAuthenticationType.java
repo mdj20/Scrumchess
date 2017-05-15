@@ -1,4 +1,4 @@
-package com.scrumchess.transit.preauth.type;
+package com.scrumchess.transit.auth.pre.type;
 
 // base class for all userAUthentication information, it will contain a centralized set of integers as identifiers for user Authentication.
 public abstract class BaseAuthenticationType implements AuthenticationType {

@@ -4,7 +4,7 @@ public class SimpleMoveAlgebraic implements MoveAlgebraic {
 	private String move;
 	private int moveNumber;
 
-	SimpleMoveAlgebraic(String initMove, int number){
+	public SimpleMoveAlgebraic(String initMove, int number){
 		move=initMove;
 		moveNumber = number;
 	}

@@ -1,8 +1,8 @@
 package com.scrumchess.userauthenticator;
 import java.util.Date;
 import com.scrumchess.mdj20.GoogleAuthHelper;
-import com.scrumchess.transit.preauth.UserPreAuthentication;
-import com.scrumchess.transit.preauth.type.BaseAuthenticationType;
+import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.transit.auth.pre.type.BaseAuthenticationType;
 
 public class UserAuthenticator {
 	private GoogleAuthHelper googleHelper;
