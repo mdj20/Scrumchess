@@ -32,21 +32,6 @@ public class GoogleAuthHelper {
 		return ret;
 	}
 	
-	/*
-	public static int getSubject(String idToken){
-		int ret = -1;
-		
-		JacksonFactory jacksonFactory = new JacksonFactory();
-		
-		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder
-				(UrlFetchTransport.getDefaultInstance(),jacksonFactory)
-		
-		
-		
-		return ret;
-	}
-	*/
-	
 	// takes idToken and returns JsonObject that represents Google user ID Token claims
 	private static JsonObject parseObjectViaEndpoint(String idToken) {
 		JsonObject ret = null;

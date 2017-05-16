@@ -7,7 +7,7 @@ public class SimpleUserPreAuthentiation extends BaseAuthenticationType implement
 
 	private SimpleUserToken simpleUserToken;
 	
-	SimpleUserPreAuthentiation(String token, int set) {
+	public SimpleUserPreAuthentiation(String token, int set) {
 		super(set);
 		simpleUserToken = new SimpleUserToken(token);
 	}
