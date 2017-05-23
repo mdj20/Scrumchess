@@ -7,15 +7,16 @@ import com.scrumchess.transit.game.identification.GameIdentification;
 import com.scrumchess.transit.game.identification.GameIdentificationInteger;
 import com.scrumchess.transit.game.identification.SimpleGameIndentificationInteger;
 
-public class GameRequest extends AbstractClientRequest implements ClientRequest,GameIdentificationInteger {
-
+public class GameInfoRequest extends AbstractClientRequest implements ClientRequest,GameIdentificationInteger {
 	private SimpleUserPreAuthentiation simpleUserPreAuth;
 	private SimpleGameIndentificationInteger simpleGameIdentificationInteger;
+	private int requestType;
 	
-	public GameRequest(String userToken, int authType, String gameID){
+	public GameInfoRequest(String userToken, int authType, String gameID){
 		super(new Date());
 		simpleUserPreAuth = new SimpleUserPreAuthentiation(userToken, authType);
 		simpleGameIdentificationInteger = new SimpleGameIndentificationInteger(gameID);
+		requestType = super.GAME_REQUEST;
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public class GameRequest extends AbstractClientRequest implements ClientRequest,
 
 	@Override
 	public int getRequestType() {
-		return super.GAME_REQUEST;
+		return requestType;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ public abstract class AbstractClientRequest implements ClientRequest {
 	private Date time;
 	
 	public AbstractClientRequest(Date date){
-		time =date;
+		time=date;
 	}
 	public Date getRequestDate() {
 		return time;
