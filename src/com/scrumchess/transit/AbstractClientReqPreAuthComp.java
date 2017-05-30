@@ -1,5 +1,11 @@
 package com.scrumchess.transit;
 
+/*	CLient request and user preauthorization composite used for many authentication required 
+ * 
+ */
+
+
+
 import java.util.Date;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 

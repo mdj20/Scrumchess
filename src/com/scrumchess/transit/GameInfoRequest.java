@@ -24,7 +24,7 @@ public class GameInfoRequest extends AbstractClientRequest implements ClientRequ
 		return simpleUserPreAuth.getUserToken();
 	}
 
-	@Override
+	@Override 
 	public int getAuthenticationType() {
 		return simpleUserPreAuth.getAuthenticationType();
 	}
