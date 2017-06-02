@@ -2,11 +2,11 @@ package com.scrumchess.transit;
 
 import java.util.Date;
 
-public class MoveSendRequest extends AbstractClientRequest implements ClientRequest {
+public class MoveSendRequest extends AbstractClientReqPreAuthComp implements ClientRequest {
 	
 
 	public MoveSendRequest(Date date) {
-		super(date);
+		super(AbstractClientRequest.SEND_MOVE_REQUEST, date, userAuthenticationObject);
 	}
 
 	@Override

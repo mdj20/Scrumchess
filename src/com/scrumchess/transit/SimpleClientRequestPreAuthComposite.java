@@ -14,6 +14,4 @@ public class SimpleClientRequestPreAuthComposite extends AbstractClientReqPreAut
 		return new SimpleClientRequestPreAuthComposite(type,new Date(), upaObject);
 	}
 	
-	
-	
 }
