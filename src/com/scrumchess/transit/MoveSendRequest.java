@@ -2,25 +2,30 @@ package com.scrumchess.transit;
 
 import java.util.Date;
 
-public class MoveSendRequest extends AbstractClientReqPreAuthComp implements ClientRequest {
+import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.transit.move.MoveAlgebraic;
+import com.scrumchess.transit.move.OrdinalMove;
+import com.scrumchess.transit.move.SimpleMoveAlgebraic;
+
+public class MoveSendRequest extends GameInfoRequest implements MoveAlgebraic {
+	private MoveAlgebraic moveAlgebraic;
+	public MoveSendRequest(GameInfoRequest gir, String move, int moveNumber){
+		super(gir);
+		moveAlgebraic = new SimpleMoveAlgebraic(move, moveNumber);
+	}
 	
-
-	public MoveSendRequest(Date date) {
-		super(AbstractClientRequest.SEND_MOVE_REQUEST, date, userAuthenticationObject);
+	@Override
+	public int getMoveNumber() {
+		return moveAlgebraic.getMoveNumber();
 	}
 
 	@Override
-	public String getUserToken() {
-		return null;
+	public int compareTo(OrdinalMove o) {
+		return moveAlgebraic.compareTo(o);
 	}
 
 	@Override
-	public int getAuthenticationType() {
-		return 0;
-	}
-
-	@Override
-	public int getRequestType() {
-		return 0;
-	}
+	public String getMoveAlgebraic() {
+		return moveAlgebraic.getMoveAlgebraic();
+	}	
 }

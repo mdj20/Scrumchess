@@ -47,6 +47,12 @@ public class SimpleUserAuthenticationObject implements UserAuthenticationObject{
 		this.isA = true;
 		return isAuthenticated();
 	}
+
+
+	@Override
+	public UserPreAuthentication getUserPreAuthentication() {
+		return userPreAuthentication;
+	}
 	
 
 }

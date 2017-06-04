@@ -61,4 +61,8 @@ public abstract class AbstractClientReqPreAuthComp extends AbstractClientRequest
 	public boolean isAuthenticated() {
 		return userAuthenticationObject.isAuthenticated();
 	}
+	
+	public UserPreAuthentication getUserPreAuthentication(){
+		return userAuthenticationObject.getUserPreAuthentication();
+	}
 }
