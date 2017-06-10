@@ -7,7 +7,6 @@ public abstract class BaseAuthenticationType implements AuthenticationType {
 	protected BaseAuthenticationType(int set){
 		this.type = set;
 	}
-	
 	public int getAuthenticationType(){
 		return type;
 	}

@@ -41,9 +41,6 @@ public class AjaxUserSignInServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	
-			
-		
 	}
 	
 	/*

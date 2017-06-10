@@ -362,8 +362,6 @@ var _Control_proto = {};  // Control prototype!
 
 _Control_proto.squareClick = function( clicked ){
 	
-	
-	
 	// if this is the first click
 	if ( this.s1 != square && !this.selected ){
 		this.s1 = clicked;

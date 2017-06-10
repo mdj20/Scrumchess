@@ -1,14 +1,23 @@
 package com.scrumchess.authentication.google;
 
+import com.scrumchess.authentication.SimpleAuthentication;
 import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.authentication.UserAuthenticator;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 
-public class GoogleAuthticator implements UserAuthenticator {
+public class GoogleAuthenticator implements UserAuthenticator {
 
 	@Override
 	public boolean Authenticate(UserAuthenticationObject userAuthenticationObject) {
-		return false;
+		boolean ret = false;
+		String sub = GoogleAuthenticatorHelperWrapper.getSubjectFromEndpoint(userAuthenticationObject.getUserToken());
+		if (sub!=null){ 
+			// auth success
+			
+			userAuthenticationObject.setAuthentication(new SimpleAuthentication(Long.parseLong(sub)));
+			
+		}
+		return ret;
 	}
 
 	@Override

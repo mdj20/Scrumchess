@@ -2,18 +2,18 @@ package com.scrumchess.authentication;
 
 import java.util.Date;
 
-public class SimpleAuthentication implements Authentication {
-	private long id;
+public class SimpleAuthentication<T> implements Authentication<T> {
+	private String id;
 	private Date date;
-	protected SimpleAuthentication(long id){
-		this(id, new Date());
+	public SimpleAuthentication(long id){
+		this(String, new Date());
 	}
-	protected SimpleAuthentication(long id, Date date){
+	public SimpleAuthentication(String id, Date date){
 		this.id=id;
 		this.date = date;
 	}
 	@Override
-	public long getUserIdentification() {
+	public T getUserIdentification() {
 		return id;
 	}
 

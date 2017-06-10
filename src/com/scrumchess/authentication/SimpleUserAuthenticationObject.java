@@ -5,9 +5,9 @@ import java.util.Date;
 import com.scrumchess.transit.auth.pre.SimpleUserPreAuthentication;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 
-public class SimpleUserAuthenticationObject implements UserAuthenticationObject{
+public class SimpleUserAuthenticationObject<T> implements UserAuthenticationObject<T>{
 	
-	private Authentication authenticaton;
+	private Authentication<T> authenticaton;
 	private UserPreAuthentication userPreAuthentication;
 	private boolean isA = false;
 	
@@ -27,7 +27,7 @@ public class SimpleUserAuthenticationObject implements UserAuthenticationObject{
 	}
 
 	@Override
-	public long getUserIdentification() {
+	public T getUserIdentification() {
 		return authenticaton.getUserIdentification();
 	}
 

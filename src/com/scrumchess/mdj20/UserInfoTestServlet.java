@@ -22,8 +22,7 @@ public class UserInfoTestServlet  extends HttpServlet{
 		String subject = GoogleAuthHelper.getSubjectFromEndpoint(idToken);
 		System.out.println("Google Subject:" + subject);	
 		ScrumchessDatastore.userSignIn(subject);
-
-		ScrumchessDatastore.userNewGame(subject);
+		ScrumchessDatastore.userNewGameWhite(subject);
 	
 	}
 	
