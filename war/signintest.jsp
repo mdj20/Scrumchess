@@ -42,11 +42,7 @@
 <!-- insert game controls  -->
 
 <div id="statusBox">
-
-	
-
 </div>
-
 
 </div>
 <button id="button">Start Animation</button>

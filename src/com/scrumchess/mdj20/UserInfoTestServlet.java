@@ -23,7 +23,6 @@ public class UserInfoTestServlet  extends HttpServlet{
 		System.out.println("Google Subject:" + subject);	
 		ScrumchessDatastore.userSignIn(subject);
 		ScrumchessDatastore.userNewGameWhite(subject);
-	
 	}
 	
 	@Override 

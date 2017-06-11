@@ -43,7 +43,7 @@ public abstract class AbstractClientReqPreAuthComp extends AbstractClientRequest
 	}
 
 	@Override
-	public long getUserIdentification() {
+	public String getUserIdentification() {
 		return userAuthenticationObject.getUserIdentification();
 	}
 
