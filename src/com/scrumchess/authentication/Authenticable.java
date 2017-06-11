@@ -1,5 +1,5 @@
 package com.scrumchess.authentication;
 
-public interface Authenticable<_internalType> {
-	public boolean setAuthentication(Authentication<_internalType> authentication);
+public interface Authenticable<_InternalType> {
+	public boolean setAuthentication(Authentication<_InternalType> authentication);
 }

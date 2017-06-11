@@ -5,13 +5,13 @@ import java.util.Date;
 import com.scrumchess.transit.auth.pre.SimpleUserPreAuthentication;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 
-public class SimpleUserAuthenticationObject implements UserAuthenticationObject<String>{
+public class StringBaseUserAuthenticationObject implements UserAuthenticationObject<String>{
 	
 	private Authentication<String> authenticaton;
 	private UserPreAuthentication userPreAuthentication;
 	private boolean isA = false;
 	
-	public SimpleUserAuthenticationObject(UserPreAuthentication userPreAuthentication ){
+	public StringBaseUserAuthenticationObject(UserPreAuthentication userPreAuthentication ){
 		this.userPreAuthentication = userPreAuthentication;
 	}
 	
@@ -42,7 +42,7 @@ public class SimpleUserAuthenticationObject implements UserAuthenticationObject<
 	}
 
 	@Override
-	public boolean setAuthentication(Authentication authentication) {
+	public boolean setAuthentication(Authentication<String> authentication) {
 		this.authenticaton = authentication;
 		this.isA = true;
 		return isAuthenticated();
@@ -53,6 +53,4 @@ public class SimpleUserAuthenticationObject implements UserAuthenticationObject<
 	public UserPreAuthentication getUserPreAuthentication() {
 		return userPreAuthentication;
 	}
-	
-
 }

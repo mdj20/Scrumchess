@@ -5,17 +5,15 @@ import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.authentication.UserAuthenticator;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 
-public class GoogleAuthenticator implements UserAuthenticator {
+public class GoogleAuthenticatorString implements UserAuthenticator<String> {
 
 	@Override
-	public boolean Authenticate(UserAuthenticationObject userAuthenticationObject) {
+	public boolean Authenticate(UserAuthenticationObject<String> userAuthenticationObject) {
 		boolean ret = false;
 		String sub = GoogleAuthenticatorHelperWrapper.getSubjectFromEndpoint(userAuthenticationObject.getUserToken());
 		if (sub!=null){ 
 			// auth success
-			
-			userAuthenticationObject.setAuthentication(new SimpleAuthentication(Long.parseLong(sub)));
-			
+			userAuthenticationObject.setAuthentication(new SimpleAuthentication(sub));
 		}
 		return ret;
 	}

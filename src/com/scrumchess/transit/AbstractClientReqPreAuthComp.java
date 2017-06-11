@@ -9,16 +9,16 @@ package com.scrumchess.transit;
 import java.util.Date;
 
 import com.scrumchess.authentication.Authentication;
-import com.scrumchess.authentication.SimpleUserAuthenticationObject;
+import com.scrumchess.authentication.StringBaseUserAuthenticationObject;
 import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 
-public abstract class AbstractClientReqPreAuthComp extends AbstractClientRequest implements ClientRequest, UserAuthenticationObject{
-	private UserAuthenticationObject userAuthenticationObject;
+public abstract class AbstractClientReqPreAuthComp extends AbstractClientRequest implements ClientRequest, UserAuthenticationObject<String>{
+	private StringBaseUserAuthenticationObject userAuthenticationObject;
 	private int requestType;
 	AbstractClientReqPreAuthComp(int requestType, Date date, UserPreAuthentication upaType) {
 		super(date);
-		userAuthenticationObject = new SimpleUserAuthenticationObject(upaType);
+		userAuthenticationObject = new StringBaseUserAuthenticationObject(upaType);
 		this.requestType = requestType;
 	}
 
@@ -53,7 +53,7 @@ public abstract class AbstractClientReqPreAuthComp extends AbstractClientRequest
 	}
 
 	@Override
-	public boolean setAuthentication(Authentication authentication) {
+	public boolean setAuthentication(Authentication<String> authentication) {
 		return userAuthenticationObject.setAuthentication(authentication);
 	}
 
@@ -62,6 +62,7 @@ public abstract class AbstractClientReqPreAuthComp extends AbstractClientRequest
 		return userAuthenticationObject.isAuthenticated();
 	}
 	
+	@Override
 	public UserPreAuthentication getUserPreAuthentication(){
 		return userAuthenticationObject.getUserPreAuthentication();
 	}
