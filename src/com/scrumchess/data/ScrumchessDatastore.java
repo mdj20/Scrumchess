@@ -8,8 +8,7 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 
 public class ScrumchessDatastore {
-	
-	
+
 	public static void userNewGameWhite(String id){
 		DatastoreService dss = DatastoreServiceFactory.getDatastoreService();
 		GameFacade gp = new GameFacade(dss);

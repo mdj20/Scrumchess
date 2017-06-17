@@ -90,7 +90,7 @@ public class DSSmokeTest {
 	private Game commitMoveLoop(String user, long id, String fen) throws EntityNotFoundException{
 		AuthenticatedUserMoveInfo amui = createAUMI(user,fen,id);
 		EvaluatedMove em = sdf.evaluateMove(amui);
-		Game game = sdf.commitMove(em);
+		Game game = sdf.commitMoveAtomic(em);
 		return sdf.getGameById(id);
 	}
 	

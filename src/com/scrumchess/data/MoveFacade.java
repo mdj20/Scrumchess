@@ -13,8 +13,10 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
 
 public class MoveFacade {
+	// Field identifiers for Google datastore
 	protected static final String _kind = "move";
 	protected static final String _moveString = "moveString";
+	protected static final String _resultFen = "resultFen";
 	protected static final String _number = "number";
 	protected static final String _date = "date";	
 	private DatastoreService dss;

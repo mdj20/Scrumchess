@@ -58,8 +58,7 @@ public class ScrumchessDatastoreFacade {
 	public Game commitMoveAtomic(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum(); // get move number of current game from evaluated move
-		TransactionOptions options = TransactionOptions.Builder.withXG(true); // need to make transaction cross table
-		Transaction txn = dss.beginTransaction(options);
+		Transaction txn = dss.beginTransaction();
 		// need to use a transaction to make sure this conforms to ACID...
 		try {
 			Game current = gf.getGameTransaction(txn,em.getGame().getId());
