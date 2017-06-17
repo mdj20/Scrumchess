@@ -4,7 +4,6 @@ import com.google.appengine.api.datastore.*;
 public class Game {
 	
 	// class that will describe a game object in the data store....
-	
 	protected Game(String fen ,int moveNum, Date date){
 		this.fen = fen;
 		this.moveNum = moveNum;
