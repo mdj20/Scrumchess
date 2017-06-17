@@ -93,7 +93,6 @@ public class DSSmokeTest {
 		Game game = sdf.commitMoveAtomic(em);
 		return sdf.getGameById(id);
 	}
-	
 	private ArrayList<Move> getMoves(long id){
 		return mf.getMoves(gf.getKeyFromID(id));
 	}
@@ -110,7 +109,6 @@ public class DSSmokeTest {
 		System.out.println(testGame.getFen());
 		ArrayList<String> fens = new ArrayList<String>();
 		Game retGame;
-		
 		retGame= commitMoveLoop(testUserID_0,gameID,"e2e3");
 		fens.add(retGame.getFen());
 		retGame= commitMoveLoop(testUserID_1,gameID,"a7a6");
@@ -125,28 +123,19 @@ public class DSSmokeTest {
 		fens.add(retGame.getFen());
 		retGame= commitMoveLoop(testUserID_0,gameID,"f3f7");
 		fens.add(retGame.getFen());
-		
 		for (String s:fens){
 			System.out.println( s );
 			Board testBoard = new Board();
 			testBoard.setFen( s );
 			System.out.println( testBoard.isEndGame() );
 		}
-		
-		
 		ArrayList<Move> moves = getMoves(gameID);
-		
 		Collections.sort(moves);
-		
 		System.out.println("NUMMOVES: "+moves.size());
-		
 		for(Move m:moves){
 			System.out.println(m.getNumber()+" - "+m.getMoveString()+" - "+m.getDate());
 		}
-		
 		Game g = gf.getGame(gameID);
-		
-		
 	}
 	public static void main(String args[]) throws EntityNotFoundException, InterruptedException{
 		System.out.println("START MAIN");

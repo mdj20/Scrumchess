@@ -13,36 +13,36 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
 
 public class MoveFacade {
+	
 	// Field identifiers for Google datastore
 	protected static final String _kind = "move";
 	protected static final String _moveString = "moveString";
-	protected static final String _resultFen = "resultFen";
 	protected static final String _number = "number";
 	protected static final String _date = "date";	
 	private DatastoreService dss;
+	
 	protected MoveFacade(DatastoreService dss){
 		this.dss = dss;
 	}
 	
-	protected Key moveToGame(Key game, String string, int num /* int from, int to */){
+	protected Key moveToParent(Key game, String string, int num ){
 		Key ret;
 		Date date = new Date();
 		Move move = new Move(string,num, date);
-		Entity entity = toEntity(move,game);
+		Entity entity = toChildEntity(move,game);
 		ret = dss.put(entity);
 		return ret;
 	}
 	
-	protected Key moveToGame(Key game,Move move){
-		Entity entity = toEntity(move,game);
+	protected Key moveToParent(Key game,Move move){
+		Entity entity = toChildEntity(move,game);
 		return dss.put(entity);
 	}
 	
-	protected Key moveToGameTransaction(Transaction txn, Key game, Move move){
-		Entity entity = toEntity(move,game);
+	protected Key moveToParentTransaction(Transaction txn, Key game, Move move){
+		Entity entity = toChildEntity(move,game);
 		return dss.put(txn,entity);
 	}
-	
 	
 	protected ArrayList<Move> getMoves(Key game){
 		ArrayList<Move> ret = new ArrayList<Move>();
@@ -68,23 +68,15 @@ public class MoveFacade {
  	protected Move toMove(Entity entity){
 		Move move = new Move( (String) entity.getProperty(_moveString),
 				(int) (long) entity.getProperty(_number),
-				/*
-				(int) entity.getProperty(_from),
-				(int) entity.getProperty(_to),
-				*/
 				(Date)entity.getProperty(_date)
 				);
 		return move;
 	}
 	
-	protected Entity toEntity(Move move, Key game){
+	protected Entity toChildEntity(Move move, Key game){
 		Entity entity = new Entity(_kind,game);
 		entity.setProperty(_moveString, move.getMoveString());
 		entity.setProperty(_number,move.getNumber());
-		/*
-		entity.setProperty(_from,move.getFrom());
-		entity.setProperty(_to,move.getTo());
-		*/
 		entity.setProperty(_date,move.getDate());
 		return entity;
 	}

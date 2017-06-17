@@ -46,7 +46,7 @@ public class ScrumchessDatastoreFacade {
 				current.setMoveNum(moveNum+1);
 				Key gameKey = gf.updateGame( current, current.getId());
 				Move disjoint = mf.createDisjointMove(moveNum+1, em.getUserMoveInfo().getMoveAlgebraic());
-				mf.moveToGame( gameKey, disjoint);
+				mf.moveToParent( gameKey, disjoint);
 			}
 		}
 		catch ( EntityNotFoundException e){
@@ -67,7 +67,7 @@ public class ScrumchessDatastoreFacade {
 				current.setMoveNum(moveNum+1);
 				Key gameKey = gf.updateGameTransaction(txn, current, current.getId());
 				Move disjoint = mf.createDisjointMove(moveNum+1, em.getUserMoveInfo().getMoveAlgebraic());
-				mf.moveToGameTransaction(txn, gameKey, disjoint);
+				mf.moveToParentTransaction(txn, gameKey, disjoint);
 				txn.commit();
 			}	
 		} catch (EntityNotFoundException e) {
