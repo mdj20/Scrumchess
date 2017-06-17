@@ -1,4 +1,4 @@
-package com.scrumchess.transit;
+package com.scrumchess.transit.request;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import com.scrumchess.transit.game.identification.SimpleGameIndentificationInteg
 public class GameInfoRequest extends AbstractClientReqPreAuthComp implements GameIdentificationInteger {
 	private SimpleGameIndentificationInteger simpleGameIdentificationInteger;
 	public GameInfoRequest(UserPreAuthentication upe, String gameID){
-		super(AbstractClientRequest.GAME_REQUEST,new Date(),upe);	
+		super(AbstractClientRequest.GAME_INFO_REQUEST,new Date(),upe);	
 		simpleGameIdentificationInteger = new SimpleGameIndentificationInteger(gameID);
 	}
 	

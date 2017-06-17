@@ -1,4 +1,4 @@
-package com.scrumchess.transit;
+package com.scrumchess.transit.request;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.scrumchess.transit;
+package com.scrumchess.transit.request;
 
 /*	CLient request and user preauthorization composite used for many authentication required 
  * 

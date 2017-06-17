@@ -18,4 +18,6 @@ public class GameStatusInformation extends SimpleGameIdentification{
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
 }
