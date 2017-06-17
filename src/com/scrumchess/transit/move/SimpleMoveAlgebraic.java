@@ -15,13 +15,13 @@ public class SimpleMoveAlgebraic implements MoveAlgebraic {
 	}
 
 	@Override
-	public int getMoveNumber() {
+	public int getHalfMoveNumber() {
 		return moveNumber;
 	}
 
 	@Override
 	public int compareTo(OrdinalMove o) {
-		return this.getMoveNumber()-o.getMoveNumber();
+		return this.getHalfMoveNumber()-o.getHalfMoveNumber();
 	}
 
 }

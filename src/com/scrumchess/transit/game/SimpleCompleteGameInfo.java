@@ -11,15 +11,15 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	private GameState gameState;
 	private MoveList moveList;
 	private GameIdentificationInteger gameIdentificationInteger;
-
+	
 	@Override
 	public String getFen() {
 		return gameState.getFen();
 	}
 
 	@Override
-	public int getMoveNumber() {
-		return gameState.getMoveNumber();
+	public int getHalfMoveNumber() {
+		return gameState.getHalfMoveNumber();
 	}
 
 	@Override

@@ -15,8 +15,8 @@ public class MoveSendRequest extends GameInfoRequest implements MoveAlgebraic {
 	}
 	
 	@Override
-	public int getMoveNumber() {
-		return moveAlgebraic.getMoveNumber();
+	public int getHalfMoveNumber() {
+		return moveAlgebraic.getHalfMoveNumber();
 	}
 
 	@Override

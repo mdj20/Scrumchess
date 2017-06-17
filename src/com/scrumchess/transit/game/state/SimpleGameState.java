@@ -12,7 +12,7 @@ public class SimpleGameState implements GameState{
 		return fen;
 	}
 	@Override
-	public int getMoveNumber(){
+	public int getHalfMoveNumber(){
 		return moveNum;
 	}	
 }

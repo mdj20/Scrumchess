@@ -24,7 +24,7 @@ public class MoveTest {
 
 		System.out.println(testComparable(moves));
 		for(MoveAlgebraic ma:moves){
-			System.out.println(ma.getMoveNumber());
+			System.out.println(ma.getHalfMoveNumber());
 		}
 	}
 	
