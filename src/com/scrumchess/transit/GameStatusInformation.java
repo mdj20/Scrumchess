@@ -17,7 +17,4 @@ public class GameStatusInformation extends SimpleGameIdentification{
 		this.fen = inFen;
 		// TODO Auto-generated constructor stub
 	}
-
-	
-	
 }
