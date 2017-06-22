@@ -1,4 +1,4 @@
-package mdj20.scrumchess.Operations;
+package com.scrumchess.operations;
 
 import com.scrumchess.transit.request.GameInfoRequest;
 import com.scrumchess.transit.request.MoveSendRequest;
@@ -11,6 +11,5 @@ public interface MainUserOperations {
 	public NewGameResponse newGame(NewGameRequest newGameRequest);
 	public GameInfoResponse getGameInfo(GameInfoRequest gameInfoRequest);
 	//public TransitResponse sendMove(MoveSendRequest moveSendRequest);
-	
 	
 }

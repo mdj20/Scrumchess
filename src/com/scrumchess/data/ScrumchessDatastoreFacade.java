@@ -35,6 +35,12 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
+	// this method is very inefficient,
+	public Game newGameWhite(String id) throws EntityNotFoundException{
+		Key gameKey = gf.newGameToUserWhite(id);
+		return gf.getGame(gameKey);
+	}
+	
 	public Game commitMove(EvaluatedMove em){
 		Game ret = null;
 		int moveNum = em.getGame().getMoveNum();

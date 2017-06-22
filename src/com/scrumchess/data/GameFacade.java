@@ -99,6 +99,9 @@ public class GameFacade {
 		Game game = toGame(dss.get(gameKey));
 		return game;
 	}
+	protected Game getGame(Key key) throws EntityNotFoundException{
+		return toGame(dss.get(key));
+	}
 	protected Game toGame(Entity entity){
 		Game game = new Game( (String) entity.getProperty(_fen),
 				(long) entity.getProperty(_moveNum),  // cast to long, then cast to int (data is stored as long but returns as)
