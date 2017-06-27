@@ -1,14 +1,16 @@
 package com.scrumchess.operations;
 
+import java.util.List;
+
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.scrumchess.authentication.ScrumchessUserAuthenticator;
 import com.scrumchess.authentication.UserAuthenticationObject;
-import com.scrumchess.authentication.UserAuthenticator;
-import com.scrumchess.authentication.google.GoogleAuthenticatorString;
 import com.scrumchess.data.Game;
+import com.scrumchess.data.GameMovelistComposite;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
 import com.scrumchess.transit.game.CompleteGameInfo;
 import com.scrumchess.transit.game.SimpleCompleteGameInfo;
+import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.request.GameInfoRequest;
 import com.scrumchess.transit.request.NewGameRequest;
 import com.scrumchess.transit.response.GameInfoResponse;
@@ -22,12 +24,23 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		if ( authenticate(newGameRequest) ){
 			ret = newGameAttempt(newGameRequest);
 		}
+		else{
+			ret = new NewGameResponse(false,null);
+			ret.setFailReason("Unable To Authenticate User");
+		}
 		return ret;
 	}
 
 	@Override
-	public GameInfoResponse getGameInfo(GameInfoRequest gameInfoRequest) {
-		return null;
+	public GameInfoResponse getGameInfo( GameInfoRequest gameInfoRequest ) {
+		GameInfoResponse ret = null;
+		if ( authenticate(gameInfoRequest) ){
+			
+		}
+		else {
+			ret.setFailReason("Unable To Authenticate User");
+		}
+		return ret;
 	}
 
 	public static MainOperationsGAEDS getInstance(){
@@ -47,15 +60,29 @@ public class MainOperationsGAEDS implements MainUserOperations {
 				ret = new NewGameResponse( true, SimpleCompleteGameInfo.getNewGameInstance( game.getFen(), SimpleCompleteGameInfo.WHITE, game.getWhite()));
 			} catch (EntityNotFoundException e) {
 				// user not found in database
-				ret = new NewGameResponse(false,null);
+				ret = new NewGameResponse( false , null );
 				ret.setFailReason("User Not Found");
 			}
 		}
 		else{
 			ret = new NewGameResponse( false, null );
-			ret.setFailReason("invalid configuration");
+			ret.setFailReason("invalid player configuration");
 		}
 		return ret;
 	}
 	
+	private GameInfoResponse gameInfoAttempt( GameInfoRequest gameInfoRequest ){
+		GameInfoResponse ret = null;
+		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
+		try {
+			GameMovelistComposite gmlc = sdf.getFullGameInfo(gameInfoRequest.getGameInteger());
+		} catch ( EntityNotFoundException e ) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	private CompleteGameInfo buildGameInfo(GameMovelistComposite gameMoveListComposite){
+		List<MoveAlgebraic> moves = GoogleDataStoreTranslationUtility.translateMove(gameMoveListComposite.getMoves());
+	}
 }

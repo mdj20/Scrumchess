@@ -17,6 +17,12 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	private GameIdentificationInteger gameIdentificationInteger;
 	private PlayerConfiguration playerConfiguration;
 	
+	SimpleCompleteGameInfo(String fen, List<OrdinalMove> moves, int gameID, int PlayerConfiguration){
+		
+	}
+	
+	private SimpleCompleteGameInfo(){}
+	
 	@Override
 	public String getFen() {
 		return gameState.getFen();

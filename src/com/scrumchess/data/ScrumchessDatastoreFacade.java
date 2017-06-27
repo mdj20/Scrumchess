@@ -1,5 +1,7 @@
 package com.scrumchess.data;
 
+import java.util.List;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -36,7 +38,7 @@ public class ScrumchessDatastoreFacade {
 	}
 	
 	// this method is very inefficient,
-	public Game newGameWhite(String id) throws EntityNotFoundException{
+	public Game newGameWhite(String id) throws EntityNotFoundException {
 		Key gameKey = gf.newGameToUserWhite(id);
 		return gf.getGame(gameKey);
 	}
@@ -112,6 +114,15 @@ public class ScrumchessDatastoreFacade {
 				}
 			}
 		}
+		return ret;
+	}
+	
+	public GameMovelistComposite getFullGameInfo(long id) throws EntityNotFoundException{
+		GameMovelistComposite ret = null;
+		Key key = gf.getKeyFromID(id);
+		Game game = gf.getGame(key);
+		List<Move> moves = mf.getMoves(key);
+		ret = new GameMovelistComposite(game,moves);
 		return ret;
 	}
 	
