@@ -6,6 +6,8 @@ public abstract class AbstractValuedFailableTransitResponse<T> implements Valued
 	private boolean success;
 	private T responseObject;
 	private int requestType;
+	private String failReason;
+	
 	
 	public AbstractValuedFailableTransitResponse(int requestType, boolean success, T responseObject){
 		this.requestType = requestType;
@@ -27,5 +29,18 @@ public abstract class AbstractValuedFailableTransitResponse<T> implements Valued
 	public int getRequestType() {
 		return requestType;
 	}
+
+	@Override
+	public String getReasonMsg() {
+		// TODO Auto-generated method stub
+		return this.failReason;
+	}
+
+	@Override
+	public void setFailReason(String reason) {
+		this.failReason = reason;	
+	}
+	
+	
 
 }

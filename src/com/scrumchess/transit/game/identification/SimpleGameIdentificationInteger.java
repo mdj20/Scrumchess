@@ -1,8 +1,8 @@
 package com.scrumchess.transit.game.identification;
 
-public class SimpleGameIndentificationInteger extends SimpleGameIdentification implements GameIdentificationInteger{
+public class SimpleGameIdentificationInteger extends SimpleGameIdentification implements GameIdentificationInteger{
 	public static final String DIGIT_REGEX = "\\d+"; // used to check if the game Identification is a string integer.
-	public SimpleGameIndentificationInteger(String id) {
+	public SimpleGameIdentificationInteger(String id) {
 		super(id);
 	}
 

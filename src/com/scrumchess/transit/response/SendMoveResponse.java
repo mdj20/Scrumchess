@@ -9,5 +9,4 @@ public class SendMoveResponse extends AbstractValuedFailableTransitResponse<Game
 		super(AbstractClientRequest.SEND_MOVE_REQUEST, success, responseObject);
 		// TODO Auto-generated constructor stub
 	}
-
 }

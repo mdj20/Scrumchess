@@ -4,7 +4,7 @@ public class SimpleGameState implements GameState{
 	private String fen;
 	private int moveNum;
 	
-	SimpleGameState(String fen, int moveNum){
+	public SimpleGameState(String fen, int moveNum){
 		this.fen = fen;
 		this.moveNum = moveNum;
 	}

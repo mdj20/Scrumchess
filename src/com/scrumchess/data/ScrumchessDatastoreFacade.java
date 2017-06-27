@@ -127,7 +127,5 @@ public class ScrumchessDatastoreFacade {
 				ret = true;
 		}
 		return ret;
-	}
-	
-	
+	}	
 }
