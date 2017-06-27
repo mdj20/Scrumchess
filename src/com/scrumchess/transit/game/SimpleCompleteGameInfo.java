@@ -54,7 +54,7 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 		return moveList.getMoves();
 	}
 
-	public SimpleCompleteGameInfo getEmptyMoveInstance(String fen, int playerConfiguration , String gameID){
+	public static SimpleCompleteGameInfo getNewGameInstance(String fen, int playerConfiguration , String gameID){
 		SimpleCompleteGameInfo ret = new SimpleCompleteGameInfo();
 		ret.gameState = new SimpleGameState(fen,0);
 		ret.gameIdentificationInteger = new SimpleGameIdentificationInteger(gameID);

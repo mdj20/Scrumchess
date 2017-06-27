@@ -17,18 +17,16 @@ import com.scrumchess.transit.response.NewGameResponse;
 public class MainOperationsGAEDS implements MainUserOperations {
 
 	@Override
-	public NewGameResponse newGame(NewGameRequest newGameRequest) {
+	public NewGameResponse newGame( NewGameRequest newGameRequest ) {
 		NewGameResponse ret = null;
-		if (authenticate(newGameRequest)){
-			
-			
+		if ( authenticate(newGameRequest) ){
+			ret = newGameAttempt(newGameRequest);
 		}
-		return null;
+		return ret;
 	}
 
 	@Override
 	public GameInfoResponse getGameInfo(GameInfoRequest gameInfoRequest) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -36,17 +34,17 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		return new MainOperationsGAEDS();
 	}
 	
-	private boolean authenticate(UserAuthenticationObject uao){
+	private boolean authenticate( UserAuthenticationObject<String> uao ){
 		return (ScrumchessUserAuthenticator.authenticate(uao));
 	}
 	
-	private NewGameResponse newGameAttempt(NewGameRequest newGameRequest){
+	private NewGameResponse newGameAttempt( NewGameRequest newGameRequest ){
 		NewGameResponse ret= null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
-		if(newGameRequest.getConfigurationValue()==newGameRequest.WHITE){
+		if( newGameRequest.getConfigurationValue() == newGameRequest.WHITE ){
 			try {
-				Game game = sdf.newGameWhite(newGameRequest.getUserIdentification());
-				ret = new NewGameResponse(true,new SimpleCompleteGameInfo());
+				Game game = sdf.newGameWhite( newGameRequest.getUserIdentification() );
+				ret = new NewGameResponse( true, SimpleCompleteGameInfo.getNewGameInstance( game.getFen(), SimpleCompleteGameInfo.WHITE, game.getWhite()));
 			} catch (EntityNotFoundException e) {
 				// user not found in database
 				ret = new NewGameResponse(false,null);
@@ -54,7 +52,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			}
 		}
 		else{
-			ret = new NewGameResponse(false,null);
+			ret = new NewGameResponse( false, null );
 			ret.setFailReason("invalid configuration");
 		}
 		return ret;
