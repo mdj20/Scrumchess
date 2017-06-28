@@ -4,5 +4,5 @@ import java.util.Collection;
 
 public interface State {
 	public String getFen();
-	public int getHalfMoveNumber();
+	public long getHalfMoveNumber();
 }

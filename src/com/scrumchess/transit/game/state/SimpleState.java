@@ -12,7 +12,7 @@ public class SimpleState implements State{
 		return fen;
 	}
 	@Override
-	public int getHalfMoveNumber(){
+	public long getHalfMoveNumber(){
 		return moveNum;
 	}	
 }

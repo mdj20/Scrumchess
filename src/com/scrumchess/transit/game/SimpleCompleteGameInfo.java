@@ -17,11 +17,11 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	private GameIdentificationInteger gameIdentificationInteger;
 	private PlayerConfiguration playerConfiguration;
 	
-	SimpleCompleteGameInfo(String fen, List<OrdinalMove> moves, int gameID, int PlayerConfiguration){
+	protected SimpleCompleteGameInfo(String fen, List<OrdinalMove> moves, int gameID, int PlayerConfiguration){
 		
 	}
 	
-	private SimpleCompleteGameInfo(){}
+	SimpleCompleteGameInfo(){}
 	
 	@Override
 	public String getFen() {
@@ -29,7 +29,7 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	}
 
 	@Override
-	public int getHalfMoveNumber() {
+	public long getHalfMoveNumber() {
 		return state.getHalfMoveNumber();
 	}
 
@@ -67,6 +67,8 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 		ret.playerConfiguration = new SimplePlayerConfiguration(playerConfiguration);
 		return ret;
 	}
+	
+	public static SimpleCompleteGameInfo build(String fen, MoveList moves, long gameID, int playerConfiguration)
 
 	@Override
 	public int getConfigurationValue() {
