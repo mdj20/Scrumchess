@@ -1,10 +1,10 @@
 package com.scrumchess.transit.game.state;
 
-public class SimpleGameState implements GameState{
+public class SimpleState implements State{
 	private String fen;
 	private int moveNum;
 	
-	public SimpleGameState(String fen, int moveNum){
+	public SimpleState(String fen, int moveNum){
 		this.fen = fen;
 		this.moveNum = moveNum;
 	}

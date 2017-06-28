@@ -6,13 +6,13 @@ import com.scrumchess.transit.game.identification.GameIdentificationInteger;
 import com.scrumchess.transit.game.identification.SimpleGameIdentificationInteger;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
 import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
-import com.scrumchess.transit.game.state.GameState;
-import com.scrumchess.transit.game.state.SimpleGameState;
+import com.scrumchess.transit.game.state.State;
+import com.scrumchess.transit.game.state.SimpleState;
 import com.scrumchess.transit.move.MoveList;
 import com.scrumchess.transit.move.OrdinalMove;
 
 public class SimpleCompleteGameInfo implements CompleteGameInfo{
-	private GameState gameState;
+	private State state;
 	private MoveList moveList;
 	private GameIdentificationInteger gameIdentificationInteger;
 	private PlayerConfiguration playerConfiguration;
@@ -25,16 +25,16 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	
 	@Override
 	public String getFen() {
-		return gameState.getFen();
+		return state.getFen();
 	}
 
 	@Override
 	public int getHalfMoveNumber() {
-		return gameState.getHalfMoveNumber();
+		return state.getHalfMoveNumber();
 	}
 
-	protected void setGameState(GameState gameState) {
-		this.gameState = gameState;
+	protected void setGameState(State state) {
+		this.state = state;
 	}
 
 	protected void setMoveList(MoveList moveList) {
@@ -62,7 +62,7 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 
 	public static SimpleCompleteGameInfo getNewGameInstance(String fen, int playerConfiguration , String gameID){
 		SimpleCompleteGameInfo ret = new SimpleCompleteGameInfo();
-		ret.gameState = new SimpleGameState(fen,0);
+		ret.state = new SimpleState(fen,0);
 		ret.gameIdentificationInteger = new SimpleGameIdentificationInteger(gameID);
 		ret.playerConfiguration = new SimplePlayerConfiguration(playerConfiguration);
 		return ret;
