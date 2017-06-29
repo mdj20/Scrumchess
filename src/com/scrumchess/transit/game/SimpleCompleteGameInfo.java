@@ -2,8 +2,8 @@ package com.scrumchess.transit.game;
 
 import java.util.List;
 
-import com.scrumchess.transit.game.identification.GameIdentificationInteger;
-import com.scrumchess.transit.game.identification.SimpleGameIdentificationInteger;
+import com.scrumchess.transit.game.identification.GameIdentification;
+import com.scrumchess.transit.game.identification.SimpleGameIdentification;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
 import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
 import com.scrumchess.transit.game.state.State;
@@ -14,11 +14,15 @@ import com.scrumchess.transit.move.OrdinalMove;
 public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	private State state;
 	private MoveList moveList;
-	private GameIdentificationInteger gameIdentificationInteger;
+	private GameIdentification gameIdentification;
 	private PlayerConfiguration playerConfiguration;
 	
-	protected SimpleCompleteGameInfo(String fen, List<OrdinalMove> moves, int gameID, int PlayerConfiguration){
-		
+	protected SimpleCompleteGameInfo(State state, MoveList moveList,
+			GameIdentification gameIdentification, PlayerConfiguration playerConfiguration){
+		this.state = state;
+		this.moveList = moveList;
+		this.gameIdentification = gameIdentification;
+		this.playerConfiguration = playerConfiguration;	
 	}
 	
 	SimpleCompleteGameInfo(){}
@@ -41,18 +45,13 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 		this.moveList = moveList;
 	}
 
-	protected void setGameIdentificationInteger(GameIdentificationInteger gameIdentificationInteger) {
-		this.gameIdentificationInteger = gameIdentificationInteger;
+	protected void setGameIdentificationInteger(GameIdentification gameIdentification) {
+		this.gameIdentification = gameIdentification;
 	}
 
 	@Override
-	public Integer getGameInteger() {
-		return gameIdentificationInteger.getGameInteger();
-	}
-
-	@Override
-	public String getGameID() {
-		return gameIdentificationInteger.getGameID();
+	public long getGameID() {
+		return gameIdentification.getGameID();
 	}
 
 	@Override
@@ -60,15 +59,22 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 		return moveList.getMoves();
 	}
 
-	public static SimpleCompleteGameInfo getNewGameInstance(String fen, int playerConfiguration , String gameID){
+	public static SimpleCompleteGameInfo getNewGameInstance(String fen, int playerConfiguration, long gameID){
 		SimpleCompleteGameInfo ret = new SimpleCompleteGameInfo();
 		ret.state = new SimpleState(fen,0);
-		ret.gameIdentificationInteger = new SimpleGameIdentificationInteger(gameID);
+		ret.gameIdentification = new SimpleGameIdentification(gameID);
 		ret.playerConfiguration = new SimplePlayerConfiguration(playerConfiguration);
 		return ret;
 	}
 	
-	public static SimpleCompleteGameInfo build(String fen, MoveList moves, long gameID, int playerConfiguration)
+	static SimpleCompleteGameInfo build(String fen, MoveList moves, long gameID, int playerConfiguration){
+		SimpleCompleteGameInfo ret = new SimpleCompleteGameInfo();
+		int nMoves = moves.getMoves().size();
+		ret.state = new SimpleState(fen,nMoves);
+		ret.moveList = moves;
+		ret.gameIdentification = new SimpleGameIdentification(gameID);
+		return ret;
+	}
 
 	@Override
 	public int getConfigurationValue() {

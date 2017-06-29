@@ -19,7 +19,7 @@ public class GameInfoRequest extends AbstractClientReqPreAuthComp implements Gam
 		super(gir.getRequestType(),gir.getRequestDate(),gir.getUserPreAuthentication());
 	}
 	@Override
-	public String getGameID() {
+	public long getGameID() {
 		return simpleGameIdentificationInteger.getGameID();
 	}
 

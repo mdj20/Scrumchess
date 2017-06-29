@@ -2,6 +2,7 @@ package com.scrumchess.transit.game;
 
 import java.util.ArrayList;
 
+import com.scrumchess.transit.game.identification.GameIdentification;
 import com.scrumchess.transit.game.identification.GameIdentificationInteger;
 import com.scrumchess.transit.game.identification.SimpleGameIdentificationInteger;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
@@ -18,7 +19,7 @@ public class CompleteGameInfoBuilder {
 	
 	private State state;
 	private MoveList moveList;
-	private GameIdentificationInteger gameIdentificationInteger;
+	private GameIdentification gameIdentification;
 	private PlayerConfiguration playerConfiguration;
 	
 	public CompleteGameInfoBuilder(){ 
@@ -48,7 +49,7 @@ public class CompleteGameInfoBuilder {
 	}
 	
 	public void setGameId(long gameID){
-		gameIdentificationInteger = new SimpleGameIdentificationInteger(gameID);
+		gameIdentification = new GameIdentification(gameID);
 	}
 	
 	

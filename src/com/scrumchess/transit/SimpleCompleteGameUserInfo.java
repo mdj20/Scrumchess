@@ -32,7 +32,7 @@ public class SimpleCompleteGameUserInfo extends SimpleCompleteGameInfo implement
 	}
 
 	@Override
-	public String getGameID() {
+	public long getGameID() {
 		// TODO Auto-generated method stub
 		return null;
 	}
