@@ -14,14 +14,14 @@ import com.scrumchess.transit.move.SimpleMoveList;
 
 public class CompleteGameInfoBuilder {
 
-	private String fen = null ;
-	private boolean fenSet = false ;
-	private ArrayList<MoveAlgebraic> moves = new ArrayList<MoveAlgebraic>();
+	protected String fen = null ;
+	protected boolean fenSet = false ;
+	protected ArrayList<MoveAlgebraic> moves = new ArrayList<MoveAlgebraic>();
 	
-	private State state = null;
-	private MoveList moveList = null;
-	private GameIdentification gameIdentification ;
-	private PlayerConfiguration playerConfiguration ;
+	protected State state = null;
+	protected MoveList moveList = null;
+	protected GameIdentification gameIdentification ;
+	protected PlayerConfiguration playerConfiguration ;
 	
 	public CompleteGameInfoBuilder(){ }
 	

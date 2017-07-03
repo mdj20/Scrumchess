@@ -10,6 +10,7 @@ import com.scrumchess.data.GameMovelistComposite;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
 import com.scrumchess.transit.game.CompleteGameInfo;
 import com.scrumchess.transit.game.SimpleCompleteGameInfo;
+import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
 import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.request.GameInfoRequest;
 import com.scrumchess.transit.request.NewGameRequest;
@@ -54,28 +55,38 @@ public class MainOperationsGAEDS implements MainUserOperations {
 	private NewGameResponse newGameAttempt( NewGameRequest newGameRequest ){
 		NewGameResponse ret= null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
-		if( newGameRequest.getConfigurationValue() == newGameRequest.WHITE ){
-			try {
-				Game game = sdf.newGameWhite( newGameRequest.getUserIdentification() );
-				ret = new NewGameResponse( true, SimpleCompleteGameInfo.getNewGameInstance( game.getFen(), SimpleCompleteGameInfo.WHITE, game.getWhite()));
-			} catch (EntityNotFoundException e) {
-				// user not found in database
-				ret = new NewGameResponse( false , null );
-				ret.setFailReason("User Not Found");
+		
+		//TODO change this to utilize the PlayerConfiguration.Config enum
+		
+		switch (newGameRequest.getConfigurationValue()) {
+			case WHITE :{
+				try {
+					Game game = sdf.newGameWhite( newGameRequest.getUserIdentification() );
+					ret = new NewGameResponse( true, SimpleCompleteGameInfo.getNewGameInstance( game.getFen(), SimpleCompleteGameInfo.WHITE, game.getId()));
+				} catch (EntityNotFoundException e) {
+					// user not found in database
+					ret = new NewGameResponse( false , null );
+					ret.setFailReason("User Not Found");
+				}
+		
+			}
+			case BLACK :{
+				
+			}
+			case BOTH : {
+				
+			}
+			case NONE: {
+				
 			}
 		}
-		else{
-			ret = new NewGameResponse( false, null );
-			ret.setFailReason("invalid player configuration");
-		}
-		return ret;
 	}
 	
 	private GameInfoResponse gameInfoAttempt( GameInfoRequest gameInfoRequest ){
 		GameInfoResponse ret = null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
 		try {
-			GameMovelistComposite gmlc = sdf.getFullGameInfo(gameInfoRequest.getGameId());
+			GameMovelistComposite gmlc = sdf.getFullGameInfo(gameInfoRequest.getGameID());
 		} catch ( EntityNotFoundException e ) {
 			e.printStackTrace();
 		}
