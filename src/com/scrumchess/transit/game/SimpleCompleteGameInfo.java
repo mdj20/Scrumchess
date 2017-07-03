@@ -8,6 +8,7 @@ import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
 import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
 import com.scrumchess.transit.game.state.State;
 import com.scrumchess.transit.game.state.SimpleState;
+import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.move.MoveList;
 import com.scrumchess.transit.move.OrdinalMove;
 
@@ -55,7 +56,7 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	}
 
 	@Override
-	public List<OrdinalMove> getMoves() {
+	public List<MoveAlgebraic> getMoves() {
 		return moveList.getMoves();
 	}
 
@@ -77,7 +78,7 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	}
 
 	@Override
-	public int getConfigurationValue() {
+	public Config getConfigurationValue() {
 		return this.playerConfiguration.getConfigurationValue();
 	}
 }

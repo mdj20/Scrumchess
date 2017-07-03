@@ -1,17 +1,18 @@
 package com.scrumchess.transit.move;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleMoveList implements MoveList {
 
-	List<OrdinalMove> moves;
+	List<MoveAlgebraic> moves;
 	
-	SimpleMoveList(List<OrdinalMove> moves){
-		this.moves = moves;
+	public SimpleMoveList(ArrayList<MoveAlgebraic> moves2){
+		this.moves = moves2;
 	}
 	
 	@Override
-	public List<OrdinalMove> getMoves() {
+	public List<MoveAlgebraic> getMoves() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -75,7 +75,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		GameInfoResponse ret = null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
 		try {
-			GameMovelistComposite gmlc = sdf.getFullGameInfo(gameInfoRequest.getGameInteger());
+			GameMovelistComposite gmlc = sdf.getFullGameInfo(gameInfoRequest.getGameId());
 		} catch ( EntityNotFoundException e ) {
 			e.printStackTrace();
 		}

@@ -14,7 +14,7 @@ public class NewGameRequest extends AbstractClientReqPreAuthComp  implements Pla
 	}
 
 	@Override
-	public int getConfigurationValue() {
+	public Config getConfigurationValue() {
 		return playerConfiguration.getConfigurationValue();
 	}
 }

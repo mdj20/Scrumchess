@@ -5,14 +5,13 @@ import java.util.Date;
 import com.scrumchess.transit.auth.pre.SimpleUserPreAuthentication;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 import com.scrumchess.transit.game.identification.GameIdentification;
-import com.scrumchess.transit.game.identification.GameIdentificationInteger;
-import com.scrumchess.transit.game.identification.SimpleGameIdentificationInteger;
+import com.scrumchess.transit.game.identification.SimpleGameIdentification;
 
-public class GameInfoRequest extends AbstractClientReqPreAuthComp implements GameIdentificationInteger {
-	private SimpleGameIdentificationInteger simpleGameIdentificationInteger;
-	public GameInfoRequest(UserPreAuthentication upe, String gameID){
+public class GameInfoRequest extends AbstractClientReqPreAuthComp implements GameIdentification {
+	private SimpleGameIdentification simpleGameIdentification;
+	public GameInfoRequest(UserPreAuthentication upe, long gameID){
 		super(AbstractClientRequest.GAME_INFO_REQUEST,new Date(),upe);	
-		simpleGameIdentificationInteger = new SimpleGameIdentificationInteger(gameID);
+		simpleGameIdentification=  new SimpleGameIdentification(gameID);
 	}
 	
 	public GameInfoRequest(GameInfoRequest gir){
@@ -20,11 +19,9 @@ public class GameInfoRequest extends AbstractClientReqPreAuthComp implements Gam
 	}
 	@Override
 	public long getGameID() {
-		return simpleGameIdentificationInteger.getGameID();
+		return simpleGameIdentification.getGameID();
 	}
 
-	@Override
-	public Integer getGameInteger() {
-		return simpleGameIdentificationInteger.getGameInteger();
-	}
+	
+
 }

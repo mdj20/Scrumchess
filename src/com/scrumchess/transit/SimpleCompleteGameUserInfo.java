@@ -44,7 +44,7 @@ public class SimpleCompleteGameUserInfo extends SimpleCompleteGameInfo implement
 	}
 
 	@Override
-	public int getConfigurationValue() {
+	public Config getConfigurationValue() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
