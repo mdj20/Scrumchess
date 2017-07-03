@@ -52,6 +52,9 @@ public class CompleteGameInfoBuilder {
 	public void setPlayerConfiguration(int pc){
 		this.playerConfiguration = new SimplePlayerConfiguration(pc);
 	}
+	public void setPlayerConfiguration(PlayerConfiguration.Config config){
+		this.playerConfiguration = new SimplePlayerConfiguration(config);
+	}
 	
 	public void setGameId(long gameID){
 		gameIdentification = new SimpleGameIdentification(gameID);

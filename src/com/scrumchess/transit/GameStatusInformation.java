@@ -12,7 +12,7 @@ public class GameStatusInformation extends SimpleGameIdentification{
 	private String fen;
 	private int move;
  		
-	GameStatusInformation(String id, String inFen) {
+	GameStatusInformation(long id, String inFen) {
 		super(id);
 		this.fen = inFen;
 		// TODO Auto-generated constructor stub

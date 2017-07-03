@@ -13,8 +13,7 @@ public class SimpleMoveList implements MoveList {
 	
 	@Override
 	public List<MoveAlgebraic> getMoves() {
-		// TODO Auto-generated method stub
-		return null;
+		return moves;
 	}
 
 }
