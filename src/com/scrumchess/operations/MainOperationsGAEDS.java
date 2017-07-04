@@ -8,11 +8,14 @@ import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.data.Game;
 import com.scrumchess.data.GameMovelistComposite;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
+import com.scrumchess.transit.CompleteGameUserInfo;
 import com.scrumchess.transit.CompleteGameUserInfoBuilder;
+import com.scrumchess.transit.MultiUserConfiguration;
 import com.scrumchess.transit.game.CompleteGameInfo;
 import com.scrumchess.transit.game.SimpleCompleteGameInfo;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
 import com.scrumchess.transit.move.MoveAlgebraic;
+import com.scrumchess.transit.request.AbstractAuthenticableClientRequest;
 import com.scrumchess.transit.request.GameInfoRequest;
 import com.scrumchess.transit.request.NewGameRequest;
 import com.scrumchess.transit.response.GameInfoResponse;
@@ -21,7 +24,7 @@ import com.scrumchess.transit.response.NewGameResponse;
 public class MainOperationsGAEDS implements MainUserOperations {
 
 	@Override
-	public NewGameResponse newGame( NewGameRequest newGameRequest ) {
+	public <T extends AbstractAuthenticableClientRequest & MultiUserConfiguration> NewGameResponse newGame( T newGameRequest ) {
 		NewGameResponse ret = null;
 		if ( authenticate(newGameRequest) ){
 			ret = newGameAttempt(newGameRequest);
@@ -53,15 +56,15 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		return (ScrumchessUserAuthenticator.authenticate(uao));
 	}
 	
-	private NewGameResponse newGameAttempt( NewGameRequest newGameRequest ){
+	private NewGameResponse newGameAttempt( MultiUserConfiguration newGameRequest ){
 		NewGameResponse ret= null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
 		//TODO change this to utilize the PlayerConfiguration.Config enum
 		switch (newGameRequest.getConfigurationValue()) {
 			case WHITE :{
 				try {
-					Game game = sdf.newGameWhite( newGameRequest.getUserIdentification() );
-					ret = new NewGameResponse( true, SimpleCompleteGameInfo.getNewGameInstance( game.getFen(), SimpleCompleteGameInfo.WHITE, game.getId()));
+					Game game = sdf.newGameWhite( newGameRequest.getId() );
+					ret = 
 				} catch (EntityNotFoundException e) {
 					// user not found in database
 					ret = new NewGameResponse( false , null );
@@ -82,20 +85,22 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		return ret;
 	}
 	
-	private NewGameResponse buildNewGameResponse(Game game, NewGameRequest ngr){
+	private NewGameResponse buildNewGameResponse(Game game, MultiUserConfiguration muc){
 		NewGameResponse response=null;
 		CompleteGameUserInfoBuilder builder = new CompleteGameUserInfoBuilder();
 		builder.setFen(game.getFen());
-		builder.setPlayerConfiguration(ngr.getConfigurationValue());
-		builder.setId(1,ngr.getUserIdentification());
-		
-		
-		
-		
+		builder.setGameId(game.getId());
+		builder.setPlayerConfiguration(muc.getConfigurationValue());
+		for(int i = 0; i <2 ; i++){
+			builder.setId(i,muc.getId(i));
+			builder.setPseudonym(i, muc.getPseudonym(i));	
+		}
+		CompleteGameUserInfo returnObject = builder.build();
+		response = new NewGameResponse(true,returnObject);
 		return response;
 	}
 	
-	private GameInfoResponse gameInfoAttempt( GameInfoRequest gameInfoRequest ){
+	private <T extends AbstractAuthenticableClientRequest & GameIdentification> gameInfoAttempt( GameInfoRequest gameInfoRequest ){
 		GameInfoResponse ret = null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
 		try {

@@ -1,16 +1,15 @@
 package com.scrumchess.transit;
 
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
+import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
 import com.scrumchess.transit.user.MultiUser;
 
-public class SimpleMultiUserConfiguration implements MultiUserConfiguration {
+public class SimpleMultiUserConfiguration extends SimplePlayerConfiguration  implements MultiUserConfiguration {
 	
 	
-	MultiUserConfiguration(PlayerConfiguration.Config config){
-		
+	SimpleMultiUserConfiguration(PlayerConfiguration.Config config){
+		super(config);
 	}
-	
-	private PlayerConfiguration playerConfiguration;
 	private MultiUser multiUser;
 
 	@Override
@@ -41,11 +40,6 @@ public class SimpleMultiUserConfiguration implements MultiUserConfiguration {
 	@Override
 	public boolean hasPseudonym() {
 		return multiUser.hasPseudonym();
-	}
-
-	@Override
-	public Config getConfigurationValue() {
-		return playerConfiguration.getConfigurationValue();
 	}
 
 }

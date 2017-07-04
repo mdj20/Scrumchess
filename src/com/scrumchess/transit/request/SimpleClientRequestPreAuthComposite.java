@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 
-public class SimpleClientRequestPreAuthComposite extends AbstractClientReqPreAuthComp {
+public class SimpleClientRequestPreAuthComposite extends AbstractAuthenticableClientRequest {
 
 	public SimpleClientRequestPreAuthComposite(int requestType, Date date, UserPreAuthentication upaType) {
 		super(requestType, date, upaType);

@@ -28,7 +28,7 @@ public class CompleteGameUserInfoBuilder extends CompleteGameInfoBuilder {
 		this.id[i]=id;
 	}
 	
-	
+	@Override
 	public CompleteGameUserInfo build(){
 		CompleteGameUserInfo ret = null;
 		if (checkBuildable()){
@@ -60,6 +60,14 @@ public class CompleteGameUserInfoBuilder extends CompleteGameInfoBuilder {
 		}
 		return ret;
 	}
+	
+	/*
+	public void setUserConfiguration(MultiUserConfiguration muc){
+		super.setPlayerConfiguration(muc.getConfigurationValue());
+		super.s
+	}
+	*/
+	
 	
 	// calls super and checks buildable to determine if the 
 	public boolean checkBuildable(){
@@ -97,5 +105,7 @@ public class CompleteGameUserInfoBuilder extends CompleteGameInfoBuilder {
 		else
 			return null;
 	}
+	
+	
 	
 }

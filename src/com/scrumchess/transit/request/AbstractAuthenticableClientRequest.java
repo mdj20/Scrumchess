@@ -13,10 +13,10 @@ import com.scrumchess.authentication.StringBaseUserAuthenticationObject;
 import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 
-public abstract class AbstractClientReqPreAuthComp extends AbstractClientRequest implements ClientRequest, UserAuthenticationObject<String>{
+public abstract class AbstractAuthenticableClientRequest extends AbstractClientRequest implements ClientRequest, UserAuthenticationObject<String>{
 	private StringBaseUserAuthenticationObject userAuthenticationObject;
 	private int requestType;
-	AbstractClientReqPreAuthComp(int requestType, Date date, UserPreAuthentication upaType) {
+	AbstractAuthenticableClientRequest(int requestType, Date date, UserPreAuthentication upaType) {
 		super(date);
 		userAuthenticationObject = new StringBaseUserAuthenticationObject(upaType);
 		this.requestType = requestType;
