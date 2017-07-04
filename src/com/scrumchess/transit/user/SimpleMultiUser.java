@@ -50,7 +50,4 @@ public class SimpleMultiUser extends SimpleCompositeUserIdetification implements
 		// TODO Auto-generated method stub
 		return cuids[index].getId();
 	}
-
-
-	
 }

@@ -8,6 +8,7 @@ import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.data.Game;
 import com.scrumchess.data.GameMovelistComposite;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
+import com.scrumchess.transit.CompleteGameUserInfoBuilder;
 import com.scrumchess.transit.game.CompleteGameInfo;
 import com.scrumchess.transit.game.SimpleCompleteGameInfo;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
@@ -55,9 +56,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 	private NewGameResponse newGameAttempt( NewGameRequest newGameRequest ){
 		NewGameResponse ret= null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
-		
 		//TODO change this to utilize the PlayerConfiguration.Config enum
-		
 		switch (newGameRequest.getConfigurationValue()) {
 			case WHITE :{
 				try {
@@ -73,13 +72,27 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			case BLACK :{
 				
 			}
-			case BOTH : {
+			case BOTH :{
 				
 			}
-			case NONE: {
+			case NONE:{
 				
 			}
 		}
+		return ret;
+	}
+	
+	private NewGameResponse buildNewGameResponse(Game game, NewGameRequest ngr){
+		NewGameResponse response=null;
+		CompleteGameUserInfoBuilder builder = new CompleteGameUserInfoBuilder();
+		builder.setFen(game.getFen());
+		builder.setPlayerConfiguration(ngr.getConfigurationValue());
+		builder.setId(1,ngr.getUserIdentification());
+		
+		
+		
+		
+		return response;
 	}
 	
 	private GameInfoResponse gameInfoAttempt( GameInfoRequest gameInfoRequest ){
