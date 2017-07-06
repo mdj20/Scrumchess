@@ -1,6 +1,8 @@
 package com.scrumchess.transit.game;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.scrumchess.transit.game.identification.GameIdentification;
 import com.scrumchess.transit.game.identification.SimpleGameIdentification;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
@@ -46,6 +48,18 @@ public class CompleteGameInfoBuilder {
 		for(String s:imoves){
 			moves.add(new SimpleMoveAlgebraic(s,i++));
 		}
+		return moves.size();
+	}
+	
+	public int addMove(List<MoveAlgebraic> move ){
+		for (MoveAlgebraic m:move){
+			addMove(m);
+		}
+		return moves.size();
+	}
+	
+	public int addMove(MoveAlgebraic move){
+		moves.add(move);
 		return moves.size();
 	}
 	
