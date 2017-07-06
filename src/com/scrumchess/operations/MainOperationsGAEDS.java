@@ -17,6 +17,8 @@ import com.scrumchess.transit.game.CompleteGameInfo;
 import com.scrumchess.transit.game.SimpleCompleteGameInfo;
 import com.scrumchess.transit.game.identification.GameIdentification;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
+import com.scrumchess.transit.game.state.SimpleState;
+import com.scrumchess.transit.game.state.State;
 import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.request.AbstractAuthenticableClientRequest;
 import com.scrumchess.transit.request.GameInfoRequest;
@@ -24,6 +26,10 @@ import com.scrumchess.transit.request.NewGameRequest;
 import com.scrumchess.transit.response.GameInfoResponse;
 import com.scrumchess.transit.response.NewGameResponse;
 import com.scrumchess.transit.response.SendMoveResponse;
+
+
+/// Implimentation of the MainOperations interface designed to work with Google app engine's datastore.
+
 
 public class MainOperationsGAEDS implements MainUserOperations {
 	
@@ -156,6 +162,21 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
 		AuthenticatedUserMoveInfo aumi = GoogleDataStoreTranslationUtility.buildAuthenticatedUserMoveInfo(moveAlgebraic, gameId, userId);
 		EvaluatedMove evaluatedMove = sdf.evaluateMove(aumi);
+		if(evaluatedMove.datastoreReady()){
+			boolean success = sdf.commitMoveAtomic(evaluatedMove);
+			if (success){
+				State state = new SimpleState(evaluatedMove.getUpdateFen(),evaluatedMove.getGame().getMoveNum()+1);
+				ret = new SendMoveResponse(true,state);
+			}
+			else{
+				ret= new SendMoveResponse(false,null);
+				ret.setFailReason("Unable to commit Move");
+			}
+		}
+		else {
+			ret = new SendMoveResponse(false,null);
+			ret.setFailReason("Invalid Move!");
+		}
 		return ret;
 	}
 
@@ -164,7 +185,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			T sendMoveRequest) {
 		SendMoveResponse ret = null;
 		if ( authenticate(sendMoveRequest) ){
-			
+			ret = sendMoveAttempt(sendMoveRequest, sendMoveRequest.getGameID(),sendMoveRequest.getUserIdentification());
 		}
 		else{
 			ret = new SendMoveResponse(false,null);

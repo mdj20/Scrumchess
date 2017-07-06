@@ -91,6 +91,9 @@ public class DSSmokeTest {
 		AuthenticatedUserMoveInfo amui = createAUMI(user,fen,id);
 		EvaluatedMove em = sdf.evaluateMove(amui);
 		Game game = sdf.commitMoveAtomic(em);
+		if(game == null){
+			System.out.println("NULL");
+		}
 		return sdf.getGameById(id);
 	}
 	private ArrayList<Move> getMoves(long id){

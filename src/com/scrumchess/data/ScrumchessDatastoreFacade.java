@@ -63,8 +63,8 @@ public class ScrumchessDatastoreFacade {
 		}
 		return ret;
 	}
-	public Game commitMoveAtomic(EvaluatedMove em){
-		Game ret = null;
+	public boolean commitMoveAtomic(EvaluatedMove em){
+		boolean ret = false;
 		int moveNum = em.getGame().getMoveNum(); // get move number of current game from evaluated move
 		Transaction txn = dss.beginTransaction();
 		// need to use a transaction to make sure this conforms to ACID...
@@ -77,14 +77,16 @@ public class ScrumchessDatastoreFacade {
 				Move disjoint = mf.createDisjointMove(moveNum+1, em.getUserMoveInfo().getMoveAlgebraic());
 				mf.moveToParentTransaction(txn, gameKey, disjoint);
 				txn.commit();
+				ret = true;
 			}	
 		} catch (EntityNotFoundException e) {
-			// wrong entity id must return value.
 			e.printStackTrace();
+			return false;
 		}
 		finally {
 			if(txn.isActive()){
 				txn.rollback();
+				ret = false;
 			}
 		}	
 		return ret;
@@ -98,8 +100,6 @@ public class ScrumchessDatastoreFacade {
 			game=gf.getGame(aumi.getGameID());
 		} catch (EntityNotFoundException e) {
 			game = null;
-			// TODO Auto-generated catch block
-			// TODO place error message, for record 
 			e.printStackTrace();
 		}
 		if (game != null){  // checks if userID and Game exist
@@ -113,6 +113,9 @@ public class ScrumchessDatastoreFacade {
 					 ret = EvaluatedMove.createInvalid(game,"", aumi);
 				}
 			}
+		}
+		else{
+			ret = EvaluatedMove.createInvalid(null,"", aumi);
 		}
 		return ret;
 	}
