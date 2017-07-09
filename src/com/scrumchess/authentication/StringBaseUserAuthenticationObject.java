@@ -48,7 +48,6 @@ public class StringBaseUserAuthenticationObject implements UserAuthenticationObj
 		return isAuthenticated();
 	}
 
-
 	@Override
 	public UserPreAuthentication getUserPreAuthentication() {
 		return userPreAuthentication;

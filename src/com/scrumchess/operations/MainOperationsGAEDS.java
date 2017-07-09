@@ -26,10 +26,10 @@ import com.scrumchess.transit.request.NewGameRequest;
 import com.scrumchess.transit.response.GameInfoResponse;
 import com.scrumchess.transit.response.NewGameResponse;
 import com.scrumchess.transit.response.SendMoveResponse;
+import com.scrumchess.transit.user.CompositeUserIdentification;
 
 
 /// Implimentation of the MainOperations interface designed to work with Google app engine's datastore.
-
 
 public class MainOperationsGAEDS implements MainUserOperations {
 	
@@ -46,20 +46,6 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		return ret;
 	}
 
-	/*
-	@Override
-	public GameInfoResponse getGameInfo( GameInfoRequest gameInfoRequest ) {
-		GameInfoResponse ret = null;
-		if ( authenticate(gameInfoRequest) ){
-			
-		}
-		else {
-			ret = new GameInfoResponse(false,null);
-			ret.setFailReason("Unable To Authenticate User");
-		}
-		return ret;
-	}
-	*/
 
 	public static MainOperationsGAEDS getInstance(){
 		return new MainOperationsGAEDS();
@@ -192,6 +178,14 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			ret.setFailReason("Unable To Authenticate User");
 		}
 		return ret;
+		
+	}
+
+
+	@Override
+	public <T extends AbstractAuthenticableClientRequest & CompositeUserIdentification> void changeUserPseusonym(
+			T changePseudonymRequest) {
+		// TODO Auto-generated method stub
 		
 	}
 }

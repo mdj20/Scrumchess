@@ -11,6 +11,7 @@ import com.scrumchess.transit.response.GameInfoResponse;
 import com.scrumchess.transit.response.NewGameResponse;
 import com.scrumchess.transit.response.SendMoveResponse;
 import com.scrumchess.transit.response.TransitResponse;
+import com.scrumchess.transit.user.CompositeUserIdentification;
 
 public interface MainUserOperations {
 	public < T extends AbstractAuthenticableClientRequest & MultiUserConfiguration > NewGameResponse newGame(T newGameRequest);
@@ -19,4 +20,5 @@ public interface MainUserOperations {
 	//public GameInfoResponse getGameInfo(GameInfoRequest gameInfoRequest);
 	//public TransitResponse sendMove(MoveSendRequest moveSendRequest);
 	public <T extends AbstractAuthenticableClientRequest & GameIdentification & MoveAlgebraic> SendMoveResponse sendMove(T sendMoveRequest);
+	public <T extends AbstractAuthenticableClientRequest & CompositeUserIdentification> void changeUserPseusonym(T changePseudonymRequest);
 }
