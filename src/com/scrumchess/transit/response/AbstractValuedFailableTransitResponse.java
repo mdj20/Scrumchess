@@ -8,7 +8,6 @@ public abstract class AbstractValuedFailableTransitResponse<T> implements Valued
 	private int requestType;
 	private String failReason;
 	
-	
 	public AbstractValuedFailableTransitResponse(int requestType, boolean success, T responseObject){
 		this.requestType = requestType;
 		this.success = success;
@@ -40,7 +39,4 @@ public abstract class AbstractValuedFailableTransitResponse<T> implements Valued
 	public void setFailReason(String reason) {
 		this.failReason = reason;	
 	}
-	
-	
-
 }

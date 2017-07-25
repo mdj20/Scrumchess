@@ -1,7 +1,7 @@
 package com.scrumchess.transit.game.test;
 import com.scrumchess.transit.game.CompleteGameInfo;
 import com.scrumchess.transit.game.CompleteGameInfoBuilder;
-import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
+import static com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
 
 public class CompleteGameInfoBuilderTest {
 	CompleteGameInfoBuilder builder;
@@ -12,7 +12,7 @@ public class CompleteGameInfoBuilderTest {
 		test.builder = new CompleteGameInfoBuilder();
 		test.builder.setFen(testFen);
 		test.builder.addMove("MOVE");
-		test.builder.setPlayerConfiguration(PlayerConfiguration.Config.WHITE);
+		test.builder.setPlayerConfiguration(Config.WHITE);
 		test.builder.setGameId(12345);
 		
 		CompleteGameInfo cgi = test.builder.build();

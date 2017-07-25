@@ -14,6 +14,8 @@ import com.scrumchess.transit.move.MoveList;
 import com.scrumchess.transit.move.SimpleMoveAlgebraic;
 import com.scrumchess.transit.move.SimpleMoveList;
 
+import static com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
+
 public class CompleteGameInfoBuilder {
 
 	protected String fen = null ;
@@ -66,7 +68,7 @@ public class CompleteGameInfoBuilder {
 	public void setPlayerConfiguration(int pc){
 		this.playerConfiguration = new SimplePlayerConfiguration(pc);
 	}
-	public void setPlayerConfiguration(PlayerConfiguration.Config config){
+	public void setPlayerConfiguration(Config config){
 		this.playerConfiguration = new SimplePlayerConfiguration(config);
 	}
 	

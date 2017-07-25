@@ -1,13 +1,15 @@
 package com.scrumchess.transit;
 
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
+
+import static com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
 import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
 import com.scrumchess.transit.user.MultiUser;
 
 public class SimpleMultiUserConfiguration extends SimplePlayerConfiguration  implements MultiUserConfiguration {
 	
 	
-	SimpleMultiUserConfiguration(PlayerConfiguration.Config config){
+	SimpleMultiUserConfiguration(Config config){
 		super(config);
 	}
 	private MultiUser multiUser;

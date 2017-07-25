@@ -18,11 +18,13 @@ public class ScrumchessDatastoreFacade {
 	private DatastoreService dss;
 	private GameFacade gf;
 	private MoveFacade mf;
+	private UserFacade uf;
 	
 	private ScrumchessDatastoreFacade( DatastoreService dss ){
 		this.dss = dss;
 		gf = new GameFacade(dss);
 		mf = new MoveFacade(dss);
+		uf = new UserFacade(dss);
 	}
 	
 	public static ScrumchessDatastoreFacade getInstance(){ // Factory method constructor
@@ -145,4 +147,9 @@ public class ScrumchessDatastoreFacade {
 		}
 		return ret;
 	}	
+	
+	public User changePseudonym(String userId, String pseudonym) throws EntityNotFoundException{
+		uf.updateName(userId, pseudonym);
+		return null;
+	}
 }

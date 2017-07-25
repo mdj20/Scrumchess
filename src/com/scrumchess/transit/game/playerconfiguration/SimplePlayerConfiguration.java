@@ -1,4 +1,5 @@
 package com.scrumchess.transit.game.playerconfiguration;
+import static com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
 
 public class SimplePlayerConfiguration  implements PlayerConfiguration {
 	private Config value;
@@ -8,7 +9,7 @@ public class SimplePlayerConfiguration  implements PlayerConfiguration {
 	}
 	
 	public SimplePlayerConfiguration(int configIntRepresentation){
-		this(PlayerConfiguration.Config.getConfigByInt(configIntRepresentation));
+		this(Config.getConfigByInt(configIntRepresentation));
 	}
 
 	@Override

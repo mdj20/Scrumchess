@@ -1,4 +1,4 @@
-package com.scrumchess.operations;
+package com.scrumchess.operations.google;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.data.Game;
 import com.scrumchess.data.GameMovelistComposite;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
+import com.scrumchess.data.User;
+import com.scrumchess.operations.MainUserOperations;
 import com.scrumchess.transit.CompleteGameUserInfo;
 import com.scrumchess.transit.CompleteGameUserInfoBuilder;
 import com.scrumchess.transit.MultiUserConfiguration;
@@ -23,6 +25,7 @@ import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.request.AbstractAuthenticableClientRequest;
 import com.scrumchess.transit.request.GameInfoRequest;
 import com.scrumchess.transit.request.NewGameRequest;
+import com.scrumchess.transit.response.ChangePseudonymResponse;
 import com.scrumchess.transit.response.GameInfoResponse;
 import com.scrumchess.transit.response.NewGameResponse;
 import com.scrumchess.transit.response.SendMoveResponse;
@@ -84,7 +87,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 	}
 	
 	private NewGameResponse buildNewGameResponse(Game game, MultiUserConfiguration muc){
-		NewGameResponse response=null;
+		NewGameResponse ret=null;
 		CompleteGameUserInfoBuilder builder = new CompleteGameUserInfoBuilder();
 		builder.setFen(game.getFen());
 		builder.setGameId(game.getId());
@@ -94,8 +97,8 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			builder.setPseudonym(i, muc.getPseudonym(i));	
 		}
 		CompleteGameUserInfo returnObject = builder.build();
-		response = new NewGameResponse(true,returnObject);
-		return response;
+		ret = new NewGameResponse(true,returnObject);
+		return ret;
 	}
 	
 	// not used 
@@ -181,11 +184,31 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		
 	}
 
-
 	@Override
-	public <T extends AbstractAuthenticableClientRequest & CompositeUserIdentification> void changeUserPseusonym(
-			T changePseudonymRequest) {
-		// TODO Auto-generated method stub
-		
+	public <T extends AbstractAuthenticableClientRequest & CompositeUserIdentification> ChangePseudonymResponse 
+		changeUserPseusonym(T changePseudonymRequest) {
+				ChangePseudonymResponse ret = null;
+				if ( authenticate(changePseudonymRequest) ){
+					ret = changePseudonymAttempt(changePseudonymRequest); 
+				}
+				else{
+					ret = new ChangePseudonymResponse(false,null);
+					ret.setFailReason("Unable To Authenticate User");
+				}
+				return ret;
+	}
+	
+	private <T extends AbstractAuthenticableClientRequest & CompositeUserIdentification> ChangePseudonymResponse 
+		changePseudonymAttempt(T changePseudonymRequest ){
+			ChangePseudonymResponse ret = null;
+			ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
+			try {
+				User user = sdf.changePseudonym(changePseudonymRequest.getId(),changePseudonymRequest.getPseudonym());
+				ret = new ChangePseudonymResponse(true,user.getName());
+			} catch (EntityNotFoundException e) {
+				ret = new ChangePseudonymResponse(false,null);
+				ret.setFailReason("Unable To Find User");
+			}
+			return ret;
 	}
 }

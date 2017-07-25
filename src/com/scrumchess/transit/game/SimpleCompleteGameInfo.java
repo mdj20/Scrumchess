@@ -5,6 +5,7 @@ import java.util.List;
 import com.scrumchess.transit.game.identification.GameIdentification;
 import com.scrumchess.transit.game.identification.SimpleGameIdentification;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
+import static com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
 import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
 import com.scrumchess.transit.game.state.State;
 import com.scrumchess.transit.game.state.SimpleState;

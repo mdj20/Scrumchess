@@ -6,6 +6,7 @@ import com.scrumchess.transit.MultiUserConfiguration;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
 import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
+import static com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
 
 public class NewGameRequest extends AbstractAuthenticableClientRequest implements MultiUserConfiguration{
 	MultiUserConfiguration multiUserConfiguration; 

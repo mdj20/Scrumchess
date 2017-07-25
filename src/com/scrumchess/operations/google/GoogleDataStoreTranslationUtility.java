@@ -1,4 +1,4 @@
-package com.scrumchess.operations;
+package com.scrumchess.operations.google;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +12,7 @@ import com.scrumchess.data.Move;
 import com.scrumchess.transit.game.CompleteGameInfo;
 import com.scrumchess.transit.game.CompleteGameInfoBuilder;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
+import com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
 import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.move.SimpleMoveAlgebraic;
 
@@ -41,19 +42,19 @@ public class GoogleDataStoreTranslationUtility {
 		return ret;
 	}
 	
-	protected static PlayerConfiguration.Config translatePlayerConfiguration(Game game){
-		PlayerConfiguration.Config ret;
+	protected static Config translatePlayerConfiguration(Game game){
+		Config ret;
 		if(game.isWhite() && game.isBlack()){
-			ret = PlayerConfiguration.Config.BOTH;
+			ret = Config.BOTH;
 		}
 		else if(game.isWhite()){
-			ret = PlayerConfiguration.Config.WHITE;
+			ret = Config.WHITE;
 		}
 		else if(game.isBlack()){
-			ret = PlayerConfiguration.Config.BLACK;
+			ret = Config.BLACK;
 		}
 		else{
-			ret = PlayerConfiguration.Config.NONE;
+			ret = Config.NONE;
 		}
 		return ret;
 	}
