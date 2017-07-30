@@ -2,15 +2,16 @@ package com.scrumchess.transit.request;
 
 import java.util.Date;
 
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.authentication.StringBaseUserAuthenticationObject;
+import com.scrumchess.authentication.pre.UserCredentials;
 
 public class SimpleClientRequestPreAuthComposite extends AbstractAuthenticableClientRequest {
 
-	public SimpleClientRequestPreAuthComposite(int requestType, Date date, UserPreAuthentication upaType) {
+	public SimpleClientRequestPreAuthComposite(RequestType requestType, Date date, StringBaseUserAuthenticationObject upaType) {
 		super(requestType, date, upaType);
 	}
 
-	public static SimpleClientRequestPreAuthComposite getInstance(int type, UserPreAuthentication upaObject){
+	public static SimpleClientRequestPreAuthComposite getInstance(RequestType type, StringBaseUserAuthenticationObject upaObject){
 		return new SimpleClientRequestPreAuthComposite(type,new Date(), upaObject);
 	}
 }

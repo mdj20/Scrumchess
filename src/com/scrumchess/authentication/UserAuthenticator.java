@@ -1,9 +1,8 @@
 package com.scrumchess.authentication;
 
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.authentication.pre.UserCredentials;
 
 public interface UserAuthenticator<T> {
 	public boolean Authenticate(UserAuthenticationObject<T> userAuthenticationObject);
-	public UserAuthenticationObject<T> Authenticaticate(UserPreAuthentication userPreAuthentication);
-	
+	public UserAuthenticationObject<T> Authenticaticate(UserCredentials userCredentials);	
 }

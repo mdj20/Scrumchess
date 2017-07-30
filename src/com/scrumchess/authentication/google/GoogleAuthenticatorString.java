@@ -3,7 +3,7 @@
 import com.scrumchess.authentication.SimpleAuthentication;
 import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.authentication.UserAuthenticator;
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.authentication.pre.UserCredentials;
 
 public class GoogleAuthenticatorString implements UserAuthenticator<String> {
 	
@@ -19,7 +19,7 @@ public class GoogleAuthenticatorString implements UserAuthenticator<String> {
 	}
 
 	@Override
-	public UserAuthenticationObject Authenticaticate(UserPreAuthentication userPreAuthentication) {
+	public UserAuthenticationObject Authenticaticate(UserCredentials userCredentials) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -11,15 +11,20 @@ import java.util.Date;
 import com.scrumchess.authentication.Authentication;
 import com.scrumchess.authentication.StringBaseUserAuthenticationObject;
 import com.scrumchess.authentication.UserAuthenticationObject;
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.authentication.pre.UserCredentials;
+import com.scrumchess.authentication.pre.type.Type;
 
 public abstract class AbstractAuthenticableClientRequest extends AbstractClientRequest implements ClientRequest, UserAuthenticationObject<String>{
 	private StringBaseUserAuthenticationObject userAuthenticationObject;
-	private int requestType;
-	AbstractAuthenticableClientRequest(int requestType, Date date, UserPreAuthentication upaType) {
+	private RequestType requestType;
+	AbstractAuthenticableClientRequest(RequestType requestType, Date date, StringBaseUserAuthenticationObject userAuth) {
 		super(date);
-		userAuthenticationObject = new StringBaseUserAuthenticationObject(upaType);
+		userAuthenticationObject = userAuth;
 		this.requestType = requestType;
+	}
+	
+	protected StringBaseUserAuthenticationObject getUserAuthenticationObject() {
+		return this.userAuthenticationObject;
 	}
 
 	@Override
@@ -28,12 +33,12 @@ public abstract class AbstractAuthenticableClientRequest extends AbstractClientR
 	}
 
 	@Override
-	public int getAuthenticationType() {
+	public Type getAuthenticationType() {
 		return userAuthenticationObject.getAuthenticationType();
 	}
 
 	@Override
-	public int getRequestType() {
+	public RequestType getRequestType() {
 		return requestType;
 	}
 
@@ -63,7 +68,7 @@ public abstract class AbstractAuthenticableClientRequest extends AbstractClientR
 	}
 	
 	@Override
-	public UserPreAuthentication getUserPreAuthentication(){
+	public UserCredentials getUserPreAuthentication(){
 		return userAuthenticationObject.getUserPreAuthentication();
 	}
 }

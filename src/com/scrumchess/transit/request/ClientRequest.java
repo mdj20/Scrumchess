@@ -1,10 +1,9 @@
 package com.scrumchess.transit.request;
 import java.util.Date;
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+
+import com.scrumchess.authentication.pre.UserCredentials;
 
 public interface ClientRequest{
-	
-	
-	public int getRequestType();
+	public RequestType getRequestType();
 	public Date getRequestDate();
 }

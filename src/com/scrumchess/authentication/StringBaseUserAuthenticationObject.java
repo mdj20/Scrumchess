@@ -2,28 +2,29 @@ package com.scrumchess.authentication;
 
 import java.util.Date;
 
-import com.scrumchess.transit.auth.pre.SimpleUserPreAuthentication;
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.authentication.pre.SimpleUserCredentials;
+import com.scrumchess.authentication.pre.UserCredentials;
+import com.scrumchess.authentication.pre.type.Type;
 
 public class StringBaseUserAuthenticationObject implements UserAuthenticationObject<String>{
 	
 	private Authentication<String> authenticaton;
-	private UserPreAuthentication userPreAuthentication;
+	private UserCredentials userCredentials;
 	private boolean isA = false;
 	
-	public StringBaseUserAuthenticationObject(UserPreAuthentication userPreAuthentication ){
-		this.userPreAuthentication = userPreAuthentication;
+	public StringBaseUserAuthenticationObject(UserCredentials userCredentials ){
+		this.userCredentials = userCredentials;
 	}
 	
 	
 	@Override
 	public String getUserToken() {
-		return userPreAuthentication.getUserToken();
+		return userCredentials.getUserToken();
 	}
 
 	@Override
-	public int getAuthenticationType() {
-		return userPreAuthentication.getAuthenticationType();
+	public Type getAuthenticationType() {
+		return userCredentials.getAuthenticationType();
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class StringBaseUserAuthenticationObject implements UserAuthenticationObj
 	}
 
 	@Override
-	public UserPreAuthentication getUserPreAuthentication() {
-		return userPreAuthentication;
+	public UserCredentials getUserPreAuthentication() {
+		return userCredentials;
 	}
 }
