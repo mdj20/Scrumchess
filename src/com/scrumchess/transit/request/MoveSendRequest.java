@@ -2,7 +2,7 @@ package com.scrumchess.transit.request;
 
 import java.util.Date;
 
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.authentication.pre.UserCredentials;
 import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.move.OrdinalMove;
 import com.scrumchess.transit.move.SimpleMoveAlgebraic;

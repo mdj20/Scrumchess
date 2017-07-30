@@ -2,8 +2,9 @@ package com.scrumchess.transit.request;
 
 import java.util.Date;
 
+import com.scrumchess.authentication.StringBaseUserAuthenticationObject;
+import com.scrumchess.authentication.pre.UserCredentials;
 import com.scrumchess.transit.MultiUserConfiguration;
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
 import com.scrumchess.transit.game.playerconfiguration.PlayerConfiguration;
 import com.scrumchess.transit.game.playerconfiguration.SimplePlayerConfiguration;
 import static com.scrumchess.transit.game.playerconfiguration.PlayerConfigurationStaticTypes.Config;
@@ -12,7 +13,9 @@ public class NewGameRequest extends AbstractAuthenticableClientRequest implement
 	MultiUserConfiguration multiUserConfiguration; 
 	
 	
-	NewGameRequest(UserPreAuthentication upaType, MultiUserConfiguration multiUserConfiguration) {
+
+	NewGameRequest(StringBaseUserAuthenticationObject upaType, MultiUserConfiguration multiUserConfiguration) {
+
 		super(RequestType.NEW_GAME_REQUEST, new Date(), upaType);
 		this.multiUserConfiguration = multiUserConfiguration;
 	}

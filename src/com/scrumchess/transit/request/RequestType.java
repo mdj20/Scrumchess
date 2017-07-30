@@ -1,5 +1,6 @@
 package com.scrumchess.transit.request;
 
+
 public enum RequestType {	
 	GAME_INFO_REQUEST (0),
 	SEND_MOVE_REQUEST (1),
@@ -12,4 +13,5 @@ public enum RequestType {
 		return this.intRep;
 	}
 	private int intRep;
+
 }

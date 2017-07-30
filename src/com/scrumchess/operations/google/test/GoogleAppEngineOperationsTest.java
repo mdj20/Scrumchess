@@ -3,6 +3,7 @@ package com.scrumchess.operations.google.test;
 import com.scrumchess.operations.google.MainOperationsGAEDS;
 
 public class GoogleAppEngineOperationsTest {
+
 	MainOperationsGAEDS mainOps = new MainOperationsGAEDS();
 	
 	
@@ -19,5 +20,12 @@ public class GoogleAppEngineOperationsTest {
 	public static void main(String args[]){
 		GoogleAppEngineOperationsTest test = new GoogleAppEngineOperationsTest();
 		System.exit(test.smokeTest());
+
+	
+
+	
+	
+	
+	
 	}
 }

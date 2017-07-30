@@ -2,9 +2,9 @@ package com.scrumchess.authentication;
 
 import java.util.Date;
 
-import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.authentication.pre.UserCredentials;
 
-public interface UserAuthenticationObject<_InternalType> extends UserPreAuthentication, Authentication<_InternalType>, Authenticable<_InternalType>{
+public interface UserAuthenticationObject<_InternalType> extends UserCredentials, Authentication<_InternalType>, Authenticable<_InternalType>{
 	public boolean isAuthenticated();
-	public UserPreAuthentication getUserPreAuthentication();
+	public UserCredentials getUserPreAuthentication();
 }
