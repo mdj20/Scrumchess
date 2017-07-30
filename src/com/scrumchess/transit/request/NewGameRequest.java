@@ -13,7 +13,7 @@ public class NewGameRequest extends AbstractAuthenticableClientRequest implement
 	
 	
 	NewGameRequest(UserPreAuthentication upaType, MultiUserConfiguration multiUserConfiguration) {
-		super(AbstractClientRequest.NEW_GAME_REQUEST, new Date(), upaType);
+		super(RequestType.NEW_GAME_REQUEST, new Date(), upaType);
 		this.multiUserConfiguration = multiUserConfiguration;
 	}
 

@@ -1,14 +1,14 @@
 package com.scrumchess.transit.response;
 
-import com.scrumchess.transit.game.CompleteGameInfo;
+import com.scrumchess.transit.request.RequestType;
 
 public abstract class AbstractValuedFailableTransitResponse<T> implements ValuedFailableTransitResponse<T> {
 	private boolean success;
 	private T responseObject;
-	private int requestType;
-	private String failReason;
+	private RequestType requestType;
+	private FailReason failReason;
 	
-	public AbstractValuedFailableTransitResponse(int requestType, boolean success, T responseObject){
+	public AbstractValuedFailableTransitResponse(RequestType requestType, boolean success, T responseObject){
 		this.requestType = requestType;
 		this.success = success;
 		this.responseObject = responseObject;
@@ -16,7 +16,7 @@ public abstract class AbstractValuedFailableTransitResponse<T> implements Valued
 	
 	@Override
 	public boolean successful() {
-		return success;
+		return this.success;
 	}
 
 	@Override
@@ -25,18 +25,17 @@ public abstract class AbstractValuedFailableTransitResponse<T> implements Valued
 	}
 
 	@Override
-	public int getRequestType() {
+	public RequestType getRequestType() {
 		return requestType;
 	}
 
 	@Override
 	public String getReasonMsg() {
-		// TODO Auto-generated method stub
-		return this.failReason;
+		return this.failReason.getReasonMsg();
 	}
 
 	@Override
-	public void setFailReason(String reason) {
+	public void setFailReason(FailReason reason) {
 		this.failReason = reason;	
 	}
 }

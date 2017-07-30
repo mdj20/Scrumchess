@@ -25,9 +25,11 @@ import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.request.AbstractAuthenticableClientRequest;
 import com.scrumchess.transit.request.GameInfoRequest;
 import com.scrumchess.transit.request.NewGameRequest;
+import com.scrumchess.transit.response.BaseFailReason;
 import com.scrumchess.transit.response.ChangePseudonymResponse;
 import com.scrumchess.transit.response.GameInfoResponse;
 import com.scrumchess.transit.response.NewGameResponse;
+import com.scrumchess.transit.response.NewGameResponse.ResponseReason;
 import com.scrumchess.transit.response.SendMoveResponse;
 import com.scrumchess.transit.user.CompositeUserIdentification;
 
@@ -44,7 +46,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		}
 		else{
 			ret = new NewGameResponse(false,null);
-			ret.setFailReason("Unable To Authenticate User");
+			ret.setFailReason(BaseFailReason.AUTHENTICATION_FAILURE);
 		}
 		return ret;
 	}
@@ -69,7 +71,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 				} catch (EntityNotFoundException e) {
 					// user not found in database
 					ret = new NewGameResponse( false , null );
-					ret.setFailReason("User Not Found");
+					ret.setFailReason(BaseFailReason.USER_NOT_FOUND);
 				}
 		
 			}
@@ -109,7 +111,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			GameMovelistComposite gmlc = sdf.getFullGameInfo(gameInfoRequest.getGameID());
 		} catch ( EntityNotFoundException e ) {
 			ret = new GameInfoResponse(false,null);
-			ret.setFailReason("Game Not Found");
+			//ret.setFailReason();
 		}
 		return ret;
 	}
@@ -128,7 +130,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		}
 		else{
 			ret = new GameInfoResponse(false,null);
-			ret.setFailReason("Unable To Authenticate User");
+			ret.setFailReason(BaseFailReason.AUTHENTICATION_FAILURE);
 		}
 		return ret;
 	}
@@ -141,7 +143,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			ret = new GameInfoResponse(true,completeGameInfo);
 		} catch (EntityNotFoundException e) {
 			ret = new GameInfoResponse(false,null);
-			ret.setFailReason("Unable to find game");
+			ret.setFailReason(GameInfoResponse.ResponseReason.GAME_NOT_FOUND);
 		}
 		return ret;
 	}
@@ -159,12 +161,12 @@ public class MainOperationsGAEDS implements MainUserOperations {
 			}
 			else{
 				ret= new SendMoveResponse(false,null);
-				ret.setFailReason("Unable to commit Move");
+				ret.setFailReason(ResponseReason.COMMIT_FAILURE);
 			}
 		}
 		else {
 			ret = new SendMoveResponse(false,null);
-			ret.setFailReason("Invalid Move!");
+			ret.setFailReason(ResponseReason.INVALID_MOVE);
 		}
 		return ret;
 	}
@@ -178,7 +180,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		}
 		else{
 			ret = new SendMoveResponse(false,null);
-			ret.setFailReason("Unable To Authenticate User");
+			ret.setFailReason(BaseFailReason.AUTHENTICATION_FAILURE);
 		}
 		return ret;
 		
@@ -193,7 +195,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 				}
 				else{
 					ret = new ChangePseudonymResponse(false,null);
-					ret.setFailReason("Unable To Authenticate User");
+					ret.setFailReason(BaseFailReason.AUTHENTICATION_FAILURE);
 				}
 				return ret;
 	}
@@ -207,7 +209,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 				ret = new ChangePseudonymResponse(true,user.getName());
 			} catch (EntityNotFoundException e) {
 				ret = new ChangePseudonymResponse(false,null);
-				ret.setFailReason("Unable To Find User");
+				ret.setFailReason(BaseFailReason.USER_NOT_FOUND);
 			}
 			return ret;
 	}

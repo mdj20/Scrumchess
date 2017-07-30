@@ -12,11 +12,12 @@ import com.scrumchess.authentication.Authentication;
 import com.scrumchess.authentication.StringBaseUserAuthenticationObject;
 import com.scrumchess.authentication.UserAuthenticationObject;
 import com.scrumchess.transit.auth.pre.UserPreAuthentication;
+import com.scrumchess.transit.request.RequestType;
 
 public abstract class AbstractAuthenticableClientRequest extends AbstractClientRequest implements ClientRequest, UserAuthenticationObject<String>{
 	private StringBaseUserAuthenticationObject userAuthenticationObject;
-	private int requestType;
-	AbstractAuthenticableClientRequest(int requestType, Date date, UserPreAuthentication upaType) {
+	private RequestType requestType;
+	AbstractAuthenticableClientRequest(RequestType requestType, Date date, UserPreAuthentication upaType) {
 		super(date);
 		userAuthenticationObject = new StringBaseUserAuthenticationObject(upaType);
 		this.requestType = requestType;
@@ -33,7 +34,7 @@ public abstract class AbstractAuthenticableClientRequest extends AbstractClientR
 	}
 
 	@Override
-	public int getRequestType() {
+	public RequestType getRequestType() {
 		return requestType;
 	}
 
