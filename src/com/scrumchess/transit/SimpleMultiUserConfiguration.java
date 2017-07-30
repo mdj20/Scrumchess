@@ -9,8 +9,9 @@ import com.scrumchess.transit.user.MultiUser;
 public class SimpleMultiUserConfiguration extends SimplePlayerConfiguration  implements MultiUserConfiguration {
 	
 	
-	SimpleMultiUserConfiguration(Config config){
+	public SimpleMultiUserConfiguration(Config config,MultiUser multiUser){
 		super(config);
+		this.multiUser = multiUser;
 	}
 	private MultiUser multiUser;
 

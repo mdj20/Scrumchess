@@ -11,6 +11,8 @@ public class ScrumchessUserAuthenticator {
 		UserAuthenticationObject<String> uao = userAuthenticationObject;
 		switch (uao.getAuthenticationType()) {
 			case Debug:
+				ret = true;
+				uao.setAuthentication(new SimpleAuthentication(uao.getUserToken()));
 				break;
 			case Google:
 				GoogleAuthenticatorString googleAuthenticatorString = new GoogleAuthenticatorString();

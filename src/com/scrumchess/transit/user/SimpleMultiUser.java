@@ -4,7 +4,7 @@ public class SimpleMultiUser extends SimpleCompositeUserIdetification implements
 	
 	private CompositeUserIdentification cuids[] = new CompositeUserIdentification[2];
 	
-	SimpleMultiUser(String id) {
+	public SimpleMultiUser(String id) {
 		super(id);
 		cuids[0] = this;
 		init2nd(id);

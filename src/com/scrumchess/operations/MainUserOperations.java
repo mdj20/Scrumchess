@@ -16,7 +16,7 @@ import com.scrumchess.transit.user.CompositeUserIdentification;
 
 public interface MainUserOperations {
 	public < T extends AbstractAuthenticableClientRequest & MultiUserConfiguration > NewGameResponse newGame(T newGameRequest);
-	public NewGameResponse newGame(NewGameRequest newGameRequest);
+	//public NewGameResponse newGame(NewGameRequest newGameRequest);
 	public < T extends AbstractAuthenticableClientRequest & GameIdentification > GameInfoResponse getGameInfo(T gameInfoRequest);
 	//public GameInfoResponse getGameInfo(GameInfoRequest gameInfoRequest);
 	//public TransitResponse sendMove(MoveSendRequest moveSendRequest);

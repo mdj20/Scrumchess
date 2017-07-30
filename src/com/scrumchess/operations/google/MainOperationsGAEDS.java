@@ -116,11 +116,13 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		return ret;
 	}
 
+	/*
 	@Override
 	public NewGameResponse newGame(NewGameRequest newGameRequest) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	*/
 
 	@Override
 	public <T extends AbstractAuthenticableClientRequest & GameIdentification> GameInfoResponse getGameInfo(T gameInfoRequest) {
