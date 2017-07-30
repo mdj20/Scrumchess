@@ -27,37 +27,32 @@ public class NewGameRequest extends AbstractAuthenticableClientRequest implement
 
 	@Override
 	public String getPseudonym(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return multiUserConfiguration.getPseudonym(index);
 	}
 
 	@Override
 	public boolean hasPseudonym(int index) {
-		// TODO Auto-generated method stub
-		return false;
+		return multiUserConfiguration.hasPseudonym(index);
 	}
 
 	@Override
 	public String getId(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return multiUserConfiguration.getId(index);
 	}
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return multiUserConfiguration.getId();
 	}
 
 	@Override
 	public String getPseudonym() {
-		// TODO Auto-generated method stub
-		return null;
+		return multiUserConfiguration.getPseudonym();
 	}
 
 	@Override
 	public boolean hasPseudonym() {
-		// TODO Auto-generated method stub
-		return false;
+		return multiUserConfiguration.hasPseudonym();
 	}
 }
