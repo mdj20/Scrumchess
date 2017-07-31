@@ -9,8 +9,8 @@ import com.scrumchess.transit.game.identification.GameIdentification;
 import com.scrumchess.transit.game.identification.SimpleGameIdentification;
 
 public class GameInfoRequest extends AbstractAuthenticableClientRequest implements GameIdentification {
-	private SimpleGameIdentification simpleGameIdentification;
 
+	private SimpleGameIdentification simpleGameIdentification;
 
 	public GameInfoRequest(StringBaseUserAuthenticationObject upe, long gameID){
 		super(RequestType.GAME_INFO_REQUEST,new Date(),upe);	

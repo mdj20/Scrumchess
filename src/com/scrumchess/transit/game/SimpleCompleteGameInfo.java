@@ -35,7 +35,7 @@ public class SimpleCompleteGameInfo implements CompleteGameInfo{
 	}
 
 	@Override
-	public long getHalfMoveNumber() {
+	public int getHalfMoveNumber() {
 		return state.getHalfMoveNumber();
 	}
 

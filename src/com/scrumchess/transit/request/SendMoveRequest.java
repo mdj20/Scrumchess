@@ -7,9 +7,9 @@ import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.move.OrdinalMove;
 import com.scrumchess.transit.move.SimpleMoveAlgebraic;
 
-public class MoveSendRequest extends GameInfoRequest implements MoveAlgebraic {
+public class SendMoveRequest extends GameInfoRequest implements MoveAlgebraic {
 	private MoveAlgebraic moveAlgebraic;
-	public MoveSendRequest(GameInfoRequest gir, String move, int moveNumber){
+	public SendMoveRequest(GameInfoRequest gir, String move, int moveNumber){
 		super(gir);
 		moveAlgebraic = new SimpleMoveAlgebraic(move, moveNumber);
 	}

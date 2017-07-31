@@ -5,7 +5,7 @@ import com.scrumchess.transit.game.identification.GameIdentification;
 import com.scrumchess.transit.move.MoveAlgebraic;
 import com.scrumchess.transit.request.AbstractAuthenticableClientRequest;
 import com.scrumchess.transit.request.GameInfoRequest;
-import com.scrumchess.transit.request.MoveSendRequest;
+import com.scrumchess.transit.request.SendMoveRequest;
 import com.scrumchess.transit.request.NewGameRequest;
 import com.scrumchess.transit.response.ChangePseudonymResponse;
 import com.scrumchess.transit.response.GameInfoResponse;
