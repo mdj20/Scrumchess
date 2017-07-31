@@ -9,7 +9,7 @@ public class SimpleMultiUser extends SimpleCompositeUserIdetification implements
 		cuids[0] = this;
 		init2nd(id);
 	}
-	SimpleMultiUser(String id, String pseudo){
+	public SimpleMultiUser(String id, String pseudo){
 		super(id,pseudo);
 		cuids[0] = this;
 	}

@@ -51,7 +51,6 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		return ret;
 	}
 
-
 	public static MainOperationsGAEDS getInstance(){
 		return new MainOperationsGAEDS();
 	}
@@ -61,7 +60,7 @@ public class MainOperationsGAEDS implements MainUserOperations {
 	}
 	
 	private NewGameResponse newGameAttempt( MultiUserConfiguration newGameRequest ){
-		NewGameResponse ret= null;
+		NewGameResponse ret = null;
 		ScrumchessDatastoreFacade sdf = ScrumchessDatastoreFacade.getInstance();
 		switch (newGameRequest.getConfigurationValue()) {
 			case WHITE :{
@@ -73,21 +72,43 @@ public class MainOperationsGAEDS implements MainUserOperations {
 					ret = new NewGameResponse( false , null );
 					ret.setFailReason(BaseFailReason.USER_NOT_FOUND);
 				}
-		
+				break;
 			}
 			case BLACK :{
-				
+				try {
+					Game game = sdf.newGameBlack( newGameRequest.getId() );
+					ret = buildNewGameResponse(game,newGameRequest);
+				} catch (EntityNotFoundException e) {
+					// user not found in database
+					ret = new NewGameResponse( false , null );
+					ret.setFailReason(BaseFailReason.USER_NOT_FOUND);
+				}
+				break;
 			}
 			case BOTH :{
-				
+				try {
+					Game game = sdf.newTwoPlayerGame(newGameRequest.getId(0),newGameRequest.getId(1));
+					ret = buildNewGameResponse(game,newGameRequest);
+				} catch (EntityNotFoundException e) {
+					// user not found in database
+					ret = new NewGameResponse( false , null );
+					ret.setFailReason(BaseFailReason.USER_NOT_FOUND);
+				}
+				break;
 			}
 			case NONE:{
-				
+				// this is empty for now maybe used for testing or simulation
+				break;
+			}
+			default:{
+				ret = new NewGameResponse(false,null);
+				ret.setFailReason(BaseFailReason.INVALID_REQUEST_CONFIGURATION);
 			}
 		}
 		return ret;
 	}
-	
+
+	// This method should be moved to a static utility class.
 	private NewGameResponse buildNewGameResponse(Game game, MultiUserConfiguration muc){
 		NewGameResponse ret=null;
 		CompleteGameUserInfoBuilder builder = new CompleteGameUserInfoBuilder();
@@ -116,13 +137,6 @@ public class MainOperationsGAEDS implements MainUserOperations {
 		return ret;
 	}
 
-	/*
-	@Override
-	public NewGameResponse newGame(NewGameRequest newGameRequest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	*/
 
 	@Override
 	public <T extends AbstractAuthenticableClientRequest & GameIdentification> GameInfoResponse getGameInfo(T gameInfoRequest) {
@@ -174,11 +188,10 @@ public class MainOperationsGAEDS implements MainUserOperations {
 	}
 
 	@Override
-	public <T extends AbstractAuthenticableClientRequest & GameIdentification & MoveAlgebraic> SendMoveResponse sendMove(
-			T sendMoveRequest) {
+	public <T extends AbstractAuthenticableClientRequest & GameIdentification & MoveAlgebraic> SendMoveResponse sendMove(T sendMoveRequest) {
 		SendMoveResponse ret = null;
 		if ( authenticate(sendMoveRequest) ){
-			ret = sendMoveAttempt(sendMoveRequest, sendMoveRequest.getGameID(),sendMoveRequest.getUserIdentification());
+			ret = sendMoveAttempt(sendMoveRequest,sendMoveRequest.getGameID(),sendMoveRequest.getUserIdentification());
 		}
 		else{
 			ret = new SendMoveResponse(false,null);

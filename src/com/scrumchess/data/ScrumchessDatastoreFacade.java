@@ -42,9 +42,17 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
-	// this method is very inefficient,
+	// these methods are very inefficient, and need optimized, as they access the data store twice for each method.
 	public Game newGameWhite(String id) throws EntityNotFoundException {
 		Key gameKey = gf.newGameToUserWhite(id);
+		return gf.getGame(gameKey);
+	}
+	public Game newGameBlack(String id) throws EntityNotFoundException {
+		Key gameKey = gf.newGameToUserBlack(id);
+		return gf.getGame(gameKey);
+	}
+	public Game newTwoPlayerGame(String white, String black) throws EntityNotFoundException {
+		Key gameKey = gf.newGameToUsers(white, black);
 		return gf.getGame(gameKey);
 	}
 	
@@ -117,6 +125,10 @@ public class ScrumchessDatastoreFacade {
 				else {
 					 ret = EvaluatedMove.createInvalid(game,"", aumi);
 				}
+			}
+			else {
+				// wrong user....
+				ret = EvaluatedMove.createInvalid(null,"", aumi);
 			}
 		}
 		else{

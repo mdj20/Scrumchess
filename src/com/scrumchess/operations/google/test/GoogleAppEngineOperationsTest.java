@@ -16,6 +16,7 @@ import com.scrumchess.transit.response.GameInfoResponse;
 import com.scrumchess.transit.response.NewGameResponse;
 import com.scrumchess.transit.response.SendMoveResponse;
 import com.scrumchess.transit.user.MultiUser;
+import com.scrumchess.transit.user.SimpleCompositeUserIdetification;
 import com.scrumchess.transit.user.SimpleMultiUser;
 
 
@@ -29,28 +30,35 @@ public class GoogleAppEngineOperationsTest {
 	String userToken0 = "usertoken0";
 	String userToken1 = "userToken1";
 	
+	//
 	private int smokeTest(){
 		System.out.println("start Test");
 		mainOps = new MainOperationsGAEDS();
 		StringBaseUserAuthenticationObject uao0 = buildAuthenticationObject(userToken0);
 		StringBaseUserAuthenticationObject uao1 = buildAuthenticationObject(userToken1);
-		NewGameResponse response = newGameAttempt(uao0);
+		NewGameResponse response = newGameAttemptWhite(uao0);
 		analyzeNewGameResponse(response);
 		GameInfoResponse gir = gameInfoAttempt(uao0,response.getReturnableObject().getGameID());
 		analyzeGameInfoResponse(gir);
-		SendMoveResponse smr = newMoveAttempt(gir.getReturnableObject().getGameID(),uao0,"e2e4",gir.getReturnableObject().getHalfMoveNumber()+1);
+		SendMoveResponse smr = newMoveAttempt(gir.getReturnableObject().getGameID(),uao1,"e2e4",gir.getReturnableObject().getHalfMoveNumber()+10);
 		analyzeSendMoveResponse(smr);
-		
-		return 0;	
-		
+		response = newGameAttemptBlack(uao0);
+		analyzeNewGameResponse(response);
+		response = newGameAttempt2P(uao0,uao1);
+		analyzeNewGameResponse(response);
+		return 0;		
 	}
 	
 	
 	private void analyzeSendMoveResponse(SendMoveResponse smr) {
-		System.out.println(smr.successful());
-		//System.out.println("Game ID: "+smr.getReturnableObject());
-		System.out.println("FEN: "+smr.getReturnableObject().getFen());
-		System.out.println("Move Num: "+smr.getReturnableObject().getHalfMoveNumber());
+		if (smr.successful()) {
+			System.out.println(smr.successful());
+			System.out.println("FEN: "+smr.getReturnableObject().getFen());
+			System.out.println("Move Num: "+smr.getReturnableObject().getHalfMoveNumber());
+		}
+		else {
+			System.out.println(smr.getReasonMsg());
+		}
 	}
 	
 	private void analyzeNewGameResponse(NewGameResponse ngr){
@@ -90,9 +98,25 @@ public class GoogleAppEngineOperationsTest {
 		return response;
 	}
 	
-	private NewGameResponse newGameAttempt(StringBaseUserAuthenticationObject uao){
+	private NewGameResponse newGameAttemptWhite(StringBaseUserAuthenticationObject uao){
 		SimpleMultiUserConfiguration muc = new SimpleMultiUserConfiguration(Config.WHITE, new SimpleMultiUser(uao.getUserToken()));
 		NewGameRequest newGameReq = buildNewGameRequest(uao,muc);
+		NewGameResponse response = mainOps.newGame(newGameReq);
+		return response;
+	}
+	private NewGameResponse newGameAttemptBlack(StringBaseUserAuthenticationObject uao){
+		SimpleMultiUserConfiguration muc = new SimpleMultiUserConfiguration(Config.BLACK, new SimpleMultiUser(uao.getUserToken()));
+		NewGameRequest newGameReq = buildNewGameRequest(uao,muc);
+		NewGameResponse response = mainOps.newGame(newGameReq);
+		return response;
+	}
+	private NewGameResponse newGameAttempt2P(StringBaseUserAuthenticationObject uao0,StringBaseUserAuthenticationObject uao1){
+		SimpleMultiUser smu = new SimpleMultiUser(
+					new SimpleCompositeUserIdetification(uao0.getUserToken()),
+					new SimpleCompositeUserIdetification(uao1.getUserToken())
+				);
+		SimpleMultiUserConfiguration muc = new SimpleMultiUserConfiguration(Config.BOTH, smu);
+		NewGameRequest newGameReq = buildNewGameRequest(uao0,muc);
 		NewGameResponse response = mainOps.newGame(newGameReq);
 		return response;
 	}

@@ -19,7 +19,9 @@ public class GameInfoRequest extends AbstractAuthenticableClientRequest implemen
 	
 	public GameInfoRequest(GameInfoRequest gir){
 		super(gir.getRequestType(),gir.getRequestDate(),gir.getUserAuthenticationObject());
+		simpleGameIdentification = new SimpleGameIdentification(gir.getGameID());
 	}
+	
 	@Override
 	public long getGameID() {
 		return simpleGameIdentification.getGameID();
