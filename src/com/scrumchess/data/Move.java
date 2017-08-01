@@ -5,11 +5,8 @@ import java.util.Date;
 public class Move implements Comparable<Move>{
 	private String moveString;
 	private int number;
-	//private int from;
-	//private int to;
 	private Date date;
 
-	
 	Move(String moveString, int number,/* int from, int to,*/ Date date){
 		this.moveString = moveString;
 		this.number = number;

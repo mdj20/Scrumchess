@@ -25,10 +25,7 @@ public class MoveExecutor {
 		if (userID != null && game != null){
 			MoveValidator gv = MoveValidator.createWithFen(game.getFen());
 			gv.setMove(umi.getMoveAlgebraic());
-			
-			
 		}
 		return null;
 	}
-	
 }

@@ -17,8 +17,8 @@ public class AlgebraicNotation {
 	}
 	// returns on square in algebraic notation from x y coordinates.
 	public static String cellString(int file, int rank){
-		if(rank < 0 || rank > 7 || file < 0 || file > 7){
-			throw new IllegalArgumentException();
+		if(rank < 0 || rank > 7 || file < 0 || file > 7){  
+			throw new IllegalArgumentException(); // out of bounds
 		}
 		char fileChar = (char) ( a + file);
 		char rankChar = (char) (eight - rank); 
@@ -34,7 +34,7 @@ public class AlgebraicNotation {
 	private static void smokeTest(){
 		for(int i=0; i<8 ;i++){
 			for (int j=0; j<8 ;j++){
-				System.out.println(cellString(j,i	));		
+				System.out.println(cellString(j,i));		
 			}
 		}		
 	}

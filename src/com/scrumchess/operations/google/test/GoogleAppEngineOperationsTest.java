@@ -1,5 +1,9 @@
 package com.scrumchess.operations.google.test;
 
+import java.util.ArrayList;
+
+import com.alonsoruibal.chess.Board;
+import com.alonsoruibal.chess.movegen.LegalMoveGenerator;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.scrumchess.authentication.AuthenticationObjectBuilder;
@@ -30,6 +34,8 @@ public class GoogleAppEngineOperationsTest {
 	String userToken0 = "usertoken0";
 	String userToken1 = "userToken1";
 	
+	ArrayList<Long> games = new ArrayList<Long>();
+	
 	//
 	private int smokeTest(){
 		System.out.println("start Test");
@@ -37,15 +43,27 @@ public class GoogleAppEngineOperationsTest {
 		StringBaseUserAuthenticationObject uao0 = buildAuthenticationObject(userToken0);
 		StringBaseUserAuthenticationObject uao1 = buildAuthenticationObject(userToken1);
 		NewGameResponse response = newGameAttemptWhite(uao0);
+		games.add(response.getReturnableObject().getGameID());
 		analyzeNewGameResponse(response);
 		GameInfoResponse gir = gameInfoAttempt(uao0,response.getReturnableObject().getGameID());
 		analyzeGameInfoResponse(gir);
-		SendMoveResponse smr = newMoveAttempt(gir.getReturnableObject().getGameID(),uao1,"e2e4",gir.getReturnableObject().getHalfMoveNumber()+10);
+		SendMoveResponse smr = newMoveAttempt(gir.getReturnableObject().getGameID(),uao0,"e2e4",gir.getReturnableObject().getHalfMoveNumber()+10);
 		analyzeSendMoveResponse(smr);
 		response = newGameAttemptBlack(uao0);
+		games.add(response.getReturnableObject().getGameID());
 		analyzeNewGameResponse(response);
 		response = newGameAttempt2P(uao0,uao1);
+		games.add(response.getReturnableObject().getGameID());
 		analyzeNewGameResponse(response);
+		for (Long l:games){
+			System.out.println(l);
+		}
+		Board board = new Board();
+		board.setFen(response.getReturnableObject().getFen());
+		LegalMoveGenerator lmg = new LegalMoveGenerator();
+		int moves[] = new int[20];
+		System.out.println(lmg.generateMoves(board, moves,0));
+		
 		return 0;		
 	}
 	

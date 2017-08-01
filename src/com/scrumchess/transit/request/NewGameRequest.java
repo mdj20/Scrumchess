@@ -12,10 +12,7 @@ import static com.scrumchess.transit.game.playerconfiguration.PlayerConfiguratio
 public class NewGameRequest extends AbstractAuthenticableClientRequest implements MultiUserConfiguration{
 	MultiUserConfiguration multiUserConfiguration; 
 	
-	
-
 	public NewGameRequest(StringBaseUserAuthenticationObject upaType, MultiUserConfiguration multiUserConfiguration) {
-
 		super(RequestType.NEW_GAME_REQUEST, new Date(), upaType);
 		this.multiUserConfiguration = multiUserConfiguration;
 	}
@@ -27,7 +24,6 @@ public class NewGameRequest extends AbstractAuthenticableClientRequest implement
 
 	@Override
 	public String getPseudonym(int index) {
-		
 		return multiUserConfiguration.getPseudonym(index);
 	}
 
