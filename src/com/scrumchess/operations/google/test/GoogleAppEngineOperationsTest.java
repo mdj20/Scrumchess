@@ -48,22 +48,15 @@ public class GoogleAppEngineOperationsTest {
 		GameInfoResponse gir = gameInfoAttempt(uao0,response.getReturnableObject().getGameID());
 		analyzeGameInfoResponse(gir);
 		SendMoveResponse smr = newMoveAttempt(gir.getReturnableObject().getGameID(),uao0,"e2e4",gir.getReturnableObject().getHalfMoveNumber()+10);
-		analyzeSendMoveResponse(smr);
-		response = newGameAttemptBlack(uao0);
-		games.add(response.getReturnableObject().getGameID());
-		analyzeNewGameResponse(response);
-		response = newGameAttempt2P(uao0,uao1);
-		games.add(response.getReturnableObject().getGameID());
-		analyzeNewGameResponse(response);
-		for (Long l:games){
-			System.out.println(l);
-		}
+		System.out.println(smr.getReturnableObject().getFen());
 		Board board = new Board();
-		board.setFen(response.getReturnableObject().getFen());
+		board.setFen(smr.getReturnableObject().getFen());
 		LegalMoveGenerator lmg = new LegalMoveGenerator();
-		int moves[] = new int[20];
+		int moves[] = new int[256];
 		System.out.println(lmg.generateMoves(board, moves,0));
-		
+		for(int i:moves) {
+			System.out.println(Integer.toBinaryString(i));
+		}
 		return 0;		
 	}
 	

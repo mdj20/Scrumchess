@@ -65,6 +65,13 @@ public class MoveValidator {
 		System.out.println(move);
 		String fen = mv.doMove();
 		System.out.println(fen);	
+		
+		mv = MoveValidator.createWithFen(Board.FEN_START_POSITION);
+		move = AlgebraicNotation.createFromCoordinates(0,6, 0, 3 );
+		System.out.println("SETMOVE: "+mv.setMove(move));
+		System.out.println(move+" "+mv.moveReady);
+		fen = mv.doMove();
+		System.out.println(fen);	
 	}
 
 }
