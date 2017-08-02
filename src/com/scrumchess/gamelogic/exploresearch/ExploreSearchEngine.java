@@ -1,5 +1,6 @@
 package com.scrumchess.gamelogic.exploresearch;
 
+import com.alonsoruibal.chess.Board;
 import com.alonsoruibal.chess.Config;
 import com.alonsoruibal.chess.search.SearchEngine;
 import com.alonsoruibal.chess.search.SearchParameters;
@@ -7,20 +8,12 @@ import com.alonsoruibal.chess.search.SearchParameters;
 public class ExploreSearchEngine {
 	
 	SearchEngine searchEngine;
-	
+	Board board;
 	
 	ExploreSearchEngine(){
-		long time = System.nanoTime();
 		searchEngine = new SearchEngine(buildConfig());
 		searchEngine.init();
-		searchEngine.go(new SearchParameters());
-		int bestMove = searchEngine.getBestMove();
-		System.out.println(bestMove);
-		searchEngine.go(new SearchParameters());
-		bestMove = searchEngine.getBestMove();
-		System.out.println(bestMove);
-		long end = System.nanoTime();
-		//System.out.println(end-time);
+		board = searchEngine.getBoard();
 	}
 	
 	
@@ -30,8 +23,22 @@ public class ExploreSearchEngine {
 		return ret;
 	}
 	
+	private void cycle() {
+		searchEngine.go(new SearchParameters());
+		int move = searchEngine.getBestMove();
+		board.doMove(move);
+	}
+	
 	
 	private int explore(){
+		
+		while(0==board.isEndGame()) {
+			cycle();
+			System.out.println(board.getFen());
+		}
+		
+		System.out.println(board.isEndGame());
+		
 		return 0;
 	}
 	
