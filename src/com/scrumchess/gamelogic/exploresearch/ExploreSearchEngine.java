@@ -27,7 +27,7 @@ public class ExploreSearchEngine {
 	}
 	
 	private void cycle() {
-		searchEngine.go(SearchParameters.get(100));
+		searchEngine.go(SearchParameters.get(5));
 		int move = searchEngine.getBestMove();
 		board.doMove(move);
 	}
@@ -37,7 +37,6 @@ public class ExploreSearchEngine {
 		while(0==board.isEndGame()) {
 			cycle();
 		}
-		System.out.println(board.isEndGame());
 		return board.isEndGame();
 	}
 	
@@ -59,7 +58,7 @@ public class ExploreSearchEngine {
 		ArrayList<Long> times = new ArrayList<Long>();
 		long time;
 		
-		for (int i = 0 ; i < 5 ; i++) {
+		for (int i = 0 ; i < 25 ; i++) {
 			time = System.currentTimeMillis();
 			results.add(new ExploreSearchEngine().explore());	
 			times.add(System.currentTimeMillis()-time);
