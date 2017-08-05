@@ -1,7 +1,7 @@
 package com.alonsoruibal.chess.log;
 
 public class Logger {
-	public static boolean noLog = false;
+	public static boolean noLog = true;
 	String prefix;
 
 	private Logger(String prefix) {

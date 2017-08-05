@@ -1,10 +1,12 @@
 package com.scrumchess.gamelogic;
 
+
 import com.alonsoruibal.chess.Board;
 import com.alonsoruibal.chess.Config;
 import com.alonsoruibal.chess.Move;
 import com.alonsoruibal.chess.search.SearchEngine;
 import com.alonsoruibal.chess.search.SearchParameters;
+
 
 public class GameValidator {
 	
