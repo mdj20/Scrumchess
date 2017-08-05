@@ -1,6 +1,10 @@
 package com.scrumchess.gamelogic;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import com.alonsoruibal.chess.Board;
 import com.alonsoruibal.chess.Config;
 import com.alonsoruibal.chess.Move;
@@ -18,7 +22,6 @@ public class GameValidator {
 	private boolean moveReady;
 	private final int DEFAULT_TIME = 1;
 
-	
 	// builds GameValidator with default configuration
 	GameValidator(String initialFen){
 		this.searchEngine = new SearchEngine(buildConfig());
@@ -34,7 +37,6 @@ public class GameValidator {
 			ret = true;
 		}
 		return ret;
-		
 	}
 	
 	public boolean setMove(String an){
@@ -75,11 +77,48 @@ public class GameValidator {
 	}
 
 	public static void main(String args[]){
-		new GameValidator(Board.FEN_START_POSITION).smokeTest();
+		HashMap<Integer,Integer> set = new HashMap<Integer,Integer>();
+		List<String> ends = new ArrayList<String>();
+		for (int i = 0 ; i <25 ; i++) {
+			GameValidator gv = new GameValidator(Board.FEN_START_POSITION);
+			smokeTally(set,gv.smokeTest());
+			ends.add(gv.board.toString());
+		}
+	
+		for (Integer i:set.keySet()) {
+			System.out.println(i+": "+set.get(i));
+		}
+		
+		for(String s:ends) {
+			System.out.println(s);
+		}
+	
+	}
+	
+	private static void smokeTally(HashMap<Integer,Integer> map, Integer i) {
+		if(map.containsKey(i)) {
+			map.put(i,map.get(i)+1);
+		}
+		else {
+			map.put(i,1);
+		}
 	}
 	
 	private int smokeTest(){
-		return 0;
+		SearchParameters sp = buildSearchParameters(DEFAULT_TIME);
+		
+		while(smokeCycle(sp)==0) {
+		
+		}
+		
+		return this.board.isEndGame();
+	}
+	
+	private int smokeCycle(SearchParameters sp) {
+		searchEngine.go(sp);
+		int move = searchEngine.getBestMove();
+		this.board.doMove(move);
+		return this.board.isEndGame();
 	}
 	
 	

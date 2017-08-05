@@ -45,6 +45,8 @@ public class DSSmokeTest {
 	private final LocalServiceTestHelper helper =
 		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 	
+	
+	//  NOTE: some of these constansts should be stored in a outside configurations file. 
 	private ScrumchessDatastoreFacade sdf;
 	private UserFacade uf;
 	private DatastoreService dss;
@@ -99,6 +101,9 @@ public class DSSmokeTest {
 	private ArrayList<Move> getMoves(long id){
 		return mf.getMoves(gf.getKeyFromID(id));
 	}
+	
+	
+	// TODO: REMOVE ALL OF THE SMOKE FILES WHEN UNIT TESTS ARE CREATED, FOR THE PACKAGE.
 	
 	public void smoke() throws EntityNotFoundException, InterruptedException{
 		CreateUser(testUserID_0);
