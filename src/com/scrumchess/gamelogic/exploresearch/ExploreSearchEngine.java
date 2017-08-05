@@ -31,14 +31,11 @@ public class ExploreSearchEngine {
 	
 	
 	private int explore(){
-		
 		while(0==board.isEndGame()) {
 			cycle();
 			System.out.println(board.getFen());
 		}
-		
 		System.out.println(board.isEndGame());
-		
 		return 0;
 	}
 	

@@ -29,11 +29,11 @@ public class MoveValidator {
 		return ret;
 	}
 	// executes move returns fen representation of board after move.
-	public String doMove(){ 
-		String ret = badMove;
+	public boolean doMove(){ 
+		boolean ret = false;
 		if (this.moveReady){
 			this.board.doMove(this.move);
-			ret = board.getFen();
+			ret = true;
 		}
 		return ret;
 	}
@@ -61,17 +61,7 @@ public class MoveValidator {
 		MoveValidator mv;
 		mv = MoveValidator.createWithFen(Board.FEN_START_POSITION);
 		String move = AlgebraicNotation.createFromCoordinates(0,6, 0, 4);
-		mv.setMove(move);
-		System.out.println(move);
-		String fen = mv.doMove();
-		System.out.println(fen);	
-		
-		mv = MoveValidator.createWithFen(Board.FEN_START_POSITION);
-		move = AlgebraicNotation.createFromCoordinates(0,6, 0, 3 );
-		System.out.println("SETMOVE: "+mv.setMove(move));
-		System.out.println(move+" "+mv.moveReady);
-		fen = mv.doMove();
-		System.out.println(fen);	
+
 	}
 
 }

@@ -118,8 +118,8 @@ public class ScrumchessDatastoreFacade {
 		if (game != null){  // checks if userID and Game exist
 			MoveValidator mv = MoveValidator.createWithFen(game.getFen());
 			if ( isPlayerTurn(userID,game,mv.isWhiteTurn()) ){  // check for correct color/ turn
-				if (mv.setMove(aumi.getMoveAlgebraic())){  // adds move and if valid
-					String newFen = mv.doMove();
+				if (mv.setMove(aumi.getMoveAlgebraic()) && mv.doMove()){  // adds move and if valid
+					String newFen = mv.getFen();
 					ret = EvaluatedMove.createValid(game,newFen,aumi);
 				}
 				else {
