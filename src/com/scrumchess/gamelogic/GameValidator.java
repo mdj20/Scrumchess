@@ -16,7 +16,6 @@ import com.alonsoruibal.chess.search.SearchParameters;
  * 	GameValidator.java 
  */
 
-
 public class GameValidator {
 	private int DEFAULT_SEARCH_TIME = 2;
 	private SearchEngine searchEngine;
@@ -47,24 +46,30 @@ public class GameValidator {
 	public boolean setMove(String an){
 		boolean ret = false;
 		int tempMove = Move.getFromString(board, an , true); // Move is from com.alonsoruibal.chess
-		if ((ret = moveValid(tempMove))==true){
+		if ( (ret = moveValid(tempMove))==true ){
 			this.moveInt=tempMove;
 			this.moveReady = true;
 		}
 		return ret;
 	}
 	
-	public String getFen(){
-		return this.board.getFen();
+	private SearchEngine buildSearchEngine(String fen, Config config){
+		SearchEngine ret = new SearchEngine(config);
+		ret.getBoard().setFen(fen);
+		return ret;
 	}
 	
-	public Config buildConfig(){
+	public String getFen(){
+		return this.searchEngine.getBoard().getFen();
+	}
+
+	private Config buildConfig(){
 		Config ret;
 		ret = new Config();
 		return ret;
 	}
 	
-	public int getBestMove(){
+	private int getBestMove(){
 		searchEngine.go(buildSearchParameters(1));
 		return searchEngine.getBestMove();
 	}
@@ -76,6 +81,7 @@ public class GameValidator {
 		}
 		return ret;
 	}
+	
 	// builds new search params with default values
 	private SearchParameters buildSearchParameters(int time){
 		return SearchParameters.get(time);
@@ -130,6 +136,4 @@ public class GameValidator {
 		this.board.doMove(move);
 		return this.board.isEndGame();
 	}
-	
-	
 }
