@@ -3,6 +3,7 @@ package com.scrumchess.gamelogic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.alonsoruibal.chess.Board;
@@ -11,13 +12,17 @@ import com.alonsoruibal.chess.Move;
 import com.alonsoruibal.chess.search.SearchEngine;
 import com.alonsoruibal.chess.search.SearchParameters;
 
+/* 
+ * 	GameValidator.java 
+ */
+
 
 public class GameValidator {
-	
+	private int DEFAULT_SEARCH_TIME = 2;
 	private SearchEngine searchEngine;
 	private Board board;
 	private String fen;   // FEN
-	private SearchParameters searchParameters;  // FEN 
+	private SearchParameters searchParameters = buildSearchParameters(DEFAULT_SEARCH_TIME);  //  build default search Paramerters 
 	private int moveInt;
 	private boolean moveReady;
 	private final int DEFAULT_TIME = 1;
@@ -79,10 +84,15 @@ public class GameValidator {
 	public static void main(String args[]){
 		HashMap<Integer,Integer> set = new HashMap<Integer,Integer>();
 		List<String> ends = new ArrayList<String>();
-		for (int i = 0 ; i <25 ; i++) {
+		List<Long> times = new LinkedList<Long>();
+		long tempTime;
+		
+		for (int i = 0 ; i < 45 ; i++) {
+			tempTime = System.currentTimeMillis(); 
 			GameValidator gv = new GameValidator(Board.FEN_START_POSITION);
 			smokeTally(set,gv.smokeTest());
 			ends.add(gv.board.toString());
+			times.add(System.currentTimeMillis()-tempTime);
 		}
 	
 		for (Integer i:set.keySet()) {
