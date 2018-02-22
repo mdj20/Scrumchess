@@ -36,6 +36,8 @@ public class ScrumchessDatastoreFacade {
 		return new  ScrumchessDatastoreFacade(dss);
 	}
 	
+	
+	// returns game object 
 	public Game getGameById(long id) throws EntityNotFoundException{
 		Game ret;
 		ret = gf.getGame(id);

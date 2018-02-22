@@ -52,6 +52,9 @@ public class MoveValidator {
 	public boolean isWhiteTurn(){
 		return board.getTurn();
 	}
+	public int isEndGame(){
+		return this.board.isEndGame();
+	}
 	// smoke testing methods 
 	public static void main(String args[]){
 		smokeTest();

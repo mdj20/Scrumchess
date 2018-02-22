@@ -27,7 +27,7 @@ public class GameValidator {
 	private final int DEFAULT_TIME = 1;
 
 	// builds GameValidator with default configuration
-	GameValidator(String initialFen){
+	public GameValidator(String initialFen){
 		this.searchEngine = new SearchEngine(buildConfig());
 		this.board = searchEngine.getBoard();
 		board.setFen(initialFen);
@@ -69,9 +69,18 @@ public class GameValidator {
 		return ret;
 	}
 	
-	private int getBestMove(){
+	public int getBestMove(){
 		searchEngine.go(buildSearchParameters(1));
 		return searchEngine.getBestMove();
+	}
+	
+	public String getBestMoveString(){
+		searchEngine.go(buildSearchParameters(1));
+		return Move.toString(searchEngine.getBestMove());
+	}
+	
+	public boolean isWhiteTurn(){
+		return board.getTurn();
 	}
 	
 	private boolean moveValid(int checkMove){
@@ -85,6 +94,10 @@ public class GameValidator {
 	// builds new search params with default values
 	private SearchParameters buildSearchParameters(int time){
 		return SearchParameters.get(time);
+	}
+	
+	public int isEndGame(){
+		return board.isEndGame(); 
 	}
 
 	public static void main(String args[]){
