@@ -17,7 +17,7 @@ import com.alonsoruibal.chess.search.SearchParameters;
  */
 
 public class GameValidator {
-	private int DEFAULT_SEARCH_TIME = 2;
+	private int DEFAULT_SEARCH_TIME = 1;
 	private SearchEngine searchEngine;
 	private Board board;
 	private String fen;   // FEN
@@ -32,7 +32,6 @@ public class GameValidator {
 		this.board = searchEngine.getBoard();
 		board.setFen(initialFen);
 	}
-	private GameValidator(){}
 	
 	public boolean doMove(){
 		boolean ret = false;
@@ -121,6 +120,10 @@ public class GameValidator {
 		for(String s:ends) {
 			System.out.println(s);
 		}
+		
+		for(Long i : times) {
+			System.out.println(i);
+		}
 	
 	}
 	
@@ -135,11 +138,9 @@ public class GameValidator {
 	
 	private int smokeTest(){
 		SearchParameters sp = buildSearchParameters(DEFAULT_TIME);
-		
 		while(smokeCycle(sp)==0) {
-		
+			
 		}
-		
 		return this.board.isEndGame();
 	}
 	
