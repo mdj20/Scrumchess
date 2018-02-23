@@ -1,4 +1,4 @@
-package com.scrumchess.authentication.google;
+package com.scrumchess.authentication;
 
 import com.scrumchess.ajaxservlet.GoogleAuthHelper;
 

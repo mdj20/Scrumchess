@@ -1,7 +1,5 @@
 package com.scrumchess.authentication;
 
-import com.scrumchess.authentication.google.GoogleAuthenticatorString;
-
 //class is used to Authenticate transit requests 
 
 public class ScrumchessUserAuthenticator {
