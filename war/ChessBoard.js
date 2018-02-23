@@ -79,6 +79,13 @@ _BoardInfo_proto.findFreePiece = function(inType) {
 	return ret;
 }
 
+_BoardInfo_proto.updateSquareOffsets = function(){
+	this.squareOffsets = this.getSquareOffsets(new Array(64));
+	for(var i = 0; i < this.pieces.length ; i++){
+		this.setPieceDivToPos(this.pieces[i],this.pieces[i].loc)
+	}
+}
+
 //assigns offsets to pos
 _BoardInfo_proto.getSquareOffsets = function(pos){
 	for (var i = 0 ; i < 64 ; i++){
@@ -298,10 +305,24 @@ $(document).ready( function() {
 		control.squareClick(this);
 	} );
 	
+	
+	$(window).resize(function(){
+		control.boardInfo.updateSquareOffsets();
+    });
+	
+	
+	/*
+	$("#button").click( function(){
+		control.boardInfo.updateSquareOffsets();
+	}  );
+	
+	
 	$("#button").click( function(){
 		$.ajax(	{type : "POST", url:"/usertest", data: {'idtoken': gid_token+""}, success: function(result){$("#debugOutput").html(result);}
 		});
-	});
+	})
+	;
+	*/
 	
 });
 
