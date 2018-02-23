@@ -7,12 +7,9 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
-import com.google.appengine.api.datastore.TransactionOptions;
-import com.scrumchess.ajaxendpoint.UserMoveInfo;
-import com.scrumchess.ajaxendpoint.AuthenticatedUserMoveInfo;
-import com.scrumchess.ajaxendpoint.EvaluatedMove;
 import com.scrumchess.gamelogic.MoveValidator;
-import com.scrumchess.mdj20.GoogleAuthHelper;
+import com.scrumchess.userrequests.AuthenticatedUserMoveInfo;
+import com.scrumchess.userrequests.EvaluatedMove;
 
 public class ScrumchessDatastoreFacade {
 	private DatastoreService dss;

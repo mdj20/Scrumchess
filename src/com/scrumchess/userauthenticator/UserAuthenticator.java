@@ -1,8 +1,8 @@
 package com.scrumchess.userauthenticator;
 import java.util.Date;
 
+import com.scrumchess.ajaxservlet.GoogleAuthHelper;
 import com.scrumchess.authentication.UserCredentials;
-import com.scrumchess.mdj20.GoogleAuthHelper;
 
 public class UserAuthenticator {
 	private GoogleAuthHelper googleHelper;

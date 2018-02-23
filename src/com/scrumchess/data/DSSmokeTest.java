@@ -23,13 +23,13 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.scrumchess.ajaxendpoint.AuthenticatedUserMoveInfo;
-import com.scrumchess.ajaxendpoint.EvaluatedMove;
-import com.scrumchess.ajaxendpoint.UserMoveInfo;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
 import com.scrumchess.data.UserFacade;
 import com.scrumchess.data.MoveFacade;
 import com.scrumchess.gamelogic.MoveValidator;
+import com.scrumchess.userrequests.AuthenticatedUserMoveInfo;
+import com.scrumchess.userrequests.EvaluatedMove;
+import com.scrumchess.userrequests.UserMoveInfo;
 
 import org.junit.After;
 import org.junit.Before;

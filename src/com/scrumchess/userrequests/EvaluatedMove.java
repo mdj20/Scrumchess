@@ -1,4 +1,4 @@
-package com.scrumchess.ajaxendpoint;
+package com.scrumchess.userrequests;
 import com.scrumchess.data.Game;
 
 public class EvaluatedMove {

@@ -1,4 +1,4 @@
-package com.scrumchess.ajaxendpoint;
+package com.scrumchess.userrequests;
 
 // Class that describes a user move that has been received but not validated to a game 
 public class UserMoveInfo {

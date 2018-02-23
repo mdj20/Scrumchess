@@ -1,4 +1,4 @@
-package com.scrumchess.ajaxendpoint;
+package com.scrumchess.userrequests;
 
 public class AuthenticatedUserMoveInfo extends UserMoveInfo {
 	

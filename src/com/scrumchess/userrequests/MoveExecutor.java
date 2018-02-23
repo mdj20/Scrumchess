@@ -1,11 +1,11 @@
-package com.scrumchess.ajaxendpoint;
+package com.scrumchess.userrequests;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.scrumchess.ajaxservlet.GoogleAuthHelper;
 import com.scrumchess.data.Game;
 import com.scrumchess.data.ScrumchessDatastoreFacade;
 import com.scrumchess.gamelogic.GameValidator;
 import com.scrumchess.gamelogic.MoveValidator;
-import com.scrumchess.mdj20.GoogleAuthHelper;
 
 // class takes move information and checks validity and adds move to correct game
 public class MoveExecutor {

@@ -1,4 +1,4 @@
-package com.scrumchess.mdj20;
+package com.scrumchess.ajaxservlet;
 
 
 

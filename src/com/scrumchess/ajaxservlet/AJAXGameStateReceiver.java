@@ -2,7 +2,7 @@
  *  This is a debug class will simply add a fen notation state to the datastore.
  */
 
-package com.scrumchess.mdj20;
+package com.scrumchess.ajaxservlet;
 
 import java.awt.List;
 import java.io.IOException;

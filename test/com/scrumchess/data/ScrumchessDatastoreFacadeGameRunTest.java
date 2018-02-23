@@ -11,10 +11,10 @@ import org.junit.Test;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.scrumchess.ajaxendpoint.AuthenticatedUserMoveInfo;
-import com.scrumchess.ajaxendpoint.EvaluatedMove;
-import com.scrumchess.ajaxendpoint.UserMoveInfo;
 import com.scrumchess.gamelogic.GameValidator;
+import com.scrumchess.userrequests.AuthenticatedUserMoveInfo;
+import com.scrumchess.userrequests.EvaluatedMove;
+import com.scrumchess.userrequests.UserMoveInfo;
 
 public class ScrumchessDatastoreFacadeGameRunTest {
 
