@@ -21,17 +21,7 @@ public class UserFacade {
 		this.dss = datastore;
 	}
 
-	protected void addGameToUser(String id, Key gameKey){
-		
-	}
-	
-	/*
-	protected boolean userExists(String id){
-		boolean ret = false;
-		
-		return ret;
-	}
-	*/
+
 	protected User createNewUser(String id){
 		User user = new User(id);
 		Date date = new Date();
