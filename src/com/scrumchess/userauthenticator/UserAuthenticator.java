@@ -1,8 +1,7 @@
 package com.scrumchess.userauthenticator;
 import java.util.Date;
 
-import com.scrumchess.authentication.pre.UserCredentials;
-import com.scrumchess.authentication.pre.type.BaseAuthenticationType;
+import com.scrumchess.authentication.UserCredentials;
 import com.scrumchess.mdj20.GoogleAuthHelper;
 
 public class UserAuthenticator {
@@ -12,7 +11,7 @@ public class UserAuthenticator {
 		String retID = null;
 	/*	
 		// Auth control and branch
-		if (userInfo.getAuthenticationType()==Type.AUTH_TYPE_GOOGLE){
+		if (userInfo.getAuthenticationType()==AuthenticationType.AUTH_TYPE_GOOGLE){
 			retID = googleAuth(userInfo);
 		}
 		

@@ -1,22 +1,20 @@
 package com.scrumchess.authentication;
 
 import com.scrumchess.authentication.google.GoogleAuthenticatorString;
-import com.scrumchess.authentication.pre.type.Type;
 
 //class is used to Authenticate transit requests 
 
 public class ScrumchessUserAuthenticator {
-	public static boolean authenticate(UserAuthenticationObject<String> userAuthenticationObject){
+	public static boolean authenticate(AuthenticableUserRequest<String> userRequest){
 		boolean ret = false;
-		UserAuthenticationObject<String> uao = userAuthenticationObject;
-		switch (uao.getAuthenticationType()) {
+		switch (userRequest.getUserCredentials().getAuthenticationType()) {
 			case Debug:
 				ret = true;
-				uao.setAuthentication(new SimpleAuthentication(uao.getUserToken()));
+				userRequest.setUserIdentifier(userRequest.getUserCredentials().getUserToken());
 				break;
 			case Google:
 				GoogleAuthenticatorString googleAuthenticatorString = new GoogleAuthenticatorString();
-				googleAuthenticatorString.Authenticate(uao);
+				googleAuthenticatorString.Authenticate(userRequest);
 				ret = true;
 				break;
 			case None:

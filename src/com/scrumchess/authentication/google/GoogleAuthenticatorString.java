@@ -1,27 +1,22 @@
  package com.scrumchess.authentication.google;
 
-import com.scrumchess.authentication.SimpleAuthentication;
-import com.scrumchess.authentication.UserAuthenticationObject;
+import com.scrumchess.authentication.AuthenticableUserRequest;
 import com.scrumchess.authentication.UserAuthenticator;
-import com.scrumchess.authentication.pre.UserCredentials;
+import com.scrumchess.authentication.UserCredentials;
 
 public class GoogleAuthenticatorString implements UserAuthenticator<String> {
 	
 	@Override
-	public boolean Authenticate(UserAuthenticationObject<String> userAuthenticationObject) {
+	public boolean Authenticate(AuthenticableUserRequest<String> authenticableUserRequest) {
 		boolean ret = false;
-		String sub = GoogleAuthenticatorHelperWrapper.getSubjectFromEndpoint(userAuthenticationObject.getUserToken());
+		String sub = GoogleAuthenticatorHelperWrapper.getSubjectFromEndpoint(authenticableUserRequest.getUserCredentials().getUserToken());
 		if (sub!=null){ 
-			userAuthenticationObject.setAuthentication(new SimpleAuthentication(sub));
+			authenticableUserRequest.setUserIdentifier(sub);
 			ret = true;
 		}
+		authenticableUserRequest.setIsAuthenticated(true);
 		return ret;
 	}
 
-	@Override
-	public UserAuthenticationObject Authenticaticate(UserCredentials userCredentials) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
