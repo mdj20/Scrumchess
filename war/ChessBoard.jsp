@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-     import="com.scrumchess.mdj20.ChessBoardHTMLBuilder"
+     import="com.scrumchess.ajaxservlet.ChessBoardHTMLBuilder"
      %>
 
    

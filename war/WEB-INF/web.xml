@@ -6,7 +6,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
 		<servlet-name>Scrumchess</servlet-name>
-		<servlet-class>com.scrumchess.mdj20.ScrumchessServlet</servlet-class>
+		<servlet-class>com.scrumchess.ajaxservlet.ScrumchessServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Scrumchess</servlet-name>
@@ -14,7 +14,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>AjaxUserSignInServlet</servlet-name>
-		<servlet-class>com.scrumchess.mdj20.AjaxUserSignInServlet</servlet-class>
+		<servlet-class>com.scrumchess.ajaxservlet.AjaxUserSignInServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AjaxUserSignInServlet</servlet-name>
@@ -22,7 +22,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>UserInfoTestServlet</servlet-name>
-		<servlet-class>com.scrumchess.mdj20.UserInfoTestServlet</servlet-class>
+		<servlet-class>com.scrumchess.ajaxservlet.UserInfoTestServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UserInfoTestServlet</servlet-name>
@@ -30,7 +30,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>ScrumchessServlet</servlet-name>
-		<servlet-class>com.scrumchess.mdj20.ScrumchessServlet</servlet-class>
+		<servlet-class>com.scrumchess.ajaxservlet.ScrumchessServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ScrumchessServlet</servlet-name>
