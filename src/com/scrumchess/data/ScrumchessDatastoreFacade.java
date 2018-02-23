@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.Transaction;
 import com.scrumchess.gamelogic.MoveValidator;
 import com.scrumchess.userrequests.AuthenticatedUserMoveInfo;
 import com.scrumchess.userrequests.EvaluatedMove;
+import com.scrumchess.userrequests.MoveRequest;
 
 public class ScrumchessDatastoreFacade {
 	private DatastoreService dss;
@@ -144,6 +145,11 @@ public class ScrumchessDatastoreFacade {
 		ret = new GameMovelistComposite(game,moves);
 		return ret;
 	}
+	
+	public void EvaluateMove(MoveRequest moveRequest) {
+		
+	}
+	
 	
 	// returns true if it is the user's turn 
 	private boolean isPlayerTurn(String id, Game game, boolean white){
