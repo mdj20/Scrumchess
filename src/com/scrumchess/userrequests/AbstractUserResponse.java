@@ -32,6 +32,7 @@ public abstract class AbstractUserResponse<T> {
 		
 		AUTHERNTICATION_FAILURE("Authentication Failure"),
 		SUCCESS ("Success"),
+		ENTITY_NOT_FOUND("Entity not found in database"),
 		NA("Failure Reason not available");
 		
 		private String reason;

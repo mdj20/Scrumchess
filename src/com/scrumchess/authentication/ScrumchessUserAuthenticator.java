@@ -1,4 +1,4 @@
-package com.scrumchess.authentication;
+ package com.scrumchess.authentication;
 
 //class is used to Authenticate transit requests 
 

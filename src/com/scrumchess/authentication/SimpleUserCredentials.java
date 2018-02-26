@@ -2,10 +2,10 @@ package com.scrumchess.authentication;
 
 public class SimpleUserCredentials extends AbstractUserCredentials{
 	private String userToken;
-	private AuthenticationType authenticationType;
+	private ScrumchessAuthenticationType scrumchessAuthenticationType;
 	
-	public SimpleUserCredentials(AuthenticationType type, String token){
-		authenticationType = type;
+	public SimpleUserCredentials(ScrumchessAuthenticationType type, String token){
+		scrumchessAuthenticationType = type;
 		userToken = token;
 	}
 	
@@ -15,8 +15,8 @@ public class SimpleUserCredentials extends AbstractUserCredentials{
 	}
 
 	@Override
-	AuthenticationType getAuthenticationType() {
-		return authenticationType;
+	ScrumchessAuthenticationType getAuthenticationType() {
+		return scrumchessAuthenticationType;
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.scrumchess.authentication;
 
-public enum AuthenticationType {
+public enum ScrumchessAuthenticationType {
 	Google(),
 	Debug(),
 	None(),

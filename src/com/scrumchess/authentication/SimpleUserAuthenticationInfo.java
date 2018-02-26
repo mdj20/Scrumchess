@@ -12,6 +12,9 @@ public class SimpleUserAuthenticationInfo<T> implements AuthenticableUserRequest
 	private T userIdentifier;
 	private boolean isAuthenticated = false;
 	
+	public SimpleUserAuthenticationInfo(AbstractUserCredentials userCredentials){
+		this.userCredentials = userCredentials;
+	}
 
 	@Override
 	public AbstractUserCredentials getUserCredentials() {

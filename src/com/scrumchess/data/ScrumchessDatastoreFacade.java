@@ -165,6 +165,7 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}	
 	
+	
 	public User changePseudonym(String userId, String pseudonym) throws EntityNotFoundException{
 		uf.updateName(userId, pseudonym);
 		return null;
