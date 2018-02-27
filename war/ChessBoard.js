@@ -80,7 +80,7 @@ _BoardInfo_proto.findFreePiece = function(inType) {
 }
 
 _BoardInfo_proto.updateSquareOffsets = function(){
-	this.squareOffsets = this.getSquareOffsets(new Array(64));
+	this.squareOffsets = this.getSquareOffsets(this.squareOffsets);
 	for(var i = 0; i < this.pieces.length ; i++){
 		this.setPieceDivToPos(this.pieces[i],this.pieces[i].loc)
 	}
@@ -89,7 +89,7 @@ _BoardInfo_proto.updateSquareOffsets = function(){
 //assigns offsets to pos
 _BoardInfo_proto.getSquareOffsets = function(pos){
 	for (var i = 0 ; i < 64 ; i++){
-		pos[i]= $("#"+i).offset();
+		pos[i]= $("#"+i.toString()).offset();
 	}
 	return pos;
 }
@@ -300,10 +300,12 @@ $(document).ready( function() {
 	var control = new Control(boardInfo,engineProxy);
 	
 	engine_js_test(control);
-	
+
 	$(".square").click( function(){
 		control.squareClick(this);
 	} );
+	
+	
 	
 	
 	$(window).resize(function(){
@@ -314,15 +316,18 @@ $(document).ready( function() {
 	/*
 	$("#button").click( function(){
 		control.boardInfo.updateSquareOffsets();
-	}  );
+	}  
+	);
 	
 	
-	$("#button").click( function(){
-		$.ajax(	{type : "POST", url:"/usertest", data: {'idtoken': gid_token+""}, success: function(result){$("#debugOutput").html(result);}
-		});
-	})
+	
+	$("#button").click(function(){
+		control.boardInfo.updateSquareOffsets();
+    })
 	;
+	
 	*/
+	
 	
 });
 
