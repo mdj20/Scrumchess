@@ -8,6 +8,8 @@ import com.scrumchess.userrequests.GameInfoRequest;
 import com.scrumchess.userrequests.GameInfoResponse;
 import com.scrumchess.userrequests.MoveRequest;
 import com.scrumchess.userrequests.MoveRequestResponse;
+import com.scrumchess.userrequests.NewGameRequest;
+import com.scrumchess.userrequests.NewGameResponse;
 
 public class ScrumchessUserRequestHandler {
 	private ScrumchessDatastoreFacade sdf;
@@ -47,7 +49,6 @@ public class ScrumchessUserRequestHandler {
 	
 	public MoveRequestResponse tryMoveRequest(MoveRequest moveRequest){
 		MoveRequestResponse ret = null;
-		Game returnObject = null;
 		if(!checkAuthentication(moveRequest)){
 			ret = new MoveRequestResponse(false,AbstractUserResponse.BaseFailureReason.AUTHERNTICATION_FAILURE);
 		}
@@ -59,7 +60,7 @@ public class ScrumchessUserRequestHandler {
 					}
 				}
 				else{
-					ret = new MoveRequestResponse(false,AbstractUserResponse.BaseFailureReason.NA);
+					ret = new MoveRequestResponse(false,AbstractUserResponse.BaseFailureReason.INVALID_MOVE);
 				}
 			} catch (EntityNotFoundException e) {
 				ret = new MoveRequestResponse(false,AbstractUserResponse.BaseFailureReason.ENTITY_NOT_FOUND);
@@ -67,6 +68,35 @@ public class ScrumchessUserRequestHandler {
 		}
 		return ret;
 	}
+	
+	public NewGameResponse tryNewGameRequest(NewGameRequest newGameRequest){
+		NewGameResponse ret = null;
+		Game game = null;
+		if(!checkAuthentication(newGameRequest)){
+			ret = new NewGameResponse(false,AbstractUserResponse.BaseFailureReason.AUTHERNTICATION_FAILURE);
+		}
+		else{
+			switch (newGameRequest.getNewGameConfig()){
+			case BLACK:
+				//sdf.newGameBlack(newG)
+			case BLACK2:
+				break;
+			case WHITE:
+				break;
+			case WHITE2:
+				break;
+			default:
+				break;
+			};
+			
+			
+		}
+		
+		
+		
+		return ret;
+	}
+	
 	private boolean checkAuthentication(AbstractUserRequest aur){
 		return ScrumchessUserAuthenticator.authenticate(aur); 
 	}

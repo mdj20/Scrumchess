@@ -136,7 +136,7 @@ public class ScrumchessDatastoreFacade {
 				txn.rollback();
 				ret = false;
 			}
-			else{
+			else if (ret){
 				moveRequest.setGame(current);
 			}
 		}	
