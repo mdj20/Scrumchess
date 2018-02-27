@@ -57,4 +57,5 @@ public class MoveRequest extends GameInfoRequest{
 	public String getMove() {
 		return move;
 	}
+	
 }

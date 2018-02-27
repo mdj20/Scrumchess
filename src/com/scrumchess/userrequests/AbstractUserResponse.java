@@ -30,11 +30,12 @@ public abstract class AbstractUserResponse<T> {
 	
 	public enum BaseFailureReason implements ResponseFailureReason{
 		
-		AUTHERNTICATION_FAILURE("Authentication Failure"),
+		AUTHERNTICATION_FAILURE ("Authentication Failure"),
 		SUCCESS ("Success"),
-		ENTITY_NOT_FOUND("Entity not found in database"),
-		USER_NOT_OWNER("User doesn't own entity"),
-		NA("Failure Reason not available");
+		ENTITY_NOT_FOUND ("Entity not found in database"),
+		USER_NOT_OWNER ("User doesn't own entity"),
+		INVALID_MOVE ("Invalid Move"),
+		NA ("Failure Reason not available");
 		
 		private String reason;
 		

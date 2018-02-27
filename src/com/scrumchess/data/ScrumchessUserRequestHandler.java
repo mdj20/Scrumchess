@@ -52,7 +52,18 @@ public class ScrumchessUserRequestHandler {
 			ret = new MoveRequestResponse(false,AbstractUserResponse.BaseFailureReason.AUTHERNTICATION_FAILURE);
 		}
 		else {
-			
+			try {
+				if(sdf.evaluateMoveRequest(moveRequest)){
+					if(sdf.commitMoveRequestAtomic(moveRequest)){
+						ret = new MoveRequestResponse(true,moveRequest.getGame());
+					}
+				}
+				else{
+					ret = new MoveRequestResponse(false,AbstractUserResponse.BaseFailureReason.NA);
+				}
+			} catch (EntityNotFoundException e) {
+				ret = new MoveRequestResponse(false,AbstractUserResponse.BaseFailureReason.ENTITY_NOT_FOUND);
+			}
 		}
 		return ret;
 	}

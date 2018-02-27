@@ -105,6 +105,63 @@ public class ScrumchessDatastoreFacade {
 		return ret;
 	}
 	
+	public boolean commitMoveRequestAtomic(MoveRequest moveRequest){
+		if(!moveRequest.getIsEvaluated()){
+			throw new IllegalArgumentException("cannot commit non-eveluated move");
+		}
+		return commitMoveRequestAtomicPrivate(moveRequest);
+	}
+	
+	private boolean commitMoveRequestAtomicPrivate(MoveRequest moveRequest){
+		boolean ret = false;
+		int moveNum = moveRequest.getGame().getMoveNum(); // get move number of current game from evaluated move
+		Game current = null;
+		Transaction txn = dss.beginTransaction();
+		try {
+			current = gf.getGameTransaction(txn,moveRequest.getGame().getId());
+			if( current.getFen().equals(moveRequest.getGame().getFen() ) && moveNum == current.getMoveNum() ){ // check if move is correct
+				current.setFen(moveRequest.getUpdatedFen());
+				current.setMoveNum(moveNum+1);
+				Key gameKey = gf.updateGameTransaction(txn, current, current.getId());
+				Move disjoint = mf.createDisjointMove(moveNum+1, moveRequest.getMove());
+				mf.moveToParentTransaction(txn, gameKey, disjoint);
+				txn.commit();
+				ret = true;
+			}	
+		} catch (EntityNotFoundException e) {
+			return false;
+		}
+		finally {
+			if(txn.isActive()){
+				txn.rollback();
+				ret = false;
+			}
+			else{
+				moveRequest.setGame(current);
+			}
+		}	
+		return ret;
+	}
+	
+	public boolean evaluateMoveRequest(MoveRequest moveRequest) throws EntityNotFoundException{
+		boolean ret = false;
+		Game game;
+		game = gf.getGame(moveRequest.getGameID());
+		moveRequest.setGame(game);
+		MoveValidator moveValidator = MoveValidator.createWithFen(game.getFen());
+		if(isPlayerTurn(moveRequest.getUserIdentifier(),game,moveValidator.isWhiteTurn())){
+			if(moveValidator.setMove(moveRequest.getMove())&&moveValidator.doMove()){
+				moveRequest.setUpdatedFen(moveValidator.getFen());
+				moveRequest.setIsEvaluated(true);
+				ret = true;
+			}
+		}
+		if(!ret){
+			moveRequest.setIsEvaluated(false);
+		}
+		return ret;
+	}
+	
 	public EvaluatedMove evaluateMove(AuthenticatedUserMoveInfo aumi){
 		EvaluatedMove ret=null;
 		Game game;
