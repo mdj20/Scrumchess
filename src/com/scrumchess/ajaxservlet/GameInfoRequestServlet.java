@@ -4,10 +4,9 @@
 
 package com.scrumchess.ajaxservlet;
 
-import java.awt.List;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
