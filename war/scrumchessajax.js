@@ -2,12 +2,27 @@
 
 
 
-_ScrumchessAjax_proto_ 
+//_ScrumchessAjax_proto_ 
 
 var userTokenString = "userToken";
 var gameIdString = "gameId";
 var algebraicNotationString = "algebraicNotation";
 var authenticationTypeString = "authenticationType";
+var newGameConfigString = "newGameConfig";
+
+
+
+var getNewGameObject = function(userToken,authenticationType,userConfig){
+	var ret = {
+			type: "POST",
+			url: "/newgamerequest",
+			data: { [userTokenString] : userToken ,
+				[authenticationTypeString] : authenticationType,
+				[newGameConfigString] : userConfig
+			}
+	}
+	return ret;
+}
 
 
 var getSignInAjaxObject = function(userToken,url){
@@ -16,6 +31,8 @@ var getSignInAjaxObject = function(userToken,url){
 			url: "/usertest",
 			data: {userTokenString : userToken}
 	}
+
+	return ret;
 }
 
 
@@ -30,6 +47,8 @@ var getGameInfoRequestObject  = function(userToken,authenticationType,gameId){
 				gameIdString : gameId
 			}
 	}
+
+	return ret;
 }
 
 
@@ -43,6 +62,8 @@ var getMoveRequestObject = function(userToken,gameId, algebraicNotiontion){
 				algebraicNotationString : algebraicNotiontion
 			}
 	}
+
+	return ret;
 }
 
 var getSignInAjax = function(gid){

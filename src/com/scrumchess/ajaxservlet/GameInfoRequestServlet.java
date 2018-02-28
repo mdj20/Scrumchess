@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.scrumchess.authentication.ScrumchessAuthenticationType;
 import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 import com.scrumchess.authentication.SimpleUserCredentials;
-import com.scrumchess.data.ScrumchessDatastoreFacade;
 import com.scrumchess.data.ScrumchessUserRequestHandler;
 import com.scrumchess.userrequests.GameInfoRequest;
 import com.scrumchess.userrequests.GameInfoResponse;
@@ -40,5 +39,4 @@ public class GameInfoRequestServlet extends HttpServlet {
 		responseWriter.print(json);
 		responseWriter.flush();
 	}
-	
 }

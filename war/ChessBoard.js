@@ -312,7 +312,12 @@ $(document).ready( function() {
     });
 	
 	$("#button").click( function(){
-		control.boardInfo.updateSquareOffsets();
+		var ngo = getNewGameObject("user1","DEBUG","WHITE");
+		ngo.success = function(data){
+			console.log(data);
+		}
+		console.log(ngo);
+		$.ajax(ngo);
 	}  
 	);
 	

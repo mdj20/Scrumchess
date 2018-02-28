@@ -13,6 +13,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/ChessBoard.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/engine.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/engine_wrapper.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/scrumchessajax.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/chess_board.css" />
 
 <title>Scrum-Chess</title>

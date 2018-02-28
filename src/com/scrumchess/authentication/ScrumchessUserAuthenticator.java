@@ -6,16 +6,16 @@ public class ScrumchessUserAuthenticator {
 	public static boolean authenticate(AuthenticableUserRequest<String> userRequest){
 		boolean ret = false;
 		switch (userRequest.getUserCredentials().getAuthenticationType()) {
-			case Debug:
+			case DEBUG:
 				ret = true;
 				userRequest.setUserIdentifier(userRequest.getUserCredentials().getUserToken());
 				break;
-			case Google:
+			case GOOGLE:
 				GoogleAuthenticatorString googleAuthenticatorString = new GoogleAuthenticatorString();
 				googleAuthenticatorString.Authenticate(userRequest);
 				ret = true;
 				break;
-			case None:
+			case NONE:
 				break;
 			default:
 				break;

@@ -21,7 +21,9 @@ import com.scrumchess.userrequests.NewGameResponse;
 public class NewGameRequestServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String userToken = req.getParameter("userToken");
-		String authenticationTypeString = req.getParameter("authenticationType"); 
+		System.out.println(userToken);
+		String authenticationTypeString = req.getParameter("authenticationType");
+		System.out.println(authenticationTypeString);
 		ScrumchessAuthenticationType scrumchessAuthnticationType = ScrumchessAuthenticationType.valueOf(authenticationTypeString);
 		SimpleUserAuthenticationInfo<String> userAuthenticationInfo = new SimpleUserAuthenticationInfo<String>(new SimpleUserCredentials(scrumchessAuthnticationType,userToken));
 		String newGameConfigString = req.getParameter("newGameConfig");
@@ -31,6 +33,7 @@ public class NewGameRequestServlet extends HttpServlet {
 		NewGameResponse newGameResponse  = scurh.tryNewGameRequest(newGameRequest);
 		Gson gson = new Gson();
 		String json = gson.toJson(newGameResponse);
+		System.out.println("JSON:"+json); 
 		resp.setContentType("application/json");
 		PrintWriter responseWriter = resp.getWriter();
 		responseWriter.print(json);
