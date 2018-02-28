@@ -6,7 +6,7 @@ public abstract class AbstractUserResponse<T> {
 	protected ResponseFailureReason responseFailureReason;
 	
 	AbstractUserResponse(boolean success, T  returnObject){
-		this(success,UnversalFailureReason.NA,returnObject);
+		this(success,UniversalFailureReason.NA,returnObject);
 	}
 	AbstractUserResponse(boolean success){
 		this(success,null,null);

@@ -7,7 +7,7 @@ public class DevelopmentDatastroreFacade {
 	public NewGameResponse tryNewGameRequest(NewGameRequest newGameRequest) {
 		NewGameResponse response = null;
 		if ( !checkAuthentication(newGameRequest) ) {
-			response = new NewGameResponse(false,UnversalFailureReason.AUTHERNTICATION_FAILURE);
+			response = new NewGameResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
 		}
 		else {
 			
@@ -19,7 +19,7 @@ public class DevelopmentDatastroreFacade {
 	public MoveRequestResponse tryMoveRequest(MoveRequest moveRequest) {
 		MoveRequestResponse response = null;
 		if ( !checkAuthentication(moveRequest) ) {
-			response = new MoveRequestResponse(false,UnversalFailureReason.AUTHERNTICATION_FAILURE);
+			response = new MoveRequestResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
 		}
 		
 		return response;

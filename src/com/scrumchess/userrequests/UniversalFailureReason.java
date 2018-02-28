@@ -1,6 +1,6 @@
 package com.scrumchess.userrequests;
 
-public enum UnversalFailureReason implements ResponseFailureReason {
+public enum UniversalFailureReason implements ResponseFailureReason {
 
 	AUTHERNTICATION_FAILURE ("Authentication Failure"),
 	SUCCESS ("Success"),
@@ -11,7 +11,7 @@ public enum UnversalFailureReason implements ResponseFailureReason {
 	
 	private String reason;
 	
-	UnversalFailureReason(String reason){
+	UniversalFailureReason(String reason){
 		this.reason = reason;
 	}
 	@Override

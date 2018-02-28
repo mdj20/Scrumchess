@@ -10,7 +10,7 @@ import com.scrumchess.userrequests.MoveRequest;
 import com.scrumchess.userrequests.MoveRequestResponse;
 import com.scrumchess.userrequests.NewGameRequest;
 import com.scrumchess.userrequests.NewGameResponse;
-import com.scrumchess.userrequests.UnversalFailureReason;
+import com.scrumchess.userrequests.UniversalFailureReason;
 
 public class ScrumchessUserRequestHandler {
 	private ScrumchessDatastoreFacade sdf;
@@ -28,7 +28,7 @@ public class ScrumchessUserRequestHandler {
 		GameInfoResponse ret = null;
 		Game returnObject = null;
 		if(!checkAuthentication(gameInfoRequest)){
-			ret = new GameInfoResponse(false,UnversalFailureReason.AUTHERNTICATION_FAILURE);
+			ret = new GameInfoResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
 		}
 		else {
 			try {
@@ -38,10 +38,10 @@ public class ScrumchessUserRequestHandler {
 					ret = new GameInfoResponse(true,returnObject);
 				}
 				else {
-					ret = new GameInfoResponse(false,UnversalFailureReason.USER_NOT_OWNER);
+					ret = new GameInfoResponse(false,UniversalFailureReason.USER_NOT_OWNER);
 				}
 			} catch (EntityNotFoundException e) {
-				ret = new GameInfoResponse(false,UnversalFailureReason.ENTITY_NOT_FOUND);
+				ret = new GameInfoResponse(false,UniversalFailureReason.ENTITY_NOT_FOUND);
 			}
 		}
 		return ret;
@@ -51,7 +51,7 @@ public class ScrumchessUserRequestHandler {
 	public MoveRequestResponse tryMoveRequest(MoveRequest moveRequest){
 		MoveRequestResponse ret = null;
 		if(!checkAuthentication(moveRequest)){
-			ret = new MoveRequestResponse(false,UnversalFailureReason.AUTHERNTICATION_FAILURE);
+			ret = new MoveRequestResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
 		}
 		else {
 			try {
@@ -61,10 +61,10 @@ public class ScrumchessUserRequestHandler {
 					}
 				}
 				else{
-					ret = new MoveRequestResponse(false,UnversalFailureReason.INVALID_MOVE);
+					ret = new MoveRequestResponse(false,UniversalFailureReason.INVALID_MOVE);
 				}
 			} catch (EntityNotFoundException e) {
-				ret = new MoveRequestResponse(false,UnversalFailureReason.ENTITY_NOT_FOUND);
+				ret = new MoveRequestResponse(false,UniversalFailureReason.ENTITY_NOT_FOUND);
 			}
 		}
 		return ret;
@@ -72,29 +72,78 @@ public class ScrumchessUserRequestHandler {
 	
 	public NewGameResponse tryNewGameRequest(NewGameRequest newGameRequest){
 		NewGameResponse ret = null;
-		Game game = null;
 		if(!checkAuthentication(newGameRequest)){
-			ret = new NewGameResponse(false,UnversalFailureReason.AUTHERNTICATION_FAILURE);
+			ret = new NewGameResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
 		}
 		else{
 			switch (newGameRequest.getNewGameConfig()){
 			case BLACK:
-				
+				ret = tryNewGameBlack(newGameRequest);
 			case BLACK2:
+				ret = tryNewGame2Black(newGameRequest);
 				break;
 			case WHITE:
+				ret = tryNewGameWhite(newGameRequest);
 				break;
 			case WHITE2:
+				ret = tryNewGame2White(newGameRequest);
 				break;
 			default:
-				break;
-			};
-			
-			
+				ret = new NewGameResponse(false,UniversalFailureReason.NA);
+			};	
 		}
-		
 		return ret;
 	}
+	
+	private NewGameResponse tryNewGameBlack(NewGameRequest newGameRequest){
+		NewGameResponse ret = null;
+		Game gameObject = null;
+		try {
+			gameObject = sdf.newGameBlack(newGameRequest.getUserIdentifier());
+			ret = new NewGameResponse(true,gameObject);
+		} catch (EntityNotFoundException e) {
+			ret = new NewGameResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
+		}
+		return ret;
+	}
+	
+	private NewGameResponse tryNewGameWhite(NewGameRequest newGameRequest){
+		NewGameResponse ret = null;
+		Game gameObject = null;
+		try {
+			gameObject = sdf.newGameWhite(newGameRequest.getUserIdentifier());
+			ret = new NewGameResponse(true,gameObject);
+		} catch (EntityNotFoundException e) {
+			ret = new NewGameResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
+		}
+		return ret;
+	}
+	
+	private NewGameResponse tryNewGame2Black(NewGameRequest newGameRequest){
+		NewGameResponse ret = null;
+		Game gameObject = null;
+		try {
+			gameObject = sdf.newTwoPlayerGame(newGameRequest.getOtherPlayerId(),newGameRequest.getUserIdentifier() );
+			ret = new NewGameResponse(true,gameObject);
+		} catch (EntityNotFoundException e) {
+			ret = new NewGameResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
+		}
+		return ret;
+	}	
+	
+	private NewGameResponse tryNewGame2White(NewGameRequest newGameRequest){
+		NewGameResponse ret = null;
+		Game gameObject = null;
+		try {
+			gameObject = sdf.newTwoPlayerGame(newGameRequest.getUserIdentifier(),newGameRequest.getOtherPlayerId());
+			ret = new NewGameResponse(true,gameObject);
+		} catch (EntityNotFoundException e) {
+			ret = new NewGameResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
+		}
+		return ret;
+	}
+	
+	
 	
 	private boolean checkAuthentication(AbstractUserRequest aur){
 		return ScrumchessUserAuthenticator.authenticate(aur); 
