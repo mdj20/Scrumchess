@@ -7,7 +7,7 @@ import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 public class NewGameRequest extends AbstractUserRequest {
 	private NewGameConfig newGameConfig;
 	private String otherPlayerId;
-	NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig) {
+	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig) {
 		this(userAuthenticationInfo,newGameConfig,null);
 	}
 	

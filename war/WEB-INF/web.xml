@@ -5,6 +5,22 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
+		<servlet-name>NewGameRequestServlet</servlet-name>
+		<servlet-class>com.scrumchess.ajaxservlet.NewGameRequestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewGameRequestServlet</servlet-name>
+		<url-pattern>/newgamerequest</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GameInfoRequestServlet</servlet-name>
+		<servlet-class>com.scrumchess.ajaxservlet.GameInfoRequestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GameInfoRequestServlet</servlet-name>
+		<url-pattern>/gameinforequest</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>Scrumchess</servlet-name>
 		<servlet-class>com.scrumchess.ajaxservlet.ScrumchessServlet</servlet-class>
 	</servlet>

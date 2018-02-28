@@ -307,22 +307,14 @@ $(document).ready( function() {
 		control.squareClick(this);
 	} );
 	
-	
-	
-	
 	$(window).resize(function(){
 		control.boardInfo.updateSquareOffsets();
     });
-	
-	
 	
 	$("#button").click( function(){
 		control.boardInfo.updateSquareOffsets();
 	}  
 	);
-	
-	
-
 	
 });
 
@@ -333,8 +325,6 @@ function engine_js_test(control){
 	var translated = control.engineProxy.getTranslatedState();
 	control.boardInfo.setBoardFromState(translated);
 	
-	
-	//printMatrix(translated,8);
 }
 
 
@@ -493,19 +483,7 @@ _Control_proto.executeMove = function(fromSquare, toSquare){
 	if(this.promotionCheck(this.engineProxy.moveString)){
 		this.boardInfo.promoteBySquare(toSquare,this.getPromotionType(this.engineProxy.moveString));
 	}
-	
-	
-	/*
-	if (this.engineProxy.check){
-		this.check[this.currentPlayer] = 1;
-	}
-	
-	if (this.engineProxy.mate){
-		this.mate[this.currentPlayer] = 1;
-	}
-	
-	*/
-	
+
 }
 
 //reads a move string (from engine) and determines if the move resulted in a promotion

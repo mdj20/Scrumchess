@@ -18,7 +18,9 @@ var getSignInAjaxObject = function(userToken,url){
 	}
 }
 
-var getMoveRequestObject  = function(userToken,authenticationType,gameId){
+
+
+var getGameInfoRequestObject  = function(userToken,authenticationType,gameId){
 	var ret = {
 			type: "POST",
 			url: "/usertest",
