@@ -61,7 +61,7 @@ function BoardInfo(fenString,pieceCount,pieceImageMap){
 	for (var i = 0; i< this.squares.length ; i++ ){
 		this.squares[i] = -1;
 	}
-	this.squareOffsets = this.getSquareOffsets(new Array(64));  // array for each sqauares offset
+	this.squareOffsets = this.getSquareOffsets(new Array(64));  // array for each squares offset
 	this.pieces = makePieceDivArray(fenString,pieceCount,pieceImageMap);  // array of DivPieces
 	this.appendAndHideArray(this.pieces);
 }
@@ -80,7 +80,7 @@ _BoardInfo_proto.findFreePiece = function(inType) {
 }
 
 _BoardInfo_proto.updateSquareOffsets = function(){
-	this.squareOffsets = this.getSquareOffsets(this.squareOffsets);
+	this.squareOffsets = this.getSquareOffsets(new Array(64));
 	for(var i = 0; i < this.pieces.length ; i++){
 		this.setPieceDivToPos(this.pieces[i],this.pieces[i].loc)
 	}
@@ -163,11 +163,13 @@ _BoardInfo_proto.setDivPieceToPosAndShow = function(pieceDiv,squareIndex){
 }
 
 _BoardInfo_proto.setPieceDivToPos = function(pieceDiv, squareIndex){
-	var dest = this.squareOffsets[squareIndex];
-	pieceDiv.loc = squareIndex;
-	this.squares[squareIndex] = pieceDiv;
-	//$(pieceDiv.d).offset({left:0,top:0}); // 
-	$(pieceDiv.d).offset({left: dest.left, top: dest.top});
+	if(squareIndex>=0&&squareIndex<64){ //check that index is correct
+		var dest = this.squareOffsets[squareIndex];
+		pieceDiv.loc = squareIndex;
+		this.squares[squareIndex] = pieceDiv;
+		//$(pieceDiv.d).offset({left:0,top:0}); // 
+		$(pieceDiv.d).offset({left: dest.left, top: dest.top});
+	}
 }
 
 _BoardInfo_proto.moveDivPieceToSquare = function(pieceDiv, squareIndex){
@@ -313,21 +315,14 @@ $(document).ready( function() {
     });
 	
 	
-	/*
+	
 	$("#button").click( function(){
 		control.boardInfo.updateSquareOffsets();
 	}  
 	);
 	
 	
-	
-	$("#button").click(function(){
-		control.boardInfo.updateSquareOffsets();
-    })
-	;
-	
-	*/
-	
+
 	
 });
 

@@ -92,8 +92,6 @@ public class ScrumchessUserRequestHandler {
 			
 		}
 		
-		
-		
 		return ret;
 	}
 	
