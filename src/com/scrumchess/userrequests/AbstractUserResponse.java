@@ -6,7 +6,7 @@ public abstract class AbstractUserResponse<T> {
 	protected ResponseFailureReason responseFailureReason;
 	
 	AbstractUserResponse(boolean success, T  returnObject){
-		this(success,BaseFailureReason.NA,returnObject);
+		this(success,UnversalFailureReason.NA,returnObject);
 	}
 	AbstractUserResponse(boolean success){
 		this(success,null,null);
@@ -20,33 +20,19 @@ public abstract class AbstractUserResponse<T> {
 		this.responseObject = returnObject;
 	}
 	
-	protected void setResponseObject(T value) {
+	public boolean isSuccessful() {
+		return success;
+	}
+	
+	public void setResponseObject(T value) {
 		responseObject = value;
 	}
 	
-	protected ResponseFailureReason GetRespnseFailureReason() {
+	public ResponseFailureReason getRespnseFailureReason() {
 		return this.responseFailureReason;
 	}
-	
-	public enum BaseFailureReason implements ResponseFailureReason{
-		
-		AUTHERNTICATION_FAILURE ("Authentication Failure"),
-		SUCCESS ("Success"),
-		ENTITY_NOT_FOUND ("Entity not found in database"),
-		USER_NOT_OWNER ("User doesn't own entity"),
-		INVALID_MOVE ("Invalid Move"),
-		NA ("Failure Reason not available");
-		
-		private String reason;
-		
-		BaseFailureReason(String reason){
-			this.reason = reason;
-		}
-		@Override
-		public String getFailureReason() {
-			return reason;
-		}
-		
-
+	public T getResponseObject() {
+		return responseObject;
 	}
+	
 }

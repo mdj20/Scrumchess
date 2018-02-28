@@ -31,6 +31,7 @@ public class NewGameRequestServlet extends HttpServlet {
 		NewGameRequest newGameRequest = new NewGameRequest(userAuthenticationInfo,newGameConfig);
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		NewGameResponse newGameResponse  = scurh.tryNewGameRequest(newGameRequest);
+		System.out.println("Success"+newGameResponse.isSuccessful());
 		Gson gson = new Gson();
 		String json = gson.toJson(newGameResponse);
 		System.out.println("JSON:"+json); 

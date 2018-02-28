@@ -29,7 +29,7 @@ var getSignInAjaxObject = function(userToken,url){
 	var ret = {
 			type: "POST",
 			url: "/usertest",
-			data: {userTokenString : userToken}
+			data: { [userTokenString] : userToken}
 	}
 
 	return ret;
@@ -42,9 +42,9 @@ var getGameInfoRequestObject  = function(userToken,authenticationType,gameId){
 			type: "POST",
 			url: "/usertest",
 			data : {
-				userTokenString : userToken,
-				authenticationTypeString : authenticationType,
-				gameIdString : gameId
+				 [userTokenString] : userToken,
+				[authenticationTypeString] : authenticationType,
+				[gameIdString] : gameId
 			}
 	}
 
@@ -57,9 +57,9 @@ var getMoveRequestObject = function(userToken,gameId, algebraicNotiontion){
 			type: "POST",
 			url: "/usertest",
 			data: {
-				userTokenString : userToken,
-				gameIdString : gameId,
-				algebraicNotationString : algebraicNotiontion
+				[userTokenString] : userToken,
+				[gameIdString] : gameId,
+				[algebraicNotationString]: algebraicNotiontion
 			}
 	}
 

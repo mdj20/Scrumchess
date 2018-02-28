@@ -32,6 +32,7 @@ public class GameInfoRequestServlet extends HttpServlet {
 		GameInfoRequest gameInfoRequest = new GameInfoRequest(userAuthenticationInfo,gameId);
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		GameInfoResponse gameInfoResponse  = scurh.tryGameInfoRequest(gameInfoRequest);
+		System.out.println("ID:"+gameInfoResponse.getResponseObject().getId());
 		Gson gson = new Gson();
 		String json = gson.toJson(gameInfoResponse);
 		resp.setContentType("application/json");
