@@ -49,6 +49,7 @@ _EngineProxy_proto.parseFlags = function(flags){
 	this.castleQueen = flags & 32;
 	this.draw = flags & 64;
 }
+
 _EngineProxy_proto.move = function(f,t){
 	
 	// these equations translate the 8x8 coordinates to 10x12 equivalents.
