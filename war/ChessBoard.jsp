@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-     import="com.scrumchess.ajaxservlet.ChessBoardHTMLBuilder"
-     %>
+   	import="com.scrumchess.ajaxservlet.ChessBoardHTMLBuilder"
+	%>
 
    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -42,9 +42,11 @@
 
 
 </div>
-<button id="button">Start Animation</button>
+<button id="button">Button 1</button>
+<button id="button2">Button 2</button>
 <div id="debugOutput">
 </div>
+
 
 
 

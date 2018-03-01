@@ -318,12 +318,15 @@ $(document).ready( function() {
 		}
 		console.log(ngo);
 		$.ajax(ngo);
-	}  
+		}  
 	);
+	
+	$("#button").click( function(){ alert("HELP") });
+			
 	
 });
 
-// this will serve as a inital test for the engine (will replace with a separate proxy)
+// this will serve as a initial test for the engine (will replace with a separate proxy)
 function engine_js_test(control){
 	
 	control.engineProxy.newGame();
@@ -376,6 +379,9 @@ function Control(boardInfo, engineProxy){
 
 var _Control_proto = {};  // Control prototype!
 
+_Control_proto.
+
+// function controls what happens when a square is clicked.
 _Control_proto.squareClick = function( clicked ){
 	
 	// if this is the first click
@@ -466,6 +472,7 @@ _Control_proto.findAndMakeMove = function(){
 	}
 	
 }
+
 
 // this function will parse the flags from the engine and process the board changes
 _Control_proto.executeMove = function(fromSquare, toSquare){

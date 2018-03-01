@@ -6,8 +6,8 @@ public class Game {
 	// class that will describe a game object in the data store....
 	protected Game(String fen ,int moveNum, Date date){
 		this.fen = fen;
-		this.moveNum = moveNum;
-		this.started = date;
+		this.halfMoveNumber = moveNum;
+		this.dateStarted = date;
 		this.isBlack = false;
 		this.isWhite = false;
 		this.hasID = false;
@@ -15,33 +15,33 @@ public class Game {
 	protected Game(String fen, long moveNum, Date date){
 		this(fen, (int) moveNum, date);
 		if (moveNum > Integer.MAX_VALUE){
-			throw new IllegalArgumentException();  // moveNum is larger than int MaxValue
+			throw new IllegalArgumentException();  // halfMoveNumber is larger than int MaxValue
 		}
 	}
 	public long getId() {
-		return id;
+		return gameId;
 	}
 	public String getFen() {
 		return fen;
 	}
 	public int getMoveNum() {
-		return moveNum;
+		return halfMoveNumber;
 	}
 	public Date getStarted() {
-		return started;
+		return dateStarted;
 	}
 	protected void setId(long id) {
 		this.hasID = true;
-		this.id = id;
+		this.gameId = id;
 	}
 	protected void setFen(String fen) {
 		this.fen = fen;
 	}
 	protected void setMoveNum(int moveNum) {
-		this.moveNum = moveNum;
+		this.halfMoveNumber = moveNum;
 	}
 	protected void setStarted(Date started) {
-		this.started = started;
+		this.dateStarted = started;
 	}
 	protected void setIsWhite(boolean isWhite) {
 		this.isWhite = isWhite;
@@ -50,11 +50,11 @@ public class Game {
 		this.isBlack = isBlack;
 	}
 	protected void setWhite(String white) {
-		this.white = white;
+		this.userIdWhite = white;
 		this.isWhite = true;
 	}
 	protected void setBlack(String black) {
-		this.black = black;
+		this.userIdblack = black;
 		this.isBlack = true;
 	}
 	public boolean isWhite() {
@@ -64,18 +64,18 @@ public class Game {
 		return isBlack;
 	}
 	public String getWhite() {
-		return white;
+		return userIdWhite;
 	}
 	public String getBlack() {
-		return black;
+		return userIdblack;
 	}
-	private long id;
+	private long gameId;
 	private boolean hasID;
 	private String fen;
-	private int moveNum;
-	private Date started;
+	private int halfMoveNumber;
+	private Date dateStarted;
 	private boolean isWhite;
 	private boolean isBlack;
-	private String white;
-	private String black;	
+	private String userIdWhite;
+	private String userIdblack;	
 }

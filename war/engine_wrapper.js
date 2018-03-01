@@ -21,6 +21,7 @@ function EngineProxy(){
 }
 
 _EngineProxy_proto = {};
+
 _EngineProxy_proto.newGame = function(){
 	this.state = p4_new_game();
 }
