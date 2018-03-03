@@ -312,16 +312,13 @@ $(document).ready( function() {
     });
 	
 	$("#button").click( function(){
-		var ngo = getNewGameObject("user1","DEBUG","WHITE");
-		ngo.success = function(data){
-			console.log(data);
+			tryNewGameRequest(control.players[0].name,authenticationType[1],gameConfigutationType[2],control.players[1].name);
 		}
-		console.log(ngo);
-		$.ajax(ngo);
-		}  
 	);
 	
-	$("#button2").click(  function(){ control.setGameFromFen("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")});
+	$("#button2").click(  function(){});
+	$("#button3").click(  function(){ console.log(returnObjectQueue.length); }) ;
+	$("#button4").click(  function(){  }) ;
 			
 	$("#button5").click(  function(){ control.newGame() } ) ;
 	
@@ -478,6 +475,19 @@ _Control_proto.moveByClick = function(from, to){
 	return ok;
 }
 
+_Control_proto.moveByClickOnline = function(fromSquare,toSquare){
+	
+	// attempts to verify with the client side engine before it 
+	var ret = false;  // denotes success or failure on return 
+	var fromSquare = this.boardInfo.getSquareOfDiv(from);
+	var toSquare = this.boardInfo.getSquareOfDiv(to);
+	var ok = this.engineProxy.move(fromSquare,toSquare);
+	
+	if(ok) {
+		
+	}
+}
+
 _Control_proto.findAndMakeMove = function(){
 	var mov = this.engineProxy.getMoveFS(this.depth);
 	var ok = this.engineProxy.move(mov[0],mov[1]);
@@ -556,6 +566,16 @@ function pDebug(str){
 
 function zeroBoard(){
 	return new Array(120);
+}
+
+
+// takes from and to squares and returns an Algebraic Notation representation of a move
+function squareToAN(from, to){
+	var fromFile = String.fromCharCode((from%8)+65);
+	var fromStr = fromFile + from/8 +""; 
+	var toFile = String.fromCharCode((to%8)+65);
+	var toStr = toFile + to/8 +""; 
+	return fromStr+toStr+"";
 }
 
 

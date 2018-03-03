@@ -27,8 +27,9 @@ public class NewGameRequestServlet extends HttpServlet {
 		ScrumchessAuthenticationType scrumchessAuthnticationType = ScrumchessAuthenticationType.valueOf(authenticationTypeString);
 		SimpleUserAuthenticationInfo<String> userAuthenticationInfo = new SimpleUserAuthenticationInfo<String>(new SimpleUserCredentials(scrumchessAuthnticationType,userToken));
 		String newGameConfigString = req.getParameter("newGameConfig");
+		String opponentId = req.getParameter("opponent");
 		NewGameConfig newGameConfig = NewGameRequest.NewGameConfig.valueOf(newGameConfigString);
-		NewGameRequest newGameRequest = new NewGameRequest(userAuthenticationInfo,newGameConfig);
+		NewGameRequest newGameRequest = new NewGameRequest(userAuthenticationInfo,newGameConfig,opponentId);
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		NewGameResponse newGameResponse  = scurh.tryNewGameRequest(newGameRequest);
 		System.out.println("Success"+newGameResponse.isSuccessful());

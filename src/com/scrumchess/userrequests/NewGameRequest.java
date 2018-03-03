@@ -11,7 +11,7 @@ public class NewGameRequest extends AbstractUserRequest {
 		this(userAuthenticationInfo,newGameConfig,null);
 	}
 	
-	NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig, String otherPlayerId){
+	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig, String otherPlayerId){
 		super(userAuthenticationInfo);
 		this.newGameConfig=newGameConfig;
 		this.otherPlayerId=otherPlayerId;
