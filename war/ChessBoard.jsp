@@ -28,6 +28,14 @@
 
 
 <div id="gameSection"> 
+
+<div id="chatBox">
+	<div id="chatOutputDiv"></div>
+ 	<div id="chatInputDiv"> 
+ 		<textarea id="chatTextArea"></textarea>
+ 	</div>
+</div>
+
 <%
 	out.write(ChessBoardHTMLBuilder.getDivBoardBottomUp());
 %>
@@ -35,15 +43,18 @@
 <!-- insert game controls  -->
 
 <div id="statusBox">
-
-	
-
+	<div>WHITE:</div>
+	<div id="whiteusernamedisplay"></div>
+	<input type="text" name="userName">
 </div>
 
 
 </div>
-<button id="button">Button 1</button>
-<button id="button2">Button 2</button>
+<button id="button">  Button 1 </button>
+<button id="button2"> Button 2 </button>
+<button id="button3"> Button 3 </button>
+<button id="button4"> Button 4 </button>
+<button id="button5"> Button 5 </button>
 <div id="debugOutput">
 </div>
 

@@ -321,18 +321,18 @@ $(document).ready( function() {
 		}  
 	);
 	
-	$("#button").click( function(){ alert("HELP") });
+	$("#button2").click(  function(){ control.setGameFromFen("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")});
 			
+	$("#button5").click(  function(){ control.newGame() } ) ;
 	
 });
 
 // this will serve as a initial test for the engine (will replace with a separate proxy)
 function engine_js_test(control){
-	
+
 	control.engineProxy.newGame();
 	var translated = control.engineProxy.getTranslatedState();
-	control.boardInfo.setBoardFromState(translated);
-	
+	control.boardInfo.setBoardFromState(translated);	
 }
 
 
@@ -379,7 +379,22 @@ function Control(boardInfo, engineProxy){
 
 var _Control_proto = {};  // Control prototype!
 
-_Control_proto.
+
+_Control_proto.setGameFromFen = function(fen){
+	this.engineProxy.gameFromState(fen);
+	this.boardInfo.setBoardFromState(this.engineProxy.getTranslatedState());
+	this.setPlayerFromHalfMove(this.engineProxy.state.moveno);
+	this.userCycle();
+}
+
+_Control_proto.newGame = function(){
+	this.setGameFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 1 1");
+}
+
+_Control_proto.setPlayerFromHalfMove = function(halfMove){
+	this.currentPlayer = halfMove%2;
+}
+
 
 // function controls what happens when a square is clicked.
 _Control_proto.squareClick = function( clicked ){

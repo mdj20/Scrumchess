@@ -6,15 +6,42 @@ body{
 #navbar {
 	float: top;
 	height: 40px;
-	background-color: #42f498;
-	border-bottom-width:2px;
-   	border-bottom-color:White;
+	background-color: #D6EAF8;
+	border-bottom-width:1px;
+   	border-bottom-color: #85C1E9;
    	border-bottom-style: solid;
+}
+
+#chatBox{
+	height: 400px;
+	width: 200px;
+	background-color: white;
+	margin: auto;
+	box-shadow: 2px 2px 5px;
+}
+
+#chatTextArea{
+	margin: 0;
+	padding : 0;
+	boarder-width: 0;
+	resize: none;
+	width: 99%;
+	height: 100%;
+}
+
+#chatInputDiv{
+	width:fill;
+	height :15%;
+}
+
+#chatOutputDiv{
+	width: fill;
+	height: 85%;
 }
 
 #statusBox{
 	height: 400px;
-	width: 150px;
+	width: 200px;
 	background-color: white;
 	margin: auto;
 	box-shadow: 2px 2px 5px;
