@@ -1,6 +1,4 @@
- package com.scrumchess.authentication;
-
-
+package com.scrumchess.authentication;
 
 public class GoogleAuthenticatorString implements UserAuthenticator<String> {
 	
@@ -15,6 +13,4 @@ public class GoogleAuthenticatorString implements UserAuthenticator<String> {
 		authenticableUserRequest.setIsAuthenticated(true);
 		return ret;
 	}
-
-
 }

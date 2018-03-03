@@ -23,6 +23,7 @@ import com.scrumchess.userrequests.GameInfoResponse;
 
 @SuppressWarnings("serial")
 public class GameInfoRequestServlet extends HttpServlet {
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String userToken = req.getParameter("userToken");
 		String authenticationTypeString = req.getParameter("authenticationType"); 
@@ -40,4 +41,5 @@ public class GameInfoRequestServlet extends HttpServlet {
 		responseWriter.print(json);
 		responseWriter.flush();
 	}
+	
 }

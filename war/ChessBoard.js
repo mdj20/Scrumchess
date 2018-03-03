@@ -4,6 +4,7 @@
 
 var profile;
 var gid_token;
+var currentGameID ;
 
 function onSignIn(googleUser) {
 	profile = googleUser.getBasicProfile();
@@ -296,37 +297,34 @@ function addUserClickToTrans(){
 
 // defining and
 $(document).ready( function() {
-	
 	var boardInfo = new BoardInfo(fenNotationString,pieceCount,pieceMap);
 	var engineProxy = new EngineProxy();
 	var control = new Control(boardInfo,engineProxy);
-	
 	engine_js_test(control);
-
-	$(".square").click( function(){
+	
+	$(".square").click( function() {
 		control.squareClick(this);
 	} );
 	
-	$(window).resize(function(){
+	$(window).resize(function() {
 		control.boardInfo.updateSquareOffsets();
     });
 	
-	$("#button").click( function(){
+	$("#button").click( function() {
 			tryNewGameRequest(control.players[0].name,authenticationType[1],gameConfigutationType[2],control.players[1].name);
 		}
 	);
 	
 	$("#button2").click(  function(){});
 	$("#button3").click(  function(){ console.log(returnObjectQueue.length); }) ;
-	$("#button4").click(  function(){  }) ;
-			
-	$("#button5").click(  function(){ control.newGame() } ) ;
+	$("#button4").click(  function(){ control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject) }) ;
+	
+
 	
 });
 
 // this will serve as a initial test for the engine (will replace with a separate proxy)
 function engine_js_test(control){
-
 	control.engineProxy.newGame();
 	var translated = control.engineProxy.getTranslatedState();
 	control.boardInfo.setBoardFromState(translated);	
@@ -337,7 +335,7 @@ function engine_js_test(control){
 function getKeyByValue(object, value) {
 	var ret = -1;
 	for ( var key in object ){
-		if (object[key] == value){
+		if ( object[key] == value){
 			ret = key;
 			break;
 		}
@@ -359,6 +357,7 @@ function makePieceDivArray(fenString,pieceCount,pieceMap_a){
 }
 
 function Control(boardInfo, engineProxy){
+	this.gameId = "";
 	this.players = new Array(2);
 	this.players[0] = new Player("User",0,false);
 	this.players[1] = new Player("Jose",1,true);
@@ -374,7 +373,18 @@ function Control(boardInfo, engineProxy){
 	return this;
 }
 
+
+
+
 var _Control_proto = {};  // Control prototype!
+
+//sets game according to java backend
+_Control_proto.setGameFromBackEndGameObject = function(backEndObject){
+	this.gameId = backEndObject.gameId;
+	this.players[0] = new Player(backEndObject.userIdWhite,0,!backEndObject.isWhite);
+	this.players[1] = new Player(backEndObject.userIdBlack,1,!backEndObject.isBlack);
+	this.setGameFromFen(backEndObject.fen);
+}
 
 
 _Control_proto.setGameFromFen = function(fen){
@@ -383,6 +393,8 @@ _Control_proto.setGameFromFen = function(fen){
 	this.setPlayerFromHalfMove(this.engineProxy.state.moveno);
 	this.userCycle();
 }
+
+
 
 _Control_proto.newGame = function(){
 	this.setGameFromFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 1 1");
@@ -484,7 +496,8 @@ _Control_proto.moveByClickOnline = function(fromSquare,toSquare){
 	var ok = this.engineProxy.move(fromSquare,toSquare);
 	
 	if(ok) {
-		
+		var moveStr = squareToAN(fromSquare,toSquare);
+		var credentials
 	}
 }
 
@@ -495,7 +508,6 @@ _Control_proto.findAndMakeMove = function(){
 	if (ok){
 		this.executeMove(mov[0],mov[1]);
 	}
-	
 }
 
 
@@ -547,6 +559,8 @@ _Control_proto.debugButton = function(button){
 	
 }
 
+
+
 // Player stored info about Human/AI Color and name
 function Player(name, color, ai){
 	this.name = name;
@@ -578,6 +592,12 @@ function squareToAN(from, to){
 	return fromStr+toStr+"";
 }
 
+
+function getUserCredentials(){
+	var cred;
+	
+
+}
 
 
 //copies Large 10x12 to 8x8,

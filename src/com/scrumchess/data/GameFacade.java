@@ -37,7 +37,7 @@ public class GameFacade {
 	protected Key newGameToUserWhite(String user){
 		Key key;
 		Date date = new Date();
-		Game game = new Game(_startFen,0,date);
+		Game game = new Game(_startFen,1,date);
 		game.setWhite(user);
 		Entity entity = toEntity(game);
 		key = dss.put(entity);
@@ -46,16 +46,19 @@ public class GameFacade {
 	protected Key newGameToUserBlack(String user){
 		Key key;
 		Date date = new Date();
-		Game game = new Game(_startFen,0,date);
+		Game game = new Game(_startFen,1,date);
 		game.setBlack(user);
 		Entity entity = toEntity(game);
 		key = dss.put(entity);
 		return key;
 	}
+	
+	
+	// why is this such a hard situation to be in?
 	protected Key newGameToUsers(String white,String black){
 		Key key;
 		Date date = new Date();
-		Game game = new Game(_startFen,0,date);
+		Game game = new Game(_startFen,1,date);
 		game.setWhite(white);
 		game.setBlack(black);
 		Entity entity = toEntity(game);
