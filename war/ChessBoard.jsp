@@ -55,6 +55,10 @@
 <button id="button3"> Button 3 </button>
 <button id="button4"> Button 4 </button>
 <button id="button5"> Button 5 </button>
+<br>
+<input  type="text" id="fromInput">
+<br>
+<input type="text" id="toInput">
 <div id="debugOutput">
 </div>
 

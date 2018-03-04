@@ -318,6 +318,12 @@ $(document).ready( function() {
 	$("#button2").click(  function(){});
 	$("#button3").click(  function(){ console.log(returnObjectQueue.length); }) ;
 	$("#button4").click(  function(){ control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject) }) ;
+	$("#button5").click( function(){
+		var from = $("#fromInput").valueOf();
+		var to = $("#toInput").valueOf();
+		control.moveByClickPush(from, to);
+		control.endTurn();
+	});
 	
 
 	
@@ -487,17 +493,25 @@ _Control_proto.moveByClick = function(from, to){
 	return ok;
 }
 
-_Control_proto.moveByClickOnline = function(fromSquare,toSquare){
+_Control_proto.moveByClickPush = function(fromSquare,toSquare){
 	
 	// attempts to verify with the client side engine before it 
 	var ret = false;  // denotes success or failure on return 
-	var fromSquare = this.boardInfo.getSquareOfDiv(from);
-	var toSquare = this.boardInfo.getSquareOfDiv(to);
+	var fromSquare = this.boardInfo.getSquareOfDiv(fromSquare);
+	var toSquare = this.boardInfo.getSquareOfDiv(toSquare);
 	var ok = this.engineProxy.move(fromSquare,toSquare);
 	
 	if(ok) {
 		var moveStr = squareToAN(fromSquare,toSquare);
-		var credentials
+		var credentials = {};
+		credentials.userToken = this.players[this.currentPlayer].name;
+		credentials.authenticationType = "DEBUG";
+		tryMoveRequest(credentials.userToken,credentials.authenticationType,moveStr);
+		this.unHighlight(from)
+		this.executeMove(fromSquare,toSquare,this.engineProxy.capture);
+		this.s1= "";
+		this.selected = false;
+		ret = true;
 	}
 }
 

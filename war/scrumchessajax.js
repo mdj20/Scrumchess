@@ -51,8 +51,7 @@ function MoveRequestAjaxObject(userToken,authenticationType,gameId,algebraicNoti
 				[authenticationTypeString] : authenticationType,
 				[gameIdString] : gameId,
 				[algebraicNotationString]: algebraicNotiontion
-			};
-			
+			};		
 };
 MoveRequestAjaxObject.prototype = GameRequestProto;
 
