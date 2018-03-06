@@ -31,6 +31,7 @@ public class MoveRequestServlet extends HttpServlet {
 		System.out.println("gameid: "+gameId);
 		String alegbraicNotation = req.getParameter("algebraicNotation");
 		MoveRequest moveRequest = new MoveRequest(userAuthenticationInfo,gameId,alegbraicNotation);
+		System.out.println("gameidMR: "+moveRequest.getGameID());
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		MoveRequestResponse moveRequestResponse  = scurh.tryMoveRequest(moveRequest);
 		System.out.println("ID:"+moveRequestResponse.getResponseObject().getId());

@@ -7,6 +7,7 @@ public class GameInfoRequest extends AbstractUserRequest {
 	
 	public GameInfoRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, long gameID) {
 		super(userAuthenticationInfo);
+		this.gameID = gameID;
 	}
 
 	public long getGameID() {

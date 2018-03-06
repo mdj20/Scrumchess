@@ -32,6 +32,7 @@ public class MoveRequest extends GameInfoRequest{
 
 	public MoveRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, long gameID, String move) {
 		super(userAuthenticationInfo, gameID);
+		this.move = move;
 	}
 	
 	public int setMoveNumber(int value){

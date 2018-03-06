@@ -146,6 +146,7 @@ public class ScrumchessDatastoreFacade {
 	public boolean evaluateMoveRequest(MoveRequest moveRequest) throws EntityNotFoundException{
 		boolean ret = false;
 		Game game;
+		System.out.println("Inside: "+moveRequest.getGameID());
 		game = gf.getGame(moveRequest.getGameID());
 		moveRequest.setGame(game);
 		MoveValidator moveValidator = MoveValidator.createWithFen(game.getFen());
