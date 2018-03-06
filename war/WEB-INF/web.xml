@@ -20,6 +20,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>GameInfoRequestServlet</servlet-name>
 		<url-pattern>/gameinforequest</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>MoveRequestServlet</servlet-name>
+		<servlet-class>com.scrumchess.ajaxservlet.MoveRequestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MoveRequestServlet</servlet-name>
+		<url-pattern>/moverequest</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>Scrumchess</servlet-name>
 		<servlet-class>com.scrumchess.ajaxservlet.ScrumchessServlet</servlet-class>

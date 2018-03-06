@@ -319,8 +319,10 @@ $(document).ready( function() {
 	$("#button3").click(  function() { console.log(returnObjectQueue.length); }) ;
 	$("#button4").click(  function() { control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject) }) ;
 	$("#button5").click(  function() {
-		var from = $("#fromInput").valueOf();
-		var to = $("#toInput").valueOf();
+		var from = $("#fromInput").val();
+		from = $("#"+from);
+		var to = $("#toInput").val();
+		to = $("#"+to);
 		control.moveByClickPush(from, to);
 		control.endTurn();
 	});
@@ -445,6 +447,8 @@ _Control_proto.endTurn = function(){
 	this.currentPlayer = (this.currentPlayer == 0 ) ? 1 : 0;	
 }
 
+
+//_Control_proto.
 _Control_proto.turnAI = function(){
 	if(this.players[this.currentPlayer].ai == true){
 		// find player move from AI
@@ -493,12 +497,12 @@ _Control_proto.moveByClick = function(from, to){
 	return ok;
 }
 
-_Control_proto.moveByClickPush = function(fromSquare,toSquare){
+_Control_proto.moveByClickPush = function(from,to){
 	
 	// attempts to verify with the client side engine before it 
 	var ret = false;  // denotes success or failure on return 
-	var fromSquare = this.boardInfo.getSquareOfDiv(fromSquare);
-	var toSquare = this.boardInfo.getSquareOfDiv(toSquare);
+	var fromSquare = this.boardInfo.getSquareOfDiv(from);
+	var toSquare = this.boardInfo.getSquareOfDiv(to);
 	var ok = this.engineProxy.move(fromSquare,toSquare);
 	
 	if(ok) {
@@ -506,8 +510,8 @@ _Control_proto.moveByClickPush = function(fromSquare,toSquare){
 		var credentials = {};
 		credentials.userToken = this.players[this.currentPlayer].name;
 		credentials.authenticationType = "DEBUG";
-		tryMoveRequest(credentials.userToken,credentials.authenticationType,moveStr);
-		this.unHighlight(from)
+		tryMoveRequest(credentials.userToken,credentials.authenticationType,this.gameId,moveStr);
+		this.unHighlight(from);
 		this.executeMove(fromSquare,toSquare,this.engineProxy.capture);
 		this.s1= "";
 		this.selected = false;
@@ -595,9 +599,9 @@ function zeroBoard(){
 // takes from and to squares and returns an Algebraic Notation representation of a move
 function squareToAN(from, to){
 	var fromFile = String.fromCharCode((from%8)+65);
-	var fromStr = fromFile + from/8 +""; 
+	var fromStr = fromFile + (Math.floor(from/8)+1) +""; 
 	var toFile = String.fromCharCode((to%8)+65);
-	var toStr = toFile + to/8 +""; 
+	var toStr = toFile + (Math.floor(to/8)+1) +""; 
 	return fromStr+toStr+"";
 }
 

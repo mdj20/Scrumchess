@@ -30,7 +30,7 @@ public class MoveRequest extends GameInfoRequest{
 		return updatedFen;
 	}
 
-	MoveRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, long gameID, String move) {
+	public MoveRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, long gameID, String move) {
 		super(userAuthenticationInfo, gameID);
 	}
 	

@@ -56,9 +56,9 @@ MoveRequestAjaxObject.prototype = GameRequestProto;
 
 
 
-function tryMoveRequest(userToken,gameId,algebraicNotiontion){
-	var moveRequestResponse
-	var moveRequest = new MoveRequestObject(userToken,gameId,algebraicNotiontion);
+function tryMoveRequest(userToken,authenticaitionType,gameId,algebraicNotiontion){
+	var moveRequestResponse;
+	var moveRequest = new MoveRequestAjaxObject(userToken,authenticaitionType,gameId,algebraicNotiontion);
 	moveRequest.success = function(result){returnObjectQueue.push(result)};
 	$.ajax(moveRequest);
 }
