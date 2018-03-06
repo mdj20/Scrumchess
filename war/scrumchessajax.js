@@ -44,7 +44,6 @@ GameInfoRequestAjaxObject.prototype = GameRequestProto;
 
 
 function MoveRequestAjaxObject(userToken,authenticationType,gameId,algebraicNotiontion){
-	
 			this.url = "/moverequest";
 			this.data = {
 				[userTokenString] : userToken,
@@ -54,6 +53,8 @@ function MoveRequestAjaxObject(userToken,authenticationType,gameId,algebraicNoti
 			};		
 };
 MoveRequestAjaxObject.prototype = GameRequestProto;
+
+
 
 function tryMoveRequest(userToken,gameId,algebraicNotiontion){
 	var moveRequestResponse

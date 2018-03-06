@@ -315,10 +315,10 @@ $(document).ready( function() {
 		}
 	);
 	
-	$("#button2").click(  function(){});
-	$("#button3").click(  function(){ console.log(returnObjectQueue.length); }) ;
-	$("#button4").click(  function(){ control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject) }) ;
-	$("#button5").click( function(){
+	$("#button2").click(  function() {});
+	$("#button3").click(  function() { console.log(returnObjectQueue.length); }) ;
+	$("#button4").click(  function() { control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject) }) ;
+	$("#button5").click(  function() {
 		var from = $("#fromInput").valueOf();
 		var to = $("#toInput").valueOf();
 		control.moveByClickPush(from, to);
@@ -442,7 +442,7 @@ _Control_proto.squareClick = function( clicked ){
 }
 
 _Control_proto.endTurn = function(){
-	this.currentPlayer = (this.currentPlayer == 0 )? 1 : 0;	
+	this.currentPlayer = (this.currentPlayer == 0 ) ? 1 : 0;	
 }
 
 _Control_proto.turnAI = function(){
@@ -518,7 +518,6 @@ _Control_proto.moveByClickPush = function(fromSquare,toSquare){
 _Control_proto.findAndMakeMove = function(){
 	var mov = this.engineProxy.getMoveFS(this.depth);
 	var ok = this.engineProxy.move(mov[0],mov[1]);
-	
 	if (ok){
 		this.executeMove(mov[0],mov[1]);
 	}
@@ -568,12 +567,8 @@ _Control_proto.getPromotionType = function(str){
 
 _Control_proto.debugButton = function(button){
 	// this will be a debug fun.
-	
 	pDebug(gid_token+"");
-	
 }
-
-
 
 // Player stored info about Human/AI Color and name
 function Player(name, color, ai){
@@ -609,8 +604,6 @@ function squareToAN(from, to){
 
 function getUserCredentials(){
 	var cred;
-	
-
 }
 
 
