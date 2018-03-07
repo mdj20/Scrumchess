@@ -34,7 +34,16 @@ public class MoveRequestServlet extends HttpServlet {
 		System.out.println("gameidMR: "+moveRequest.getGameID());
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		MoveRequestResponse moveRequestResponse  = scurh.tryMoveRequest(moveRequest);
-		System.out.println("ID:"+moveRequestResponse.getResponseObject().getId());
+		if (moveRequestResponse.isSuccessful()){
+			String fen = moveRequestResponse.getResponseObject().getFen();
+			if(fen!=null){
+				System.out.println("FEN: "+fen);
+			}
+			else{
+				System.out.println("FEN NULL");
+			}	
+		}
+
 		Gson gson = new Gson();
 		String json = gson.toJson(moveRequestResponse);
 		resp.setContentType("application/json");

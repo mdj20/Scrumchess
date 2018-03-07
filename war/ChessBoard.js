@@ -315,9 +315,9 @@ $(document).ready( function() {
 		}
 	);
 	
-	$("#button2").click(  function() {});
+	$("#button2").click(  function() {console.log(control);});
 	$("#button3").click(  function() { console.log(returnObjectQueue.length); }) ;
-	$("#button4").click(  function() { control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject) }) ;
+	$("#button4").click(  function() { control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject); }) ;
 	$("#button5").click(  function() {
 		var from = $("#fromInput").val();
 		from = $("#"+from);
