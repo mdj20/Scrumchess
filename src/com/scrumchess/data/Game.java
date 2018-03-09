@@ -54,7 +54,7 @@ public class Game {
 		this.isWhite = true;
 	}
 	protected void setBlack(String black) {
-		this.userIdblack = black;
+		this.userIdBlack = black;
 		this.isBlack = true;
 	}
 	public boolean isWhite() {
@@ -67,7 +67,7 @@ public class Game {
 		return userIdWhite;
 	}
 	public String getBlack() {
-		return userIdblack;
+		return userIdBlack;
 	}
 	private long gameId;
 	private boolean hasID;
@@ -77,5 +77,5 @@ public class Game {
 	private boolean isWhite;
 	private boolean isBlack;
 	private String userIdWhite;
-	private String userIdblack;	
+	private String userIdBlack;	
 }

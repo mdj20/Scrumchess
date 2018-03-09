@@ -30,6 +30,7 @@ public class MoveRequestServlet extends HttpServlet {
 		long gameId = Long.parseLong(req.getParameter("gameId"));
 		System.out.println("gameid: "+gameId);
 		String alegbraicNotation = req.getParameter("algebraicNotation");
+		System.out.println("MOVE"+alegbraicNotation);
 		MoveRequest moveRequest = new MoveRequest(userAuthenticationInfo,gameId,alegbraicNotation);
 		System.out.println("gameidMR: "+moveRequest.getGameID());
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
@@ -42,6 +43,9 @@ public class MoveRequestServlet extends HttpServlet {
 			else{
 				System.out.println("FEN NULL");
 			}	
+		}
+		else{
+			System.out.println("Failure: " + moveRequestResponse.getRespnseFailureReason());
 		}
 
 		Gson gson = new Gson();

@@ -598,9 +598,9 @@ function zeroBoard(){
 
 // takes from and to squares and returns an Algebraic Notation representation of a move
 function squareToAN(from, to){
-	var fromFile = String.fromCharCode((from%8)+65);
+	var fromFile = String.fromCharCode((from%8)+97);
 	var fromStr = fromFile + (Math.floor(from/8)+1) +""; 
-	var toFile = String.fromCharCode((to%8)+65);
+	var toFile = String.fromCharCode((to%8)+97);
 	var toStr = toFile + (Math.floor(to/8)+1) +""; 
 	return fromStr+toStr+"";
 }

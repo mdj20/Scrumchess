@@ -113,7 +113,7 @@ public class GameFacade {
 		if (key.isComplete()){	
 			game.setId(entity.getKey().getId());
 		}
-		boolean temp =(Boolean) entity.getProperty(_isBlack);
+		boolean temp = (Boolean) entity.getProperty(_isBlack);
 		if (temp){
 			game.setBlack( (String) entity.getProperty(_black));
 		}
