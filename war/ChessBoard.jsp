@@ -56,6 +56,12 @@
 <button id="button4"> Button 4 </button>
 <button id="button5"> Button 5 </button>
 <br>
+<button id="button6">  Button 6 </button>
+<button id="button7"> Button 7 </button>
+<button id="button8"> Button 8 </button>
+<button id="button9"> Button 9 </button>
+<button id="button10"> Button 10 </button>
+<br>
 <input  type="text" id="fromInput">
 <br>
 <input type="text" id="toInput">

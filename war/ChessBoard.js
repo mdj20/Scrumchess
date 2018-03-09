@@ -316,7 +316,11 @@ $(document).ready( function() {
 	);
 	
 	$("#button2").click(  function() {console.log(control);});
-	$("#button3").click(  function() { console.log(returnObjectQueue.length); }) ;
+	$("#button3").click(  function() {
+		control.saveGameIdCookie();
+		control.saveUserCredCookie();
+						
+	}) ;
 	$("#button4").click(  function() { control.setGameFromBackEndGameObject(returnObjectQueue.shift().responseObject); }) ;
 	$("#button5").click(  function() {
 		var from = $("#fromInput").val();
@@ -327,6 +331,17 @@ $(document).ready( function() {
 		control.endTurn();
 	});
 	
+	$("#button6").click( function () { 
+		var gameIdTemp = control.readGameIdCookie(); 
+		var userCred = control.readUserCredCookie();
+		control.gameId = gameIdTemp;
+		control.userId = userCred.userId;
+		control.authType = userCred.authType;
+	} );
+	
+	$("#button7").click( function () {
+		tryGameInfoRequest(control.userId,control.authType,control.gameId);
+	}  );
 
 	
 });
@@ -365,9 +380,11 @@ function makePieceDivArray(fenString,pieceCount,pieceMap_a){
 }
 
 function Control(boardInfo, engineProxy){
+	this.userID = "User";
+	this.authType = "DEBUG";
 	this.gameId = "";
 	this.players = new Array(2);
-	this.players[0] = new Player("User",0,false);
+	this.players[0] = new Player(this.userID,0,false);
 	this.players[1] = new Player("Jose",1,true);
 	this.currentPlayer = 0;
 	this.depth = 2; // this will be the difficulty for now....	
@@ -402,6 +419,27 @@ _Control_proto.setGameFromFen = function(fen){
 	this.userCycle();
 }
 
+
+_Control_proto.saveGameIdCookie = function(gameId){
+	document.cookie = "gameIdCook ="+gameId;
+} 
+
+_Control_proto.readGameIdCookie = function(){
+	var ret = $.cookie("currentGameId");
+	return ret;
+}
+
+_Control_proto.saveUserCredCookie = function(){
+	$.cookie("userId", this.userId , { expires : 10 });
+	$.cookie("authType", this.authType, {expires : 10})
+}
+
+_Control_proto.readUserCredCookie = function() {
+	var ret  = {};
+	ret.userId = $.cookie("userId");
+	ret.authType = $.cookie("authType");
+	return ret;
+}
 
 
 _Control_proto.newGame = function(){
