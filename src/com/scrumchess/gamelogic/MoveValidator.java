@@ -99,12 +99,12 @@ public class MoveValidator {
 	 * @return
 	 */
 
+	
 	// returns true if turn is white
 	public boolean isWhiteTurn(){
 		return board.getTurn();
 	}
 	public int isEndGame(){
 		return this.board.isEndGame();
-	}
-	// smoke testing methods 
+	} 
 }
