@@ -70,17 +70,11 @@ function tryGameInfoRequest(userToken,authenticationType,gameId){
 	$.ajax(newMoveGameRequest);
 }
 
-
-
-
-
 function tryNewGameRequest(userToken,authenticationType,userConfig,other){
-	
 	var newGameResponse;
 	var newGame = new NewGameAjaxObject(userToken,authenticationType,userConfig,other);
 	newGame.success = function(result){returnObjectQueue.push(result)};
 	$.ajax(newGame);
-	
 }
 
 
