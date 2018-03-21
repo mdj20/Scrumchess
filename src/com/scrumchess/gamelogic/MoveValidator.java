@@ -25,7 +25,7 @@ public class MoveValidator {
 	 * @param fen BoardConfiguration 
 	 */
 	
-	private MoveValidator(String fen){
+	public MoveValidator(String fen){
 		board = new Board();
 		board.setFen(fen);
 		this.moveReady = false;
