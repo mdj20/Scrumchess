@@ -86,6 +86,7 @@ public class MoveValidator {
 	public String getFen(){
 		return board.getFen();
 	}
+	
 	private boolean moveValid(int checkMove){
 		boolean ret = false;
 		if (Move.NONE != checkMove && Move.NULL != checkMove){
