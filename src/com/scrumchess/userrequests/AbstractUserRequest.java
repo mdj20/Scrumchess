@@ -8,6 +8,8 @@ import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 public  class AbstractUserRequest implements AuthenticableUserRequest<String> {
 	private SimpleUserAuthenticationInfo<String> userAuthenticationInfo;
 	
+	AbstractUserRequest(){} // zero args constructor needed for gson deserialization. 
+	
 	AbstractUserRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo){
 		this.userAuthenticationInfo = userAuthenticationInfo;
 	}

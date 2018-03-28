@@ -108,4 +108,6 @@ public class MoveValidator {
 	public int isEndGame(){
 		return this.board.isEndGame();
 	} 
+	
+	
 }
