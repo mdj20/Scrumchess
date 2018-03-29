@@ -57,6 +57,7 @@ public class NewGameRequest extends AbstractUserRequest{
 		NewGameRequest ngr2 = gson.fromJson(json, NewGameRequest.class);
 		System.out.println(ngr2.isAuthenticated());
 		System.out.println(ngr2.getOtherPlayerId());
+		System.out.println(ngr2.getNewGameConfig());
 	}
 
 

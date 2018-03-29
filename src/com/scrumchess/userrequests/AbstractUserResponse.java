@@ -3,7 +3,7 @@ package com.scrumchess.userrequests;
 public abstract class AbstractUserResponse<T> {
 	protected boolean success;
 	protected T responseObject;
-	protected ResponseFailureReason responseFailureReason;
+	protected UniversalFailureReason responseFailureReason;
 	
 	AbstractUserResponse(boolean success, T  returnObject){
 		this(success,UniversalFailureReason.NA,returnObject);
@@ -11,10 +11,10 @@ public abstract class AbstractUserResponse<T> {
 	AbstractUserResponse(boolean success){
 		this(success,null,null);
 	}
-	AbstractUserResponse(boolean success, ResponseFailureReason reason){
+	AbstractUserResponse(boolean success, UniversalFailureReason reason){
 		this(success,reason,null);
 	}
-	AbstractUserResponse(boolean success, ResponseFailureReason reason, T returnObject){
+	AbstractUserResponse(boolean success, UniversalFailureReason reason, T returnObject){
 		this.success = success;
 		responseFailureReason = reason;
 		this.responseObject = returnObject;
@@ -28,7 +28,7 @@ public abstract class AbstractUserResponse<T> {
 		responseObject = value;
 	}
 	
-	public ResponseFailureReason getRespnseFailureReason() {
+	public UniversalFailureReason getRespnseFailureReason() {
 		return this.responseFailureReason;
 	}
 	public T getResponseObject() {
