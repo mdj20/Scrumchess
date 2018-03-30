@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.scrumchess.authentication.AbstractUserCredentials;
 import com.scrumchess.authentication.ScrumchessAuthenticationType;
+import com.scrumchess.authentication.SimpleAbstractUserCredentialGsonAdapter;
 import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 import com.scrumchess.authentication.SimpleUserCredentials;
 
@@ -23,6 +24,8 @@ public class NewGameRequest extends AbstractUserRequest{
 	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig) {
 		this(userAuthenticationInfo,newGameConfig,null);
 	}
+	
+	public NewGameRequest() {}
 	
 	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig, String otherPlayerId){
 		super(userAuthenticationInfo);
@@ -53,7 +56,7 @@ public class NewGameRequest extends AbstractUserRequest{
 		String json = gson.toJson(ngr);
 		System.out.println(json);
 		GsonBuilder gb = new GsonBuilder();
-		gson = gb.registerTypeAdapter(AbstractUserCredentials.class, new AbstractUserCredentialDeserializer() ).create();
+		gson = gb.registerTypeAdapter(AbstractUserCredentials.class, new SimpleAbstractUserCredentialGsonAdapter() ).create();
 		NewGameRequest ngr2 = gson.fromJson(json, NewGameRequest.class);
 		System.out.println(ngr2.isAuthenticated());
 		System.out.println(ngr2.getOtherPlayerId());
@@ -62,7 +65,7 @@ public class NewGameRequest extends AbstractUserRequest{
 
 
 
-	
+	/*
 	
 	static class AbstractUserCredentialDeserializer implements JsonDeserializer<AbstractUserCredentials> {
 
@@ -78,5 +81,6 @@ public class NewGameRequest extends AbstractUserRequest{
 		
 	}
 
+*/
 	
 }

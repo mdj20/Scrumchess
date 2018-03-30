@@ -2,7 +2,6 @@ package com.scrumchess.data;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.apache.jsp.ah.entityDetailsBody_jsp;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
@@ -18,7 +17,6 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.api.datastore.Transaction;
-import com.sun.xml.internal.fastinfoset.stax.events.EntityDeclarationImpl;
 public class GameFacade {
 	protected final static String _kind = "game";
 	protected final static String _fen = "fen";
