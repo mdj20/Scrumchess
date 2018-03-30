@@ -21,22 +21,15 @@ import com.scrumchess.userrequests.NewGameRequest;
 import com.scrumchess.userrequests.NewGameResponse;
 import com.scrumchess.userrequests.NewGameRequest.NewGameConfig;
 
-public class NewGameGsonServlet extends HttpServlet {
+public class NewGameGsonServlet extends AbstractGsonUserRequestServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		GsonBuilder gb = new GsonBuilder();
-		Gson gson = gb.registerTypeAdapter(AbstractUserCredentials.class, new SimpleAbstractUserCredentialGsonAdapter() ).create();
-		BufferedReader reader = req.getReader();
-		String line = reader.readLine();
-		System.out.println(line);
-		NewGameRequest newGameRequest = gson.fromJson(line,NewGameRequest.class);
+		Gson gson = buildScrumchessGson();
+		String jSon = preProcessAndGetString(req);
+		NewGameRequest newGameRequest = gson.fromJson(jSon,NewGameRequest.class);
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		NewGameResponse newGameResponse  = scurh.tryNewGameRequest(newGameRequest);
 		gson = new Gson();
 		String json = gson.toJson(newGameResponse);
-		System.out.println("JSON:"+json); 
-		resp.setContentType("application/json");
-		PrintWriter responseWriter = resp.getWriter();
-		responseWriter.print(json);
-		responseWriter.flush();
+		sendRespnseJson(resp,json);
 	}
 }

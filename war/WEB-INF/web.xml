@@ -14,11 +14,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>GameInfoGson</servlet-name>
-		<servlet-class>com.scrumchess.ajaxservlet.GameInfoGsonParseServlet</servlet-class>
+		<servlet-class>com.scrumchess.ajaxservlet.GameInfoGsonServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GameInfoGson</servlet-name>
-		<url-pattern>/ngameinfogson</url-pattern>
+		<url-pattern>/gameinfogson</url-pattern>
 	</servlet-mapping>
 		<servlet>
 		<servlet-name>NewGameGson</servlet-name>
