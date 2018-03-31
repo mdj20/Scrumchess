@@ -12,6 +12,8 @@ import com.scrumchess.authentication.SimpleUserCredentials;
 public class GameInfoRequest extends AbstractUserRequest {
 	long gameID;
 	
+	public GameInfoRequest(){}
+	
 	public GameInfoRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, long gameID) {
 		super(userAuthenticationInfo);
 		this.gameID = gameID;

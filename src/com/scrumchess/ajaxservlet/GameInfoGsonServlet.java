@@ -21,7 +21,7 @@ public class GameInfoGsonServlet extends AbstractGsonUserRequestServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		Gson gson = buildScrumchessGson();
 		String jSon = preProcessAndGetString(req);
-		GameInfoRequest gameInfoRequest = gson.fromJson(req.toString(),GameInfoRequest.class);
+		GameInfoRequest gameInfoRequest = gson.fromJson(jSon,GameInfoRequest.class);
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		GameInfoResponse gameInfoResponse  = scurh.tryGameInfoRequest(gameInfoRequest);
 		Gson gsonResp = new Gson();
