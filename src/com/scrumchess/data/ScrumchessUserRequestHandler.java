@@ -34,7 +34,7 @@ public class ScrumchessUserRequestHandler {
 			try {
 				returnObject = sdf.getGameById(gameInfoRequest.getGameID());
 				String userId = gameInfoRequest.getUserIdentifier();
-				if(returnObject.getBlack().equals(userId)||returnObject.getWhite().equals(userId)){
+				if((returnObject.isBlack()&&returnObject.getBlack().equals(userId))||(returnObject.isWhite()&&returnObject.getWhite().equals(userId))){
 					ret = new GameInfoResponse(true,returnObject);
 				}
 				else {
