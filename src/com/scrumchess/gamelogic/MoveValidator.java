@@ -87,6 +87,15 @@ public class MoveValidator {
 		return board.getFen();
 	}
 	
+	
+	public boolean setAndDoMove(String an) {
+		boolean ret = false;
+		if(setMove(an)) {
+			ret = doMove();
+		}
+		return ret;
+	}
+	
 	private boolean moveValid(int checkMove){
 		boolean ret = false;
 		if (Move.NONE != checkMove && Move.NULL != checkMove){
