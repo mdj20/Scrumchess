@@ -49,7 +49,7 @@ public abstract class AbstractGsonUserRequestServlet extends HttpServlet {
 	
 	protected Gson buildScrumchessGson() {
 		GsonBuilder gb = new GsonBuilder();
-		Gson gson = gb.registerTypeAdapter(AbstractUserCredentials.class, new SimpleAbstractUserCredentialGsonAdapter() ).create();
+		Gson gson = gb.registerTypeAdapter( AbstractUserCredentials.class , new SimpleAbstractUserCredentialGsonAdapter() ).create();
 		return gson;
 	}
 	
