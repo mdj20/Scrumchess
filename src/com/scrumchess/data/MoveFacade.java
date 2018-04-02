@@ -12,7 +12,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Transaction;
 
-public class MoveFacade implements {
+public class MoveFacade  {
 	
 	// Field identifiers for Google datastore
 	protected static final String _kind = "move";

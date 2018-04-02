@@ -18,6 +18,8 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.api.datastore.Transaction;
 public class GameFacade {
+	
+	
 	protected final static String _kind = "game";
 	protected final static String _fen = "fen";
 	protected final static String _moveNum = "moveNum"; 
@@ -50,7 +52,6 @@ public class GameFacade {
 		key = dss.put(entity);
 		return key;
 	}
-	
 	
 	// why is this such a hard situation to be in?
 	protected Key newGameToUsers(String white,String black){
