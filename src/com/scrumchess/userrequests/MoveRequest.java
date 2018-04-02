@@ -4,6 +4,9 @@ import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 import com.scrumchess.data.Game;
 
 public class MoveRequest extends GameInfoRequest{
+
+	MoveRequest(){}
+	
 	
 	private boolean isEvaluated = false;
 	private String move;

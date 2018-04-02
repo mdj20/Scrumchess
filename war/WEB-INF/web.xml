@@ -20,13 +20,21 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>GameInfoGson</servlet-name>
 		<url-pattern>/gameinfogson</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>NewGameGson</servlet-name>
 		<servlet-class>com.scrumchess.ajaxservlet.NewGameGsonServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>NewGameGson</servlet-name>
 		<url-pattern>/newgamegson</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>MoveGson</servlet-name>
+		<servlet-class>com.scrumchess.ajaxservlet.MoveRequestGsonServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MoveGson</servlet-name>
+		<url-pattern>/movegson</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>GameInfoRequestServlet</servlet-name>
