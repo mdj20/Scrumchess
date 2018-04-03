@@ -4,6 +4,8 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.scrumchess.authentication.ScrumchessUserAuthenticator;
 import com.scrumchess.userrequests.AbstractUserRequest;
 import com.scrumchess.userrequests.AbstractUserResponse;
+import com.scrumchess.userrequests.DoubleMoveRequest;
+import com.scrumchess.userrequests.DoubleMoveResponse;
 import com.scrumchess.userrequests.GameInfoRequest;
 import com.scrumchess.userrequests.GameInfoResponse;
 import com.scrumchess.userrequests.MoveRequest;
@@ -11,8 +13,9 @@ import com.scrumchess.userrequests.MoveRequestResponse;
 import com.scrumchess.userrequests.NewGameRequest;
 import com.scrumchess.userrequests.NewGameResponse;
 import com.scrumchess.userrequests.UniversalFailureReason;
+import com.scrumchess.userrequests.UserRequestHandler;
 
-public class ScrumchessUserRequestHandler {
+public class ScrumchessUserRequestHandler implements UserRequestHandler{
 	private ScrumchessDatastoreFacade sdf;
 	
 	private ScrumchessUserRequestHandler(){
@@ -27,7 +30,7 @@ public class ScrumchessUserRequestHandler {
 	public GameInfoResponse tryGameInfoRequest(GameInfoRequest gameInfoRequest){
 		GameInfoResponse ret = null;
 		Game returnObject = null;
-		if(!checkAuthentication(gameInfoRequest)){
+		if( !checkAuthentication(gameInfoRequest) ){
 			ret = new GameInfoResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
 		}
 		else {
@@ -93,6 +96,11 @@ public class ScrumchessUserRequestHandler {
 			};	
 		}
 		return ret;
+	}
+	
+	public DoubleMoveResponse tryDoubleMoveRequest(DoubleMoveRequest doubleMoveRequest){
+		return null;
+		
 	}
 	
 	private NewGameResponse tryNewGameBlack(NewGameRequest newGameRequest){
