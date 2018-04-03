@@ -2,6 +2,8 @@ package com.scrumchess.data;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.scrumchess.authentication.ScrumchessUserAuthenticator;
+import com.scrumchess.userrequests.AIRequest;
+import com.scrumchess.userrequests.AIResponse;
 import com.scrumchess.userrequests.AbstractUserRequest;
 import com.scrumchess.userrequests.AbstractUserResponse;
 import com.scrumchess.userrequests.DoubleMoveRequest;
@@ -98,6 +100,22 @@ public class ScrumchessUserRequestHandler implements UserRequestHandler{
 		return ret;
 	}
 	
+	@Override
+	public AIResponse tryAIrequest(AIRequest aiRequest) {
+		AIResponse ret = null;
+		if(!checkAuthentication(aiRequest)){
+			ret = new AIResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
+		}
+		else{
+			try {
+				Game game = sdf.getGameById(aiRequest.getGameID());
+			} catch (EntityNotFoundException e) {
+				ret = new AIResponse(false,UniversalFailureReason.ENTITY_NOT_FOUND);
+			}
+		}
+		return ret;
+	}
+	
 	public DoubleMoveResponse tryDoubleMoveRequest(DoubleMoveRequest doubleMoveRequest){
 		return null;
 		
@@ -156,5 +174,7 @@ public class ScrumchessUserRequestHandler implements UserRequestHandler{
 	private boolean checkAuthentication(AbstractUserRequest aur){
 		return ScrumchessUserAuthenticator.authenticate(aur); 
 	}
+
+
 	
 }
