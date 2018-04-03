@@ -6,6 +6,8 @@ import com.scrumchess.userrequests.AbstractUserRequest;
 import com.scrumchess.userrequests.AbstractUserResponse;
 import com.scrumchess.userrequests.GameInfoRequest;
 import com.scrumchess.userrequests.GameInfoResponse;
+import com.scrumchess.userrequests.GameLoadRequest;
+import com.scrumchess.userrequests.GameLoadResponse;
 import com.scrumchess.userrequests.MoveRequest;
 import com.scrumchess.userrequests.MoveRequestResponse;
 import com.scrumchess.userrequests.NewGameRequest;
@@ -23,6 +25,27 @@ public class ScrumchessUserRequestHandler {
 		return new ScrumchessUserRequestHandler();
 	}
 	
+	public GameLoadResponse tryGameLoad(GameLoadRequest gameLoadRequest) {
+		GameLoadResponse ret = null;
+		GameMovelistComposite returnObject = null;
+		if(!checkAuthentication(gameLoadRequest)){
+			ret = new GameLoadResponse(false,UniversalFailureReason.AUTHERNTICATION_FAILURE);
+		}
+		else {
+			try {
+				returnObject = sdf.getFullGameInfo(gameLoadRequest.getGameID());
+				if(returnObject.getGame().isPlayer(gameLoadRequest.getUserIdentifier())) {
+					ret = new GameLoadResponse(true,returnObject);
+				}
+				else {
+					ret = new GameLoadResponse(false,UniversalFailureReason.USER_NOT_OWNER);
+				}
+			} catch (EntityNotFoundException e) {
+				ret = new GameLoadResponse(false,UniversalFailureReason.ENTITY_NOT_FOUND);
+			}
+		}
+		return ret;
+	}
 	
 	public GameInfoResponse tryGameInfoRequest(GameInfoRequest gameInfoRequest){
 		GameInfoResponse ret = null;

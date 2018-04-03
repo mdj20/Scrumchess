@@ -18,6 +18,16 @@ public class Game {
 			throw new IllegalArgumentException();  // halfMoveNumber is larger than int MaxValue
 		}
 	}
+	public boolean isPlayer(String user) {
+		boolean ret = false;
+		if(userIdBlack!=null) {
+			ret = ret || (isBlack&&userIdBlack.equals(user));
+		}
+		if(userIdWhite!=null) {
+			ret = ret || (isWhite&&userIdWhite.equals(user));
+		}
+		return ret;
+	}
 	public long getId() {
 		return gameId;
 	}
