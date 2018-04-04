@@ -30,7 +30,7 @@ public class ScrumchessUserRequestHandler implements UserRequestHandler{
 		return new ScrumchessUserRequestHandler();
 	}
 	
-	public GameLoadResponse tryGameLoad(GameLoadRequest gameLoadRequest) {
+	public GameLoadResponse tryGameLoadRequest(GameLoadRequest gameLoadRequest) {
 		GameLoadResponse ret = null;
 		GameMovelistComposite returnObject = null;
 		if(!checkAuthentication(gameLoadRequest)){

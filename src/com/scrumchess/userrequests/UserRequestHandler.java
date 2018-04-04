@@ -7,5 +7,6 @@ public interface UserRequestHandler {
 	public MoveRequestResponse tryMoveRequest(MoveRequest moveRequest);
 	public DoubleMoveResponse tryDoubleMoveRequest(DoubleMoveRequest doubleMoveRequest);
 	public AIResponse tryAIrequest(AIRequest aiRequest);
+	public GameLoadResponse tryGameLoadRequest(GameLoadRequest gameLoadRequest);
 
 }
