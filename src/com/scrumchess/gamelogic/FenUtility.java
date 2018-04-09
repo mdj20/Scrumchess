@@ -2,7 +2,6 @@ package com.scrumchess.gamelogic;
 
 import java.util.ArrayList;
 
-import com.mdj20.scrumchessswing.RankAndFile;
 
 public class FenUtility {
 	

@@ -10,6 +10,10 @@ public class SimpleGameExecutor implements GameExecutor {
 	Board board;
 	ArrayList<AlgebraicNotation> moveHistory;
 
+	protected SimpleGameExecutor(Board board) {
+		this.board = board;
+		moveHistory = new ArrayList<AlgebraicNotation>();
+	}
 	
 	SimpleGameExecutor(){
 		this.board = new Board();
@@ -85,5 +89,39 @@ public class SimpleGameExecutor implements GameExecutor {
 	}
 	
 	
+	
+	public static void main(String args[]) {
+		SimpleGameExecutor sge = new SimpleGameExecutor();
+		
+		System.out.println(sge.getFen());
+		System.out.println(sge.checkMove(new TestClass("e2e4")));
 
+		System.out.println(sge.checkMove(new TestClass("e2e4")));
+
+		System.out.println(sge.executeMove(new TestClass("e2e4")));
+		
+	}
+
+	static class TestClass implements AlgebraicNotation {
+		TestClass(String str){
+			this.an = str;
+		}
+		String an;
+		@Override
+		public String getAlabraicNotation() {
+			return an;
+		}
+		
+		
+	}
+
+	@Override
+	public void undoMove() {
+		if(moveHistory.size()>0) {
+			moveHistory.remove(moveHistory.size()-1);
+			
+			board.undoMove();
+		}
+	}
+	
 }
