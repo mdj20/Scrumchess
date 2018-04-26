@@ -18,7 +18,7 @@ public class SimpleUserCredentials extends AbstractUserCredentials{
 	}
 	
 	@Override
-	String getUserToken() {
+	public String getUserToken() {
 		return userToken;
 	}
 

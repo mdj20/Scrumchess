@@ -123,5 +123,32 @@ public class SimpleGameExecutor implements GameExecutor {
 			board.undoMove();
 		}
 	}
+
+	@Override
+	public boolean isWhiteTurn() {
+		return board.getTurn();
+	}
+
+	@Override
+	public boolean executeMove(final String stringAN) {
+		return executeMove(new AlgebraicNotation() {
+			
+			@Override
+			public String getAlabraicNotation() {
+				return stringAN;
+			}	
+		});
+	}
+
+	@Override
+	public boolean checkMove(final String stringAN) {
+		return checkMove(new AlgebraicNotation() {
+			
+			@Override
+			public String getAlabraicNotation() {
+				return stringAN;
+			}
+		});
+	}
 	
 }

@@ -116,5 +116,20 @@ public class SimpleAIExecutor implements AIExecutor {
 	public void undoMove() {
 		simpleGameExecutor.undoMove();
 	}
+
+	@Override
+	public boolean isWhiteTurn() {
+		return simpleGameExecutor.isWhiteTurn();
+	}
+
+	@Override
+	public boolean executeMove(String stringAN) {
+		return simpleGameExecutor.executeMove(stringAN);
+	}
+
+	@Override
+	public boolean checkMove(String stringAN) {
+		return simpleGameExecutor.checkMove(stringAN);
+	}
 	
 }
