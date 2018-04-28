@@ -18,7 +18,6 @@ import com.scrumchess.userrequests.MoveRequest;
 import com.scrumchess.userrequests.MoveRequestResponse;
 import com.scrumchess.userrequests.NewGameRequest;
 import com.scrumchess.userrequests.NewGameResponse;
-import com.scrumchess.userrequests.NewGameRequest.NewGameConfig;
 
 @SuppressWarnings("serial")
 public class MoveRequestServlet extends HttpServlet {

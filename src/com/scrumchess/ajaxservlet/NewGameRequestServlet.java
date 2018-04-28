@@ -12,9 +12,8 @@ import com.scrumchess.authentication.ScrumchessAuthenticationType;
 import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 import com.scrumchess.authentication.SimpleUserCredentials;
 import com.scrumchess.data.ScrumchessUserRequestHandler;
-
+import com.scrumchess.userrequests.GameConfiguration;
 import com.scrumchess.userrequests.NewGameRequest;
-import com.scrumchess.userrequests.NewGameRequest.NewGameConfig;
 import com.scrumchess.userrequests.NewGameResponse;
 
 @SuppressWarnings("serial")
@@ -28,8 +27,8 @@ public class NewGameRequestServlet extends HttpServlet {
 		SimpleUserAuthenticationInfo<String> userAuthenticationInfo = new SimpleUserAuthenticationInfo<String>(new SimpleUserCredentials(scrumchessAuthnticationType,userToken));
 		String newGameConfigString = req.getParameter("newGameConfig");
 		String opponentId = req.getParameter("opponent");
-		NewGameConfig newGameConfig = NewGameRequest.NewGameConfig.valueOf(newGameConfigString);
-		NewGameRequest newGameRequest = new NewGameRequest(userAuthenticationInfo,newGameConfig,opponentId);
+		GameConfiguration gameConfiguration = GameConfiguration.valueOf(newGameConfigString);
+		NewGameRequest newGameRequest = new NewGameRequest(userAuthenticationInfo,gameConfiguration,opponentId);
 		ScrumchessUserRequestHandler scurh = ScrumchessUserRequestHandler.getInstance();
 		NewGameResponse newGameResponse  = scurh.tryNewGameRequest(newGameRequest);
 		System.out.println("Success"+newGameResponse.isSuccessful());

@@ -19,39 +19,31 @@ import com.scrumchess.authentication.SimpleUserCredentials;
 
 
 public class NewGameRequest extends AbstractUserRequest{
-	private NewGameConfig newGameConfig;
+	private GameConfiguration gameConfiguration;
 	private String otherPlayerId;
-	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig) {
-		this(userAuthenticationInfo,newGameConfig,null);
+	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, GameConfiguration gameConfiguration) {
+		this(userAuthenticationInfo,gameConfiguration,null);
 	}
 	
 	public NewGameRequest() {}
 	
-	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, NewGameConfig newGameConfig, String otherPlayerId){
+	public NewGameRequest(SimpleUserAuthenticationInfo<String> userAuthenticationInfo, GameConfiguration gameConfiguration, String otherPlayerId){
 		super(userAuthenticationInfo);
-		this.newGameConfig=newGameConfig;
+		this.gameConfiguration=gameConfiguration;
 		this.otherPlayerId=otherPlayerId;
 	}
 	
-	public NewGameConfig getNewGameConfig() {
-		return newGameConfig;
+	public GameConfiguration getNewGameConfig() {
+		return gameConfiguration;
 	}
 	
 	public String getOtherPlayerId(){
 		return otherPlayerId;
 	}
 	
-	public enum NewGameConfig{
-		WHITE, // SINGLE PLAYER
-		BLACK,
-		BLACK2, // 2 PLAYER
-		WHITE2;
-	}
-	
-	
 	public static void main(String args[]) {
 		SimpleUserAuthenticationInfo<String> userInfo = new SimpleUserAuthenticationInfo<String>(new SimpleUserCredentials(ScrumchessAuthenticationType.DEBUG, "userID"));
-		NewGameRequest ngr = new NewGameRequest(userInfo,NewGameConfig.WHITE);
+		NewGameRequest ngr = new NewGameRequest(userInfo,GameConfiguration.WHITE);
 		Gson gson = new Gson();
 		String json = gson.toJson(ngr);
 		System.out.println(json);
