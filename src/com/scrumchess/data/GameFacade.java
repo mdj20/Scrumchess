@@ -29,6 +29,7 @@ public class GameFacade {
 	protected final static String _white = "white";
 	protected final static String _isWhite = "isWhite"; 
 	protected final static String _isBlack = "isBlack";
+	protected final static String _gameConfiguration = "gameConfiguration";
 	private DatastoreService dss;
 	
 	protected GameFacade(DatastoreService dstore){
@@ -37,7 +38,7 @@ public class GameFacade {
 	protected Key newGameToUserWhite(String user){
 		Key key;
 		Date date = new Date();
-		Game game = new Game(_startFen,1,date);
+		Game game = new Game(_startFen,1,date, GameConfiguration.WHITE);
 		game.setWhite(user);
 		Entity entity = toEntity(game);
 		key = dss.put(entity);
@@ -46,7 +47,7 @@ public class GameFacade {
 	protected Key newGameToUserBlack(String user){
 		Key key;
 		Date date = new Date();
-		Game game = new Game(_startFen,1,date);
+		Game game = new Game(_startFen,1,date,GameConfiguration.BLACK);
 		game.setBlack(user);
 		Entity entity = toEntity(game);
 		key = dss.put(entity);
@@ -57,7 +58,7 @@ public class GameFacade {
 	protected Key newGameToUsers(String white,String black){
 		Key key;
 		Date date = new Date();
-		Game game = new Game(_startFen,1,date);
+		Game game = new Game(_startFen,1,date,GameConfiguration.WHITE2);
 		game.setWhite(white);
 		game.setBlack(black);
 		Entity entity = toEntity(game);
@@ -107,7 +108,8 @@ public class GameFacade {
 	protected Game toGame(Entity entity){
 		Game game = new Game( (String) entity.getProperty(_fen),
 				(long) entity.getProperty(_moveNum),  // cast to long, then cast to int (data is stored as long but returns as)
-				(Date) entity.getProperty(_started));
+				(Date) entity.getProperty(_started),
+				GameConfiguration.valueOf((int) entity.getProperty(_gameConfiguration)));
 		Key key = entity.getKey();
 		if (key.isComplete()){	
 			game.setId(entity.getKey().getId());
@@ -148,6 +150,7 @@ public class GameFacade {
 		entity.setProperty( _fen, game.getFen());
 		entity.setProperty( _moveNum, game.getMoveNum());
 		entity.setProperty( _started, game.getStarted());
+		entity.setProperty(_gameConfiguration, game.getGameConfiguration().getIntegerValue());
 		if (game.isWhite()){
 			entity.setProperty( _white, game.getWhite());
 			entity.setProperty( _isWhite, true);

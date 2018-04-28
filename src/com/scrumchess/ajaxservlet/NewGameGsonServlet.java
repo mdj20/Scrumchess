@@ -19,7 +19,6 @@ import com.scrumchess.data.ScrumchessUserRequestHandler;
 import com.scrumchess.userrequests.GameInfoRequest;
 import com.scrumchess.userrequests.NewGameRequest;
 import com.scrumchess.userrequests.NewGameResponse;
-import com.scrumchess.userrequests.NewGameRequest.NewGameConfig;
 
 public class NewGameGsonServlet extends AbstractGsonUserRequestServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

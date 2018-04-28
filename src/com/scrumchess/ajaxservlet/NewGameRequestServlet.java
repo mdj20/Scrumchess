@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 import com.scrumchess.authentication.ScrumchessAuthenticationType;
 import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 import com.scrumchess.authentication.SimpleUserCredentials;
+import com.scrumchess.data.GameConfiguration;
 import com.scrumchess.data.ScrumchessUserRequestHandler;
-import com.scrumchess.userrequests.GameConfiguration;
 import com.scrumchess.userrequests.NewGameRequest;
 import com.scrumchess.userrequests.NewGameResponse;
 

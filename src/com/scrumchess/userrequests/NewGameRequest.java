@@ -15,6 +15,7 @@ import com.scrumchess.authentication.ScrumchessAuthenticationType;
 import com.scrumchess.authentication.SimpleAbstractUserCredentialGsonAdapter;
 import com.scrumchess.authentication.SimpleUserAuthenticationInfo;
 import com.scrumchess.authentication.SimpleUserCredentials;
+import com.scrumchess.data.GameConfiguration;
 
 
 

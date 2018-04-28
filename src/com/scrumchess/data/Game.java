@@ -4,16 +4,17 @@ import com.google.appengine.api.datastore.*;
 public class Game {
 	
 	// class that will describe a game object in the data store....
-	protected Game(String fen ,int moveNum, Date date){
+	protected Game(String fen ,int moveNum, Date date, GameConfiguration gameConfiguration){
 		this.fen = fen;
 		this.halfMoveNumber = moveNum;
 		this.dateStarted = date;
 		this.isBlack = false;
 		this.isWhite = false;
 		this.hasID = false;
+		this.gameConfiguration = gameConfiguration;
 	}
-	protected Game(String fen, long moveNum, Date date){
-		this(fen, (int) moveNum, date);
+	protected Game(String fen, long moveNum, Date date, GameConfiguration gameConfiguration){
+		this(fen, (int) moveNum, date,gameConfiguration);
 		if (moveNum > Integer.MAX_VALUE){
 			throw new IllegalArgumentException();  // halfMoveNumber is larger than int MaxValue
 		}
@@ -54,18 +55,30 @@ public class Game {
 		this.dateStarted = started;
 	}
 	protected void setIsWhite(boolean isWhite) {
+		if(isBlack()){
+			setGameConfiguration(GameConfiguration.WHITE2);
+		}
+		else{
+			setGameConfiguration(GameConfiguration.WHITE);
+		}
 		this.isWhite = isWhite;
 	}
 	protected void setIsBlack(boolean isBlack) {
+		if(isBlack()){
+			setGameConfiguration(GameConfiguration.BLACK2);
+		}
+		else{
+			setGameConfiguration(GameConfiguration.BLACK);
+		}
 		this.isBlack = isBlack;
 	}
 	protected void setWhite(String white) {
 		this.userIdWhite = white;
-		this.isWhite = true;
+		setIsWhite(true);
 	}
 	protected void setBlack(String black) {
 		this.userIdBlack = black;
-		this.isBlack = true;
+		setIsBlack(true);
 	}
 	public boolean isWhite() {
 		return isWhite;
@@ -79,6 +92,12 @@ public class Game {
 	public String getBlack() {
 		return userIdBlack;
 	}
+	public GameConfiguration getGameConfiguration(){
+		return gameConfiguration;
+	}
+	public void setGameConfiguration(GameConfiguration gameConfiguration){
+		this.gameConfiguration = gameConfiguration;
+	}
 	private long gameId;
 	private boolean hasID;
 	private String fen;
@@ -88,4 +107,9 @@ public class Game {
 	private boolean isBlack;
 	private String userIdWhite;
 	private String userIdBlack;	
+	private GameConfiguration gameConfiguration = GameConfiguration.WHITE;  // NOTE: the default value is set to WHITE for refactoring purposes.
+	public static int WHITE = 0;
+	public static int WHITE2 = 1;
+	public static int BLACK = 2;
+	public static int BLACK2 = 3;
 }
