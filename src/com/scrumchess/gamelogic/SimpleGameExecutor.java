@@ -150,5 +150,10 @@ public class SimpleGameExecutor implements GameExecutor {
 			}
 		});
 	}
+
+	@Override
+	public boolean isCheck() {
+		return board.getCheck();
+	}
 	
 }

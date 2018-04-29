@@ -131,5 +131,10 @@ public class SimpleAIExecutor implements AIExecutor {
 	public boolean checkMove(String stringAN) {
 		return simpleGameExecutor.checkMove(stringAN);
 	}
+
+	@Override
+	public boolean isCheck() {
+		return simpleGameExecutor.isCheck();
+	}
 	
 }

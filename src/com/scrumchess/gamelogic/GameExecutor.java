@@ -12,4 +12,5 @@ public interface GameExecutor {
 	public String getShortFen();
 	public void undoMove();
 	public boolean isWhiteTurn();
+	public boolean isCheck();
 }
