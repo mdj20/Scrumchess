@@ -109,7 +109,7 @@ public class GameFacade {
 		Game game = new Game( (String) entity.getProperty(_fen),
 				(long) entity.getProperty(_moveNum),  // cast to long, then cast to int (data is stored as long but returns as)
 				(Date) entity.getProperty(_started),
-				GameConfiguration.valueOf((int) entity.getProperty(_gameConfiguration)));
+				GameConfiguration.valueOf(((Long)entity.getProperty(_gameConfiguration)).intValue()));
 		Key key = entity.getKey();
 		if (key.isComplete()){	
 			game.setId(entity.getKey().getId());
